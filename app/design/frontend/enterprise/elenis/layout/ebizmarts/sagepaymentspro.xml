@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <checkout_multishipping_billing translate="label">
+         <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>sagepaymentspro/css/sagepaymentspro_checkout.css</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>sagepaymentspro/js/sagepaymentspro_checkout.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>sagepaymentspro/js/common.js</name>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="ebizmarts_sagepaymentspro/javascriptVars" name="sagepaymentspro.js.vars" template="ebizmarts/sagepaymentspro/payment/SageVars.phtml" />
+        </reference>
+     </checkout_multishipping_billing>
+    <checkout_onepage_index>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>sagepaymentspro/css/sagepaymentspro_checkout.css</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>sagepaymentspro/js/sagepaymentspro_checkout.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>sagepaymentspro/js/common.js</name>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="ebizmarts_sagepaymentspro/javascriptVars" name="sagepaymentspro.js.vars" template="ebizmarts/sagepaymentspro/payment/SageVars.phtml" />
+        </reference>
+    </checkout_onepage_index>
+    <ebizmarts_sagepaymentspro_card_index translate="label">
+        <label>Customer My Account My Sage Pay Cards</label>
+        <update handle="customer_account"/>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>sagepaymentspro/js/common.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>sagepaymentspro/css/sagepaymentspro.css</name>
+            </action>
+        </reference>
+        <reference name="my.account.wrapper">
+            <block type="ebizmarts_sagepaymentspro/customer_account_card" name="sagepaymentscards" template="ebizmarts/sagepaymentspro/customer/cards.phtml" />
+            <block type="customer/account_dashboard" name="customer.account.link.back" template="customer/account/link/back.phtml"/>
+        </reference>
+    </ebizmarts_sagepaymentspro_card_index>
+
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink" ifconfig="payment/sagepaymentspro/token_integration" translate="label" module="ebizmarts_sagepaymentspro">
+                <name>sagepaymentscards</name>
+                <path>sgusa/card/</path>
+                <label>SagePayments - Saved Credit Cards</label>
+            </action>
+        </reference>
+    </customer_account>
+
+</layout>

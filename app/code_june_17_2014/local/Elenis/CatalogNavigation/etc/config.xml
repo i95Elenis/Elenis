@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Elenis_CatalogNavigation>
+      <version>0.1.0</version>
+    </Elenis_CatalogNavigation>
+  </modules>
+  <global>
+    <helpers>
+      <catalognavigation>
+        <class>Elenis_CatalogNavigation_Helper</class>
+      </catalognavigation>
+    </helpers>
+	<blocks>
+	  <catalognavigation>
+		<class>Elenis_CatalogNavigation_Block</class>
+	  </catalognavigation>
+			<catalog>
+				<rewrite>
+					<navigation>Elenis_CatalogNavigation_Block_Catalog_Navigation</navigation>
+				</rewrite>
+			</catalog>
+	</blocks>
+  </global>
+</config> 

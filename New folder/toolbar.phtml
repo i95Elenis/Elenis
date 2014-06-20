@@ -1,0 +1,123 @@
+<?php
+/**
+* Magento
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@magentocommerce.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade Magento to newer
+* versions in the future. If you wish to customize Magento for your
+* needs please refer to http://www.magentocommerce.com for more information.
+*
+* @category   design_blank
+* @package    Mage
+* @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+* @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*/
+?>
+<?php
+/**
+* Product list toolbar
+*
+* @see Mage_Catalog_Block_Product_List_Toolbar
+*/
+?>
+<div class="toolbar">
+	<?php if($this->getCollection()->getSize()): ?>
+	<div class="pager">
+		<p class="amount">
+			<?php if($this->getLastPageNum()>1): ?>
+			<?php echo $this->__('Items %s to %s of <strong>%s total</strong>', $this->getFirstNum(), $this->getLastNum(), $this->getTotalNum()) ?>
+			<?php else: ?>
+			<?php echo $this->__('%s Item(s)', $this->getTotalNum()) ?>
+			<?php endif; ?>
+		</p>
+
+		<fieldset class="limiter">
+			<label><?php echo $this->__('Show') ?></label>
+			<select onchange="setLocation(this.value)">
+				<?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
+				<option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
+					<?php echo $_limit ?>
+				</option>
+				<?php endforeach; ?>
+			</select> <?php echo $this->__('per page') ?>
+		</fieldset>
+
+		<?php if($this->getLastPageNum()>1): ?>
+		<div class="pages">
+			<?php echo $this->__('Page:') ?>
+			<ol>
+				<?php if (!$this->isFirstPage()): ?>
+				<li>
+					<a class="prev-arrow" rel="nofollow" href="<?php /* echo $this->getPreviousPageUrl(); */ echo $this->getPagerUrl(array($this->getPageVarName()=>$this->getCollection()->getCurPage(-1))); ?>">
+					<?php/*<img src="<?php echo $this->getSkinUrl('images/pager_arrow_left.gif') ?>" alt="<?php echo $this->__('Previous') ?>" width="6" height="7" class="v-middle" />*/?>
+					</a>
+				</li>
+				<?php endif ?>
+				<?php foreach ($this->getPages() as $_page): ?>
+				<?php if ($this->isPageCurrent($_page)): ?>
+				<li><span class="current"><?php echo $_page ?></span></li>
+				<?php else: ?>
+				<li><a rel="nofollow" href="<?php echo $this->getPageUrl($_page) ?>"><?php echo $_page ?></a></li>
+				<?php endif ?>
+				<?php endforeach;; ?>
+				<?php if (!$this->isLastPage()): ?>
+				<li>
+					<a rel="nofollow" class="next-arrow" href="<?php /* echo $this->getNextPageUrl() */ echo $this->getPagerUrl(array($this->getPageVarName()=>$this->getCollection()->getCurPage(1))); ?>">
+						<?php/*<img src="<?php echo $this->getSkinUrl('images/pager_arrow_right.gif') ?>" alt="<?php echo $this->__('Next') ?>" width="6" height="7" class="v-middle" />*/?>
+					</a>
+				</li>
+				<?php endif ?>
+			</ol>
+		</div>
+		<?php endif; ?>
+	</div>
+
+	<?php if( $this->isExpanded() ): ?>
+	<div class="sorter">
+		<?php if( $this->isEnabledViewSwitcher() ): ?>
+		<p class="view-mode">
+			<?php $_modes = $this->getModes(); ?>
+			<?php if($_modes && count($_modes)>1): ?>
+			<?php echo $this->__('View as') ?>:
+			<?php $i=1; $max=count($this->getModes()); ?>
+			<?php foreach ($this->getModes() as $_code=>$_label): ?>
+			<?php if($this->isModeActive($_code)): ?>
+			<strong><?php echo $_label ?></strong>&nbsp;
+			<?php else: ?>
+			<a href="<?php echo $this->getModeUrl($_code) ?>" rel="nofollow" class="<?php echo $_code; ?> <?php echo ($i==1)?'first':(($i==$max)?'last':'mid'); ?>"><?php echo $_label ?></a>&nbsp;
+			<?php endif; $i++; ?>
+			<?php endforeach; ?>
+			<?php endif; ?>
+		</p>
+		<?php endif; ?>
+
+		<fieldset class="sort-by">
+			<label><?php echo $this->__('Sort by:') ?></label>
+			<?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
+			<?php echo ($this->isOrderCurrent($_key) || $_key == 'Popular') ? '<span class="selected">'.$_order.'</span>':'<span><a href="'.$this->getOrderUrl($_key, 'asc').'" rel="nofollow">'.$_order.'</a></span>';?>
+			<?php endforeach; ?>
+			<?php if($this->getCurrentDirection() == 'desc'): ?>
+			<a class="desc-arrow" rel="nofollow" href="<?php echo $this->getOrderUrl(null, 'asc') ?>">
+				<?php/*<img src="<?php echo $this->getSkinUrl('images/sort_desc_arrow.gif') ?>" alt="<?php echo $this->__('Set Ascending Direction') ?>" width="7" height="10" class="v-middle" />*/?>
+			</a>
+			<?php else: ?>
+			<a class="asc-arrow" rel="nofollow" href="<?php echo $this->getOrderUrl(null, 'desc') ?>">
+				<?php/*<img src="<?php echo $this->getSkinUrl('images/sort_asc_arrow.gif') ?>" alt="<?php echo $this->__('Set Descending Direction') ?>" width="7" height="10" class="v-middle" />*/?>
+			</a>
+			<?php endif; ?>
+		</fieldset>    
+	</div>
+	<?php endif; ?>
+	<?php endif ?>
+</div>

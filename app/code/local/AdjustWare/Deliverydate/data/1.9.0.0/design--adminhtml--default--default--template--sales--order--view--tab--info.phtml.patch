@@ -1,0 +1,24 @@
+diff -aurBb /home/httpd/htdocs/users2/rastorguev/mxx1323/var/ait_patch_orig/compare81212574272074af2d10737a39 /home/httpd/htdocs/users2/rastorguev/mxx1323/var/ait_patch_modif/compare81212574272074af2d10737a39
+--- /home/httpd/htdocs/users2/rastorguev/mxx1323/var/ait_patch_orig/compare81212574272074af2d10737a39	2009-11-05 15:20:07 +0200
++++ /home/httpd/htdocs/users2/rastorguev/mxx1323/var/ait_patch_modif/compare81212574272074af2d10737a39	2009-11-05 15:20:07 +0200
+@@ -76,6 +76,20 @@
+                 <?php else: ?>
+                     <?php echo $this->helper('sales')->__('No shipping information available'); ?>
+                 <?php endif; ?>
++                
++                <?php if ($_order->getDeliveryDate()): ?>
++                <br/>
++                <strong><?php echo $this->helper('adjdeliverydate')->__('Preferred Delivery Date')?></strong>:
++                &nbsp;
++                <?php echo $this->helper('adjdeliverydate')->formatDate($_order->getDeliveryDate(), 'medium', Mage::getStoreConfig('checkout/adjdeliverydate/show_time'));?>
++                <?php endif; ?>
++                <?php if ($_order->getDeliveryComment()): ?>
++                <br/>
++                <strong><?php echo $this->helper('adjdeliverydate')->__('Comment')?></strong>:
++                &nbsp;
++                <?php echo $this->htmlEscape($_order->getDeliveryComment()); ?><br/>
++                <?php endif; ?>
++                <br/>
+             </fieldset>
+         </div>
+     </div>

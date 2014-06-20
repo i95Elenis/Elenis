@@ -1,0 +1,6 @@
+div.tokencvv { width:auto; }
+div.tokencvv label {float:left; margin-right:8px; }
+div.tokencvv input.cvv { margin-right:5px; width:3em !important; }
+#tokencards-payment-sagepaymentspro input{ float:left; }
+div#payment_form_sagepaymentspro #tokencards-payment-sagepaymentspro ul.tokensage { margin:0px; padding-left: 20px;}
+div#payment_form_sagepaymentspro #tokencards-payment-sagepaymentspro ul.paymentsage{ margin:0px; padding-left: 20px;}

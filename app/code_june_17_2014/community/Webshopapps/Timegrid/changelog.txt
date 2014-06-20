@@ -1,0 +1,2 @@
+1.0 - MD-30 - Implementation of available dispatch slot logic. 
+2.0  - Formal Release on new Shipping Calendar

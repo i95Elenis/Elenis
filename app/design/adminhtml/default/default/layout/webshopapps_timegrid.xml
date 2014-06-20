@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <timegrid_adminhtml_timegrid_index>
+        <reference name="content">
+            <block type="timegrid/adminhtml_timegrid" name="timegrid" />
+        </reference>
+    </timegrid_adminhtml_timegrid_index>
+</layout>

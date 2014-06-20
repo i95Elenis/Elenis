@@ -1,0 +1,11 @@
+ <?php
+    /**
+* @author Amasty Team
+* @copyright Amasty
+* @package Amasty_Conf 
+*/
+?> 
+ <script type="text/javascript">
+     optionsPrice['<?php echo $this->productId;?>'] = new Product.OptionsPrice(<?php echo $this->getJsonConfig();?>);
+ </script>
+<?php   echo $this->getHtml(); ?>

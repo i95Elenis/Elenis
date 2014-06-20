@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <catalog translate="title" module="catalog">
+            <children>
+            	<deliveries translate="title" module="estimateddeliverydate">
+                    <title>Manage Product Delivery Dates</title>
+                    <sort_order>1</sort_order>
+                    <action>adminhtml/deliveries/index</action>
+                </deliveries>
+           	</children>
+        </catalog>
+    </menu>
+    
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <estimateddeliverydate translate="title" module="estimateddeliverydate">
+                                        <title>Estimated Delivery Dates Section</title>
+                                    </estimateddeliverydate>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

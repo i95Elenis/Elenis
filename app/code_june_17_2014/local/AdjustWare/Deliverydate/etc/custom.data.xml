@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config>
+    <template>
+        <adminhtml>
+            <file path="design--adminhtml--default--default--template--sales--order--view--tab--info"></file>
+            <file path="design--adminhtml--default--default--template--sales--order--create--shipping--method--form"></file>
+        </adminhtml>
+
+        <frontend>
+            <file path="design--frontend--base--default--template--checkout--multishipping--overview"></file>
+            <file path="design--frontend--base--default--template--checkout--multishipping--shipping"></file>
+            <file path="design--frontend--base--default--template--paypal--express--review"></file>
+        </frontend>
+    </template>
+</config>
+
+<!--
+/**
+ * Delivery Date
+ *
+ * @category:    AdjustWare
+ * @package:     AdjustWare_Deliverydate
+ * @version      10.1.5
+ * @license:     5WLwzjinYV1BwwOYUOiHBcz0D7SjutGH8xWy5nN0br
+ * @copyright:   Copyright (c) 2013 AITOC, Inc. (http://www.aitoc.com)
+ */
+-->

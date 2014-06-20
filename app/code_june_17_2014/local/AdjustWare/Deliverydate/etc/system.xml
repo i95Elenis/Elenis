@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <checkout>
+            <groups>
+                <adjdeliverydate translate="label comment" module="adjdeliverydate">
+                    <label>Delivery Date</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>500</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                         <multienabled translate="label">
+                            <label>Enabled For Multishipping</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </multienabled>
+                        <weekend translate="label comment">
+                            <label>Disable Delivery On</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adjdeliverydate/source_weekdays</source_model>
+                            <comment>If you choose a week day (e.g. Sunday) together with "No Day" option in this field, delivery will be disabled on this day (e.g. Sunday).</comment>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </weekend> 
+                        <min translate="label">
+                            <label>Minimal Delivery Interval (days)</label>
+                            <comment>Please note that "0" doesn't impact on neither Same Day delivery time conditions nor Next Day conditions while "1" makes customers unable to select the date an order is being made on.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </min> 
+                        <max translate="label">
+                            <label>Maximal Delivery Interval (days)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max> 
+                        <include_holidays translate="label">
+                            <label>Include Only Business Days in the Delivery Interval</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment>For example, if minimal delivery interval is "3" days, Sat and Sun are non-delivery days, an order is going to made on Friday and this option is set to "Yes" than the earliest delivery day would be Wed. With the option set to "No" the earliest day would be Mon.</comment>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </include_holidays>
+                        <sameday translate="label">
+                            <label>Disable Same Day Delivery After</label>
+                            <frontend_type>time</frontend_type>
+                            <sort_order>50</sort_order>
+                            <comment>Ignored when "Minimal Delivery Interval (days)" equals or more than "1".</comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sameday> 
+                        <nextday translate="label">
+                            <label>Disable Next Day Delivery After</label>
+                            <frontend_type>time</frontend_type>
+                            <sort_order>55</sort_order>
+                            <comment>Ignored when "Minimal Delivery Interval (days)" equals or more than "2".</comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </nextday> 
+                        <format translate="label">
+                            <label>Date Format</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </format>
+                        <show_comment translate="label">
+                            <label>Show Comment Field</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_comment>
+                         <show_time translate="label">
+                            <label>Show Time Field</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_time>
+                         <show_time translate="label">
+                            <label>Enable Delivery Time Selection</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>80</sort_order>
+                            <comment>Adds a drop-down menu with a range of hours available for delivery and also a drop-down which lists minutes. The range of hours can be adjusted with help of "Available Delivery from, hours" and "Available Delivery to, hours" options below.</comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_time>
+                        <time_enable_from translate="label">
+                            <label>Available Delivery from, hours</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>90</sort_order>
+                            <comment>Ignored when "Enable Delivery Time Selection" is turned off ("No").</comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </time_enable_from>
+                        <time_enable_to translate="label">
+                            <label>Available Delivery to, hours</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>95</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <comment>Ignored when "Enable Delivery Time Selection" is turned off ("No").</comment>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </time_enable_to>
+                        <show_calendar_by_click_on_date_field translate="label">
+                            <label>Open the calendar popup once a user clicks the date field.</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <comment></comment>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_calendar_by_click_on_date_field>
+                    </fields>
+                </adjdeliverydate>
+            </groups>
+        </checkout>
+        <aitsys>
+        	<groups>
+            	<modules>
+                	<fields>
+                    	<AdjustWare_Deliverydate translate="label comment">
+                        	<label>Delivery Date</label>
+                        	<frontend_type>multiselect</frontend_type>
+                            <source_model>aitsys/system_config_source_stores</source_model>
+                            <backend_model>aitsys/system_config_backend_stores</backend_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                        </AdjustWare_Deliverydate>
+                    </fields>
+                </modules>
+            </groups>
+    	</aitsys>
+    </sections>
+</config>
+<!--
+/**
+ * Delivery Date
+ *
+ * @category:    AdjustWare
+ * @package:     AdjustWare_Deliverydate
+ * @version      10.1.5
+ * @license:     5WLwzjinYV1BwwOYUOiHBcz0D7SjutGH8xWy5nN0br
+ * @copyright:   Copyright (c) 2013 AITOC, Inc. (http://www.aitoc.com)
+ */
+-->

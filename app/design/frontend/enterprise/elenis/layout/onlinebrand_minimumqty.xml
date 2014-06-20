@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">    
+    <default>
+    	<reference name="head">
+			<!--<action method="addItem"><type>skin_js</type><name>js/jquery.1.6.4.js</name></action>-->
+			<action method="addItem"><type>skin_js</type><name>js/minqty.js</name></action> 
+    	</reference>
+    </default>
+    <catalog_product_view>  
+    <reference name="head">
+            <!-- We need product_extension.js to be loaded after varien/product.js
+                 but we can't necessarily guarantee the load order of the script using the addJs mechanism.
+                 Items of type 'skin_js' load after those of type 'js' however, so we use that.
+                 (See getCssJsHtml in app/code/core/Mage/Page/Block/Html/Head.php) -->
+            <action method="addItem"><type>skin_js</type><name>js/scp_product_extension.js</name></action>
+        </reference>
+        <reference name="product.info.addtocart">
+            <action method="setTemplate"><template>onlinebrand_minimumqty/addtocart.phtml</template></action>
+        </reference>
+         <block type="core/template_facade" name="product.info.container1" as="container1">
+                    <action method="setDataByKey"><key>alias_in_layout</key><value>container1</value></action>
+                    <action method="setDataByKeyFromRegistry"><key>options_container</key><key_in_registry>product</key_in_registry></action>
+                    <action method="append"><block>product.info.options.wrapper</block></action>
+                    <action method="append"><block>product.info.options.wrapper.bottom</block></action>
+                </block>
+                <block type="core/template_facade" name="product.info.container2" as="container2">
+                    <action method="setDataByKey"><key>alias_in_layout</key><value>container2</value></action>
+                    <action method="setDataByKeyFromRegistry"><key>options_container</key><key_in_registry>product</key_in_registry></action>
+                    <action method="append"><block>product.info.options.wrapper</block></action>
+                    <action method="append"><block>product.info.options.wrapper.bottom</block></action>
+                </block>
+
+
+
+        <reference name="product.info.options">
+            <action method="setTemplate"><template>catalog/product/view/scpoptions.phtml</template></action>
+        </reference>
+    </catalog_product_view>
+	<checkout_cart_configure>        
+        <reference name="product.info.addtocart">
+            <action method="setTemplate"><template>onlinebrand_minimumqty/updatecart.phtml</template></action>
+        </reference>
+    </checkout_cart_configure>
+	<checkout_cart_index>        
+        <reference name="checkout.cart">
+            <action method="addItemRender"><type>simple</type><block>checkout/cart_item_renderer</block><template>onlinebrand_minimumqty/checkoutcart.phtml</template></action>
+        </reference>
+    </checkout_cart_index>
+</layout>

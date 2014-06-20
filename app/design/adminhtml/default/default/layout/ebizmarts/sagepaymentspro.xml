@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<layout>
+    <popup_sagepay>
+        <update handle="default" />
+        <remove name="header" />
+        <remove name="menu" />
+        <remove name="footer" />
+        <reference name="root">
+            <action method="setTemplate"><template>popup.phtml</template></action>
+        </reference>
+    </popup_sagepay>
+
+    <adminhtml_token_add>
+        <reference name="content">
+            <block type="ebizmarts_sagepaymentspro/adminhtml_token_add" name="adminhtml.sagepaymentspro.token.add"></block>
+        </reference>
+    </adminhtml_token_add>
+    <adminhtml_sales_order_view>
+        <reference name="left">
+            <reference name="sales_order_tabs">
+                <action method="addTab"><name>sagepayments_transactions</name><block>ebizmarts_sagepaymentspro/adminhtml_sales_order_view_tab_transactions</block></action>
+            </reference>
+        </reference>
+    </adminhtml_sales_order_view>
+    <sagepaymentspro_transactions>
+        <reference name="order_payment">
+            <block type="ebizmarts_sagepaymentspro/payment_info_sagePaymentsPro" name="sagepayments_transactions"
+                   template="ebizmarts/sagepaymentspro/payment/info/sagepaymentspro.phtml"></block>
+        </reference>
+    </sagepaymentspro_transactions>
+    <adminhtml_customer_edit>
+        <reference name="head">
+            <action method="addItem">
+                <type>js</type>
+                <name>sagepaymentspro/livepipe/livepipe.js</name>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>sagepaymentspro/livepipe/window.js</name>
+            </action>
+
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>sagepaymentspro/js/sagepaymentspro.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>sagepaymentspro/css/sagepaymentspro.css</name>
+            </action>
+        </reference>
+        <reference name="customer_edit_tabs">
+            <action method="addTab">
+                <name>customer_edit_tab_sagepaymentspro_tokens</name>
+                <block>ebizmarts_sagepaymentspro/adminhtml_customer_edit_tab_token</block>
+            </action>
+        </reference>
+    </adminhtml_customer_edit>
+</layout>

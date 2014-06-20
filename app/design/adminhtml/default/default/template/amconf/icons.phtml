@@ -1,0 +1,57 @@
+<form method="post" enctype="multipart/form-data" action="<?php echo $this->getSubmitUrl(); ?>">
+<?php echo $this->getBlockHtml('formkey')?> 
+
+<div class="entity-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('amconf')->__('Attribute Images') ?></h4>
+        
+        <div class="form-buttons">
+            <button style="" type="submit" class="scalable save" type="button"><span>Update Images</span></button>
+        </div>
+    </div>
+    <div class="box">
+        <div class="notice-msg" style="height: 30px; padding-left: 50px; padding-top: 8px; margin-bottom: 14px;;">
+            <input type="checkbox" value="1" name="amconf_useimages" <?php if ($this->getUseImage()): ?>checked="checked" <?php endif; ?>/>
+            <?php echo $this->__('Use images for selection of configurable product options'); ?>
+        </div>
+        <div class="hor-scroll">
+            <table cellspacing="5">
+                <tr>
+                    <th width="200"><?php echo Mage::helper('amconf')->__('Status Label') ?></th>
+                    <th width="10"></th>
+                    <th><?php echo Mage::helper('amconf')->__('Upload image') ?></th>
+                    <th width="10"></th>
+                    <th><?php echo Mage::helper('amconf')->__('Preview') ?></th>
+                    <th width="10"></th>
+                    <th><?php echo Mage::helper('amconf')->__('Delete') ?></th>
+                </tr>
+                
+                <?php foreach ($this->getOptionsCollection() as $option): ?>
+                <tr>
+                    <td style="vertical-align: middle;"><?php echo $option->getData('value'); ?></td>
+                    <td></td>
+                    <?php
+                        $iconUrl = $this->getIcon($option);
+                    ?>
+                    <td style="vertical-align: middle;"><input type="file" <?php if ($iconUrl) echo "disabled"?> name="amconf_icon[<?php echo $option->getData('option_id'); ?>]"></td>
+                    <td></td>
+                    <td style="vertical-align: middle;" align="center">
+                        <?php
+                        if ($iconUrl):
+                        ?>
+                            <img src="<?php echo $iconUrl; ?>" alt="">
+                        <?php else: ?>
+                            <?php echo Mage::helper('amconf')->__('[none]') ?>
+                        <?php endif; ?>
+                    </td>
+                    <td></td>
+                    <td style="vertical-align: middle;" align="center"><input type="checkbox" value="1" name="amconf_icon_delete[<?php echo $option->getData('option_id'); ?>]"></td>
+                </tr>
+                <?php endforeach; ?>
+                
+            </table>
+        </div>
+    </div>
+</div>
+
+</form>

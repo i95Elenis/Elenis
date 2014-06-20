@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Minerva_Checkout>
+            <version>0.2.0</version>
+        </Minerva_Checkout>
+    </modules>
+    <global>
+		</global>
+
+		<frontend>
+  <routers>
+         <checkout>
+            <args>
+               <modules>  
+                  <module before="Mage_Checkout">Minerva_Checkout</module>
+               </modules>
+            </args>
+         </checkout>
+      </routers>
+		</frontend>	  
+       <!-- <rewrite>
+            <minerva_checkout_onepage>Minerva_Checkout_OnepageController</minerva_checkout_onepage>
+			<minerva_checkout_cart>Minerva_Checkout_CartController</minerva_checkout_cart>
+        </rewrite>
+    </global>
+    <frontend>
+        <routers>
+            <minerva_checkout>
+                <use>standard</use>
+                <args>
+                    <module>Minerva_Checkout</module>
+                    <frontName>MinQty</frontName>
+                </args>
+            </minerva_checkout>
+        </routers>
+    </frontend> -->
+</config>

@@ -1,0 +1,152 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+<?php
+/**
+ * Shopping cart totals template
+ *
+ * @see Mage_Checkout_Block_Cart_Totals
+ * @var $this Mage_Checkout_Block_Cart_Totals
+ */
+?>
+
+<a href="#" class="recipientsques">Are you sending this item to multiple recipients?</a>
+<br><br>
+<div id="receipantsnumform" style="display:none;">
+    Please enter Number of Recipients. 
+    <input type="text" id="numrecipients" name="numrecipients" value="1"/>
+    <input type="button" id="receipantsnumformsubmit" name="receipantsnumformsubmit" value="submit" /> 
+</div>
+<div id="receipantqtyform" style="display:none;">
+  
+</div>
+<div id="warning"></div>
+
+<?php //echo $this->test(); ?>   
+
+<script type="text/javascript">
+    document.observe("dom:loaded", function() {
+        //initially hide all containers for tab content
+        //$$('div.tabcontent').invoke('hide');
+    });
+    
+    $$('.recipientsques').invoke('observe', 'click', function(){ $$('#receipantsnumform').invoke('show'); });
+    
+    $$('#receipantsnumformsubmit').invoke('observe', 'click', addQtyElems);
+    
+    //$$('#receipantqtyformsubmit').invoke('observe', 'click', makeAjaxRecipientsAdd);
+    
+    
+    
+     /**
+      * Helper function for adding UI element. 
+      */
+     function addInput(parentdivname) {
+         var fields = document.getElementsByClassName("recifieldqty").length;
+         
+        if (fields < 10) {
+          var id = "recifield_" + fields;
+          document.getElementById(parentdivname).innerHTML +=
+            "<div>Qty "+(fields+1)+":  <input type='text' id='"+id+"' name='"+id+"' class='recifieldqty'/>"; 
+           //+ " <a href='#' onclick='removeInput(this.parentNode,\"receipantqtyform\")' />remove</a>"
+           +"</div><br>";
+          fields += 1;
+        } else {
+          document.getElementById('warning').innerHTML =
+            "Only 10 recipients are allowed.";
+          //document.form.add.disabled = true;
+        }
+      }
+
+      /**
+      * Helper function for removing UI element. 
+      */
+      function removeInput( el , parentdivname ) {
+        var fields = document.getElementsByClassName("recifieldqty").length;
+        if (fields > 0) {
+          document.getElementById('warning').innerHTML = "";
+          var parent = document.getElementById(parentdivname);
+          parent.removeChild(el);
+          fields -= 1;
+        }
+      }
+    
+      /**
+       * UI add form input elements for taking the Qty input. 
+       */
+      function addQtyElems(){
+          var numrecipients = document.getElementById("numrecipients").value;
+          document.getElementById("receipantqtyform").style.display='block';
+          document.getElementById("receipantqtyform").innerHTML = '';
+          for(var i=0;i<numrecipients;i++){
+              addInput("receipantqtyform");
+          }
+          document.getElementById("receipantqtyform").innerHTML +='<br><div><input type="button" id="receipantqtyformsubmit" name="receipantqtyformsubmit" value="Add" onClick="makeAjaxRecipientsAdd()"/></div>';
+      }
+      
+      /**
+       * Prepare the Ajax request data.
+       */
+      function preparePostData(){
+          var numrecipients = document.getElementById("numrecipients").value;
+          var fieldsLen = document.getElementsByClassName("recifieldqty").length;
+          var recipientsQtyData = null;;
+          var dataString = null; 
+          for(var i=0;i<fieldsLen;i++){
+              var qtyval = document.getElementById("recifield_"+i).value;
+              if(dataString==null){
+               dataString = '{"qty":'+qtyval+'}';   
+              }else{
+               dataString += ',{"qty":"'+qtyval+'"}';
+              }
+          }
+          recipientsQtyData = '['+dataString+']';
+         
+          return recipientsQtyData;
+      }
+      
+      /**
+       * Ajax call to make the final request.
+       */
+      function makeAjaxRecipientsAdd(){
+          var recipientdata = preparePostData();
+          //alert(recipientdata);
+          new Ajax.Request('<?php echo Mage::getBaseUrl()?>elecheckout/checkout_multi/addreceipents', {
+            //method: 'get',
+            parameters: {company: 'example', limit: 12,'recipientqtydata':recipientdata},
+            onSuccess: function(transport, json){
+                //alert(json ? Object.inspect(json) : "no JSON object");
+                alert('success');
+                window.location.reload();
+              }
+          });
+
+
+      }
+      
+    
+</script>
+

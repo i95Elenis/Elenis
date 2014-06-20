@@ -1,0 +1,714 @@
+[05-Oct-2013 05:07:55] PHP Parse error:  syntax error, unexpected T_ENDIF in /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/my_igallery/widget.phtml on line 79
+[05-Oct-2013 05:07:55] PHP Stack trace:
+[05-Oct-2013 05:07:55] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[05-Oct-2013 05:07:55] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[05-Oct-2013 05:07:55] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[05-Oct-2013 05:07:55] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[05-Oct-2013 05:07:55] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[05-Oct-2013 05:07:55] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[05-Oct-2013 05:07:55] PHP   7. Mage_Catalog_CategoryController->viewAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[05-Oct-2013 05:07:55] PHP   8. Mage_Core_Controller_Varien_Action->renderLayout() /var/www/html/elenis_main/app/code/core/Mage/Catalog/controllers/CategoryController.php:159
+[05-Oct-2013 05:07:55] PHP   9. Mage_Core_Model_Layout->getOutput() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:390
+[05-Oct-2013 05:07:55] PHP  10. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:555
+[05-Oct-2013 05:07:55] PHP  11. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 05:07:55] PHP  12. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[05-Oct-2013 05:07:55] PHP  13. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[05-Oct-2013 05:07:55] PHP  14. include() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:412
+[05-Oct-2013 05:07:55] PHP  15. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->getChildHtml() /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/page/2columns-left.phtml:48
+[05-Oct-2013 05:07:55] PHP  16. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->_getChildHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:528
+[05-Oct-2013 05:07:55] PHP  17. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:584
+[05-Oct-2013 05:07:55] PHP  18. Mage_Core_Block_Text_List->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 05:07:55] PHP  19. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Core/Block/Text/List.php:43
+[05-Oct-2013 05:07:55] PHP  20. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 05:07:55] PHP  21. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[05-Oct-2013 05:07:55] PHP  22. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[05-Oct-2013 05:07:55] PHP  23. include() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:412
+[05-Oct-2013 05:07:55] PHP  24. Mage_Catalog_Block_Category_View->getCmsBlockHtml() /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/catalog/category/view.phtml:82
+[05-Oct-2013 05:07:55] PHP  25. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Catalog/Block/Category/View.php:106
+[05-Oct-2013 05:07:55] PHP  26. Mage_Cms_Block_Block->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 05:07:55] PHP  27. Mage_Core_Model_Email_Template_Filter->filter() /var/www/html/elenis_main/app/code/core/Mage/Cms/Block/Block.php:54
+[05-Oct-2013 05:07:55] PHP  28. Varien_Filter_Template->filter() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Email/Template/Filter.php:502
+[05-Oct-2013 05:07:55] PHP  29. call_user_func() /var/www/html/elenis_main/lib/Varien/Filter/Template.php:134
+[05-Oct-2013 05:07:55] PHP  30. Mage_Widget_Model_Template_Filter->widgetDirective() /var/www/html/elenis_main/lib/Varien/Filter/Template.php:134
+[05-Oct-2013 05:07:55] PHP  31. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Widget/Model/Template/Filter.php:76
+[05-Oct-2013 05:07:55] PHP  32. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 05:07:55] PHP  33. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[05-Oct-2013 05:07:55] PHP  34. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[05-Oct-2013 05:17:58] PHP Parse error:  syntax error, unexpected ')' in /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/my_igallery/widget.phtml on line 48
+[05-Oct-2013 05:17:58] PHP Stack trace:
+[05-Oct-2013 05:17:58] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[05-Oct-2013 05:17:58] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[05-Oct-2013 05:17:58] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[05-Oct-2013 05:17:58] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[05-Oct-2013 05:17:58] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[05-Oct-2013 05:17:58] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[05-Oct-2013 05:17:58] PHP   7. Mage_Catalog_CategoryController->viewAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[05-Oct-2013 05:17:58] PHP   8. Mage_Core_Controller_Varien_Action->renderLayout() /var/www/html/elenis_main/app/code/core/Mage/Catalog/controllers/CategoryController.php:159
+[05-Oct-2013 05:17:58] PHP   9. Mage_Core_Model_Layout->getOutput() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:390
+[05-Oct-2013 05:17:58] PHP  10. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:555
+[05-Oct-2013 05:17:58] PHP  11. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 05:17:58] PHP  12. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[05-Oct-2013 05:17:58] PHP  13. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[05-Oct-2013 05:17:58] PHP  14. include() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:412
+[05-Oct-2013 05:17:58] PHP  15. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->getChildHtml() /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/page/2columns-left.phtml:48
+[05-Oct-2013 05:17:58] PHP  16. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->_getChildHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:528
+[05-Oct-2013 05:17:58] PHP  17. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:584
+[05-Oct-2013 05:17:58] PHP  18. Mage_Core_Block_Text_List->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 05:17:58] PHP  19. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Core/Block/Text/List.php:43
+[05-Oct-2013 05:17:58] PHP  20. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 05:17:58] PHP  21. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[05-Oct-2013 05:17:58] PHP  22. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[05-Oct-2013 05:17:58] PHP  23. include() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:412
+[05-Oct-2013 05:17:58] PHP  24. Mage_Catalog_Block_Category_View->getCmsBlockHtml() /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/catalog/category/view.phtml:82
+[05-Oct-2013 05:17:58] PHP  25. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Catalog/Block/Category/View.php:106
+[05-Oct-2013 05:17:58] PHP  26. Mage_Cms_Block_Block->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 05:17:58] PHP  27. Mage_Core_Model_Email_Template_Filter->filter() /var/www/html/elenis_main/app/code/core/Mage/Cms/Block/Block.php:54
+[05-Oct-2013 05:17:58] PHP  28. Varien_Filter_Template->filter() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Email/Template/Filter.php:502
+[05-Oct-2013 05:17:58] PHP  29. call_user_func() /var/www/html/elenis_main/lib/Varien/Filter/Template.php:134
+[05-Oct-2013 05:17:58] PHP  30. Mage_Widget_Model_Template_Filter->widgetDirective() /var/www/html/elenis_main/lib/Varien/Filter/Template.php:134
+[05-Oct-2013 05:17:58] PHP  31. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Widget/Model/Template/Filter.php:76
+[05-Oct-2013 05:17:58] PHP  32. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 05:17:58] PHP  33. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[05-Oct-2013 05:17:58] PHP  34. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[05-Oct-2013 05:26:39] PHP Fatal error:  Call to a member function getSize() on a non-object in /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/my_igallery/widget.phtml on line 48
+[05-Oct-2013 05:26:39] PHP Stack trace:
+[05-Oct-2013 05:26:39] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[05-Oct-2013 05:26:39] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[05-Oct-2013 05:26:39] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[05-Oct-2013 05:26:39] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[05-Oct-2013 05:26:39] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[05-Oct-2013 05:26:39] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[05-Oct-2013 05:26:39] PHP   7. Mage_Catalog_CategoryController->viewAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[05-Oct-2013 05:26:39] PHP   8. Mage_Core_Controller_Varien_Action->renderLayout() /var/www/html/elenis_main/app/code/core/Mage/Catalog/controllers/CategoryController.php:159
+[05-Oct-2013 05:26:39] PHP   9. Mage_Core_Model_Layout->getOutput() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:390
+[05-Oct-2013 05:26:39] PHP  10. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:555
+[05-Oct-2013 05:26:39] PHP  11. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 05:26:39] PHP  12. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[05-Oct-2013 05:26:39] PHP  13. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[05-Oct-2013 05:26:39] PHP  14. include() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:412
+[05-Oct-2013 05:26:39] PHP  15. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->getChildHtml() /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/page/2columns-left.phtml:48
+[05-Oct-2013 05:26:39] PHP  16. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->_getChildHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:528
+[05-Oct-2013 05:26:39] PHP  17. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:584
+[05-Oct-2013 05:26:39] PHP  18. Mage_Core_Block_Text_List->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 05:26:39] PHP  19. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Core/Block/Text/List.php:43
+[05-Oct-2013 05:26:39] PHP  20. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 05:26:39] PHP  21. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[05-Oct-2013 05:26:39] PHP  22. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[05-Oct-2013 05:26:39] PHP  23. include() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:412
+[05-Oct-2013 05:26:39] PHP  24. Mage_Catalog_Block_Category_View->getCmsBlockHtml() /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/catalog/category/view.phtml:82
+[05-Oct-2013 05:26:39] PHP  25. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Catalog/Block/Category/View.php:106
+[05-Oct-2013 05:26:39] PHP  26. Mage_Cms_Block_Block->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 05:26:39] PHP  27. Mage_Core_Model_Email_Template_Filter->filter() /var/www/html/elenis_main/app/code/core/Mage/Cms/Block/Block.php:54
+[05-Oct-2013 05:26:39] PHP  28. Varien_Filter_Template->filter() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Email/Template/Filter.php:502
+[05-Oct-2013 05:26:39] PHP  29. call_user_func() /var/www/html/elenis_main/lib/Varien/Filter/Template.php:134
+[05-Oct-2013 05:26:39] PHP  30. Mage_Widget_Model_Template_Filter->widgetDirective() /var/www/html/elenis_main/lib/Varien/Filter/Template.php:134
+[05-Oct-2013 05:26:39] PHP  31. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Widget/Model/Template/Filter.php:76
+[05-Oct-2013 05:26:39] PHP  32. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 05:26:39] PHP  33. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[05-Oct-2013 05:26:39] PHP  34. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[05-Oct-2013 05:26:39] PHP  35. include() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:412
+[05-Oct-2013 05:27:46] PHP Fatal error:  Call to a member function getSize() on a non-object in /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/my_igallery/widget.phtml on line 49
+[05-Oct-2013 05:27:46] PHP Stack trace:
+[05-Oct-2013 05:27:46] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[05-Oct-2013 05:27:46] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[05-Oct-2013 05:27:46] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[05-Oct-2013 05:27:46] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[05-Oct-2013 05:27:46] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[05-Oct-2013 05:27:46] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[05-Oct-2013 05:27:46] PHP   7. Mage_Catalog_CategoryController->viewAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[05-Oct-2013 05:27:46] PHP   8. Mage_Core_Controller_Varien_Action->renderLayout() /var/www/html/elenis_main/app/code/core/Mage/Catalog/controllers/CategoryController.php:159
+[05-Oct-2013 05:27:46] PHP   9. Mage_Core_Model_Layout->getOutput() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:390
+[05-Oct-2013 05:27:46] PHP  10. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:555
+[05-Oct-2013 05:27:46] PHP  11. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 05:27:46] PHP  12. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[05-Oct-2013 05:27:46] PHP  13. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[05-Oct-2013 05:27:46] PHP  14. include() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:412
+[05-Oct-2013 05:27:46] PHP  15. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->getChildHtml() /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/page/2columns-left.phtml:48
+[05-Oct-2013 05:27:46] PHP  16. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->_getChildHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:528
+[05-Oct-2013 05:27:46] PHP  17. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:584
+[05-Oct-2013 05:27:46] PHP  18. Mage_Core_Block_Text_List->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 05:27:46] PHP  19. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Core/Block/Text/List.php:43
+[05-Oct-2013 05:27:46] PHP  20. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 05:27:46] PHP  21. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[05-Oct-2013 05:27:46] PHP  22. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[05-Oct-2013 05:27:46] PHP  23. include() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:412
+[05-Oct-2013 05:27:46] PHP  24. Mage_Catalog_Block_Category_View->getCmsBlockHtml() /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/catalog/category/view.phtml:82
+[05-Oct-2013 05:27:46] PHP  25. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Catalog/Block/Category/View.php:106
+[05-Oct-2013 05:27:46] PHP  26. Mage_Cms_Block_Block->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 05:27:46] PHP  27. Mage_Core_Model_Email_Template_Filter->filter() /var/www/html/elenis_main/app/code/core/Mage/Cms/Block/Block.php:54
+[05-Oct-2013 05:27:46] PHP  28. Varien_Filter_Template->filter() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Email/Template/Filter.php:502
+[05-Oct-2013 05:27:46] PHP  29. call_user_func() /var/www/html/elenis_main/lib/Varien/Filter/Template.php:134
+[05-Oct-2013 05:27:46] PHP  30. Mage_Widget_Model_Template_Filter->widgetDirective() /var/www/html/elenis_main/lib/Varien/Filter/Template.php:134
+[05-Oct-2013 05:27:46] PHP  31. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Widget/Model/Template/Filter.php:76
+[05-Oct-2013 05:27:46] PHP  32. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 05:27:46] PHP  33. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[05-Oct-2013 05:27:46] PHP  34. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[05-Oct-2013 05:27:46] PHP  35. include() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:412
+[05-Oct-2013 06:54:21] PHP Fatal error:  Can't use method return value in write context in /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/my_igallery/widget.phtml on line 102
+[05-Oct-2013 06:54:21] PHP Stack trace:
+[05-Oct-2013 06:54:21] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[05-Oct-2013 06:54:21] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[05-Oct-2013 06:54:21] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[05-Oct-2013 06:54:21] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[05-Oct-2013 06:54:21] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[05-Oct-2013 06:54:21] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[05-Oct-2013 06:54:21] PHP   7. Mage_Catalog_CategoryController->viewAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[05-Oct-2013 06:54:21] PHP   8. Mage_Core_Controller_Varien_Action->renderLayout() /var/www/html/elenis_main/app/code/core/Mage/Catalog/controllers/CategoryController.php:159
+[05-Oct-2013 06:54:21] PHP   9. Mage_Core_Model_Layout->getOutput() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:390
+[05-Oct-2013 06:54:21] PHP  10. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:555
+[05-Oct-2013 06:54:21] PHP  11. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 06:54:21] PHP  12. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[05-Oct-2013 06:54:21] PHP  13. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[05-Oct-2013 06:54:21] PHP  14. include() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:412
+[05-Oct-2013 06:54:21] PHP  15. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->getChildHtml() /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/page/2columns-left.phtml:48
+[05-Oct-2013 06:54:21] PHP  16. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->_getChildHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:528
+[05-Oct-2013 06:54:21] PHP  17. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:584
+[05-Oct-2013 06:54:21] PHP  18. Mage_Core_Block_Text_List->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 06:54:21] PHP  19. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Core/Block/Text/List.php:43
+[05-Oct-2013 06:54:21] PHP  20. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 06:54:21] PHP  21. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[05-Oct-2013 06:54:21] PHP  22. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[05-Oct-2013 06:54:21] PHP  23. include() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:412
+[05-Oct-2013 06:54:21] PHP  24. Mage_Catalog_Block_Category_View->getCmsBlockHtml() /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/catalog/category/view.phtml:82
+[05-Oct-2013 06:54:21] PHP  25. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Catalog/Block/Category/View.php:106
+[05-Oct-2013 06:54:21] PHP  26. Mage_Cms_Block_Block->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 06:54:21] PHP  27. Mage_Core_Model_Email_Template_Filter->filter() /var/www/html/elenis_main/app/code/core/Mage/Cms/Block/Block.php:54
+[05-Oct-2013 06:54:21] PHP  28. Varien_Filter_Template->filter() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Email/Template/Filter.php:502
+[05-Oct-2013 06:54:21] PHP  29. call_user_func() /var/www/html/elenis_main/lib/Varien/Filter/Template.php:134
+[05-Oct-2013 06:54:21] PHP  30. Mage_Widget_Model_Template_Filter->widgetDirective() /var/www/html/elenis_main/lib/Varien/Filter/Template.php:134
+[05-Oct-2013 06:54:21] PHP  31. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Widget/Model/Template/Filter.php:76
+[05-Oct-2013 06:54:21] PHP  32. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 06:54:21] PHP  33. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[05-Oct-2013 06:54:21] PHP  34. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[05-Oct-2013 06:55:36] PHP Fatal error:  Can't use method return value in write context in /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/my_igallery/widget.phtml on line 54
+[05-Oct-2013 06:55:36] PHP Stack trace:
+[05-Oct-2013 06:55:36] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[05-Oct-2013 06:55:36] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[05-Oct-2013 06:55:36] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[05-Oct-2013 06:55:36] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[05-Oct-2013 06:55:36] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[05-Oct-2013 06:55:36] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[05-Oct-2013 06:55:36] PHP   7. Mage_Catalog_CategoryController->viewAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[05-Oct-2013 06:55:36] PHP   8. Mage_Core_Controller_Varien_Action->renderLayout() /var/www/html/elenis_main/app/code/core/Mage/Catalog/controllers/CategoryController.php:159
+[05-Oct-2013 06:55:36] PHP   9. Mage_Core_Model_Layout->getOutput() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:390
+[05-Oct-2013 06:55:36] PHP  10. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:555
+[05-Oct-2013 06:55:36] PHP  11. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 06:55:36] PHP  12. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[05-Oct-2013 06:55:36] PHP  13. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[05-Oct-2013 06:55:36] PHP  14. include() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:412
+[05-Oct-2013 06:55:36] PHP  15. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->getChildHtml() /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/page/2columns-left.phtml:48
+[05-Oct-2013 06:55:36] PHP  16. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->_getChildHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:528
+[05-Oct-2013 06:55:36] PHP  17. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:584
+[05-Oct-2013 06:55:36] PHP  18. Mage_Core_Block_Text_List->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 06:55:36] PHP  19. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Core/Block/Text/List.php:43
+[05-Oct-2013 06:55:36] PHP  20. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 06:55:36] PHP  21. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[05-Oct-2013 06:55:36] PHP  22. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[05-Oct-2013 06:55:36] PHP  23. include() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:412
+[05-Oct-2013 06:55:36] PHP  24. Mage_Catalog_Block_Category_View->getCmsBlockHtml() /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/catalog/category/view.phtml:82
+[05-Oct-2013 06:55:36] PHP  25. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Catalog/Block/Category/View.php:106
+[05-Oct-2013 06:55:36] PHP  26. Mage_Cms_Block_Block->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 06:55:36] PHP  27. Mage_Core_Model_Email_Template_Filter->filter() /var/www/html/elenis_main/app/code/core/Mage/Cms/Block/Block.php:54
+[05-Oct-2013 06:55:36] PHP  28. Varien_Filter_Template->filter() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Email/Template/Filter.php:502
+[05-Oct-2013 06:55:36] PHP  29. call_user_func() /var/www/html/elenis_main/lib/Varien/Filter/Template.php:134
+[05-Oct-2013 06:55:36] PHP  30. Mage_Widget_Model_Template_Filter->widgetDirective() /var/www/html/elenis_main/lib/Varien/Filter/Template.php:134
+[05-Oct-2013 06:55:36] PHP  31. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Widget/Model/Template/Filter.php:76
+[05-Oct-2013 06:55:36] PHP  32. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 06:55:36] PHP  33. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[05-Oct-2013 06:55:36] PHP  34. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[05-Oct-2013 07:36:23] PHP Fatal error:  Call to a member function getPath() on a non-object in /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/catalog/navigation/categorymenu.phtml on line 30
+[05-Oct-2013 07:36:23] PHP Stack trace:
+[05-Oct-2013 07:36:23] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[05-Oct-2013 07:36:23] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[05-Oct-2013 07:36:23] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[05-Oct-2013 07:36:23] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[05-Oct-2013 07:36:23] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[05-Oct-2013 07:36:23] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[05-Oct-2013 07:36:23] PHP   7. Mage_Customer_AccountController->indexAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[05-Oct-2013 07:36:23] PHP   8. Mage_Core_Controller_Varien_Action->renderLayout() /var/www/html/elenis_main/app/code/core/Mage/Customer/controllers/AccountController.php:115
+[05-Oct-2013 07:36:23] PHP   9. Mage_Core_Model_Layout->getOutput() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:390
+[05-Oct-2013 07:36:23] PHP  10. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:555
+[05-Oct-2013 07:36:23] PHP  11. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 07:36:23] PHP  12. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[05-Oct-2013 07:36:23] PHP  13. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[05-Oct-2013 07:36:23] PHP  14. include() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:412
+[05-Oct-2013 07:36:23] PHP  15. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->getChildHtml() /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/page/2columns-left.phtml:53
+[05-Oct-2013 07:36:23] PHP  16. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->_getChildHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:528
+[05-Oct-2013 07:36:23] PHP  17. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:584
+[05-Oct-2013 07:36:23] PHP  18. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 07:36:23] PHP  19. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[05-Oct-2013 07:36:23] PHP  20. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[05-Oct-2013 07:36:23] PHP  21. include() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:412
+[05-Oct-2013 07:54:56] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/var/www/html/elenis_main/media/catalog/category/' does not exists.' in /var/www/html/elenis_main/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /var/www/html/elenis_main/get.php(205): Varien_File_Transfer_Adapter_Http->send('/var/www/html/e...')
+#1 /var/www/html/elenis_main/get.php(165): sendFile('/var/www/html/e...')
+#2 {main}
+  thrown in /var/www/html/elenis_main/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[05-Oct-2013 08:54:54] PHP Parse error:  syntax error, unexpected ')' in /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/page/2columns-left.phtml on line 54
+[05-Oct-2013 08:54:54] PHP Stack trace:
+[05-Oct-2013 08:54:54] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[05-Oct-2013 08:54:54] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[05-Oct-2013 08:54:54] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[05-Oct-2013 08:54:54] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[05-Oct-2013 08:54:54] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[05-Oct-2013 08:54:54] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[05-Oct-2013 08:54:54] PHP   7. Mage_Catalog_CategoryController->viewAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[05-Oct-2013 08:54:54] PHP   8. Mage_Core_Controller_Varien_Action->renderLayout() /var/www/html/elenis_main/app/code/core/Mage/Catalog/controllers/CategoryController.php:159
+[05-Oct-2013 08:54:54] PHP   9. Mage_Core_Model_Layout->getOutput() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:390
+[05-Oct-2013 08:54:54] PHP  10. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:555
+[05-Oct-2013 08:54:54] PHP  11. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[05-Oct-2013 08:54:54] PHP  12. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[05-Oct-2013 08:54:54] PHP  13. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[05-Oct-2013 09:30:02] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/var/www/html/elenis_main/media/catalog/category/' does not exists.' in /var/www/html/elenis_main/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /var/www/html/elenis_main/get.php(205): Varien_File_Transfer_Adapter_Http->send('/var/www/html/e...')
+#1 /var/www/html/elenis_main/get.php(165): sendFile('/var/www/html/e...')
+#2 {main}
+  thrown in /var/www/html/elenis_main/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[07-Oct-2013 06:56:22] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/var/www/html/elenis_main/media/catalog/category/' does not exists.' in /var/www/html/elenis_main/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /var/www/html/elenis_main/get.php(205): Varien_File_Transfer_Adapter_Http->send('/var/www/html/e...')
+#1 /var/www/html/elenis_main/get.php(165): sendFile('/var/www/html/e...')
+#2 {main}
+  thrown in /var/www/html/elenis_main/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[07-Oct-2013 07:59:32] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/var/www/html/elenis_main/media/catalog/category/' does not exists.' in /var/www/html/elenis_main/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /var/www/html/elenis_main/get.php(205): Varien_File_Transfer_Adapter_Http->send('/var/www/html/e...')
+#1 /var/www/html/elenis_main/get.php(165): sendFile('/var/www/html/e...')
+#2 {main}
+  thrown in /var/www/html/elenis_main/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[07-Oct-2013 08:10:29] PHP Fatal error:  Call to a member function getChildren() on a non-object in /var/www/html/elenis_main/app/code/local/Elenis/CatalogNavigation/Block/Catalog/Navigation.php on line 32
+[07-Oct-2013 08:10:29] PHP Stack trace:
+[07-Oct-2013 08:10:29] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 08:10:29] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 08:10:29] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 08:10:29] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[07-Oct-2013 08:10:29] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[07-Oct-2013 08:10:29] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[07-Oct-2013 08:10:29] PHP   7. Mage_Catalog_CategoryController->viewAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[07-Oct-2013 08:10:29] PHP   8. Mage_Core_Controller_Varien_Action->renderLayout() /var/www/html/elenis_main/app/code/core/Mage/Catalog/controllers/CategoryController.php:159
+[07-Oct-2013 08:10:29] PHP   9. Mage_Core_Model_Layout->getOutput() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:390
+[07-Oct-2013 08:10:29] PHP  10. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:555
+[07-Oct-2013 08:10:29] PHP  11. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[07-Oct-2013 08:10:29] PHP  12. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[07-Oct-2013 08:10:29] PHP  13. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[07-Oct-2013 08:10:29] PHP  14. include() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:412
+[07-Oct-2013 08:10:29] PHP  15. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->getChildHtml() /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/page/2columns-left.phtml:59
+[07-Oct-2013 08:10:29] PHP  16. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->_getChildHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:528
+[07-Oct-2013 08:10:29] PHP  17. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Abstract->toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:584
+[07-Oct-2013 08:10:29] PHP  18. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->_toHtml() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Abstract.php:865
+[07-Oct-2013 08:10:29] PHP  19. Aitoc_Aitsys_Model_Rewriter_Mage_Core_Block_Template->renderView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:288
+[07-Oct-2013 08:10:29] PHP  20. Mage_Core_Block_Template->fetchView() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:274
+[07-Oct-2013 08:10:29] PHP  21. include() /var/www/html/elenis_main/var/ait_rewrite/Mage_Core_Block_Template.php:412
+[07-Oct-2013 08:10:29] PHP  22. Elenis_CatalogNavigation_Block_Catalog_Navigation->get_categories() /var/www/html/elenis_main/app/design/frontend/enterprise/elenis/template/catalog/navigation/categorymenu.phtml:49
+[07-Oct-2013 08:10:29] PHP  23. Elenis_CatalogNavigation_Block_Catalog_Navigation->get_categories() /var/www/html/elenis_main/app/code/local/Elenis/CatalogNavigation/Block/Catalog/Navigation.php:66
+[07-Oct-2013 09:00:03] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/var/www/html/elenis_main/media/catalog/category/' does not exists.' in /var/www/html/elenis_main/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /var/www/html/elenis_main/get.php(205): Varien_File_Transfer_Adapter_Http->send('/var/www/html/e...')
+#1 /var/www/html/elenis_main/get.php(165): sendFile('/var/www/html/e...')
+#2 {main}
+  thrown in /var/www/html/elenis_main/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[07-Oct-2013 10:00:10] PHP Fatal error:  Class 'Aitoc_Aitsys_Model_Mysql4_Setup' not found in /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Resource/Setup.php on line 234
+[07-Oct-2013 10:00:10] PHP Stack trace:
+[07-Oct-2013 10:00:10] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 10:00:10] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 10:00:10] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 10:00:10] PHP   4. Mage_Core_Model_App->_initModules() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:343
+[07-Oct-2013 10:00:10] PHP   5. Mage_Core_Model_Resource_Setup::applyAllUpdates() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:417
+[07-Oct-2013 10:00:14] PHP Parse error:  syntax error, unexpected ')' in /var/www/html/elenis_main/app/code/local/Elenis/CatalogNavigation/Block/Catalog/Navigation.php on line 46
+[07-Oct-2013 10:00:14] PHP Stack trace:
+[07-Oct-2013 10:00:14] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 10:00:14] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 10:00:14] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 10:00:14] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[07-Oct-2013 10:00:14] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[07-Oct-2013 10:00:14] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[07-Oct-2013 10:00:14] PHP   7. Mage_Catalog_ProductController->viewAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[07-Oct-2013 10:00:14] PHP   8. Mage_Catalog_Helper_Product_View->prepareAndRender() /var/www/html/elenis_main/app/code/core/Mage/Catalog/controllers/ProductController.php:132
+[07-Oct-2013 10:00:14] PHP   9. Mage_Catalog_Helper_Product_View->initProductLayout() /var/www/html/elenis_main/app/code/core/Mage/Catalog/Helper/Product/View.php:144
+[07-Oct-2013 10:00:14] PHP  10. Mage_Core_Controller_Varien_Action->generateLayoutBlocks() /var/www/html/elenis_main/app/code/core/Mage/Catalog/Helper/Product/View.php:73
+[07-Oct-2013 10:00:14] PHP  11. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:344
+[07-Oct-2013 10:00:14] PHP  12. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:206
+[07-Oct-2013 10:00:14] PHP  13. Mage_Core_Model_Layout->_generateBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:205
+[07-Oct-2013 10:00:14] PHP  14. Mage_Core_Model_Layout->addBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:239
+[07-Oct-2013 10:00:14] PHP  15. Mage_Core_Model_Layout->createBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:472
+[07-Oct-2013 10:00:14] PHP  16. Mage_Core_Model_Layout->_getBlockInstance() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:437
+[07-Oct-2013 10:00:14] PHP  17. Varien_Autoload->autoload() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:0
+[07-Oct-2013 10:00:24] PHP Fatal error:  Class 'Aitoc_Aitsys_Model_Mysql4_Setup' not found in /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Resource/Setup.php on line 234
+[07-Oct-2013 10:00:24] PHP Stack trace:
+[07-Oct-2013 10:00:24] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 10:00:24] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 10:00:24] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 10:00:24] PHP   4. Mage_Core_Model_App->_initModules() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:343
+[07-Oct-2013 10:00:24] PHP   5. Mage_Core_Model_Resource_Setup::applyAllUpdates() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:417
+[07-Oct-2013 10:00:34] PHP Fatal error:  Class 'Aitoc_Aitsys_Model_Mysql4_Setup' not found in /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Resource/Setup.php on line 234
+[07-Oct-2013 10:00:34] PHP Stack trace:
+[07-Oct-2013 10:00:34] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 10:00:34] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 10:00:34] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 10:00:34] PHP   4. Mage_Core_Model_App->_initModules() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:343
+[07-Oct-2013 10:00:34] PHP   5. Mage_Core_Model_Resource_Setup::applyAllUpdates() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:417
+[07-Oct-2013 10:01:09] PHP Fatal error:  Class 'Aitoc_Aitsys_Model_Mysql4_Setup' not found in /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Resource/Setup.php on line 234
+[07-Oct-2013 10:01:09] PHP Stack trace:
+[07-Oct-2013 10:01:09] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 10:01:09] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 10:01:09] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 10:01:09] PHP   4. Mage_Core_Model_App->_initModules() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:343
+[07-Oct-2013 10:01:09] PHP   5. Mage_Core_Model_Resource_Setup::applyAllUpdates() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:417
+[07-Oct-2013 10:01:20] PHP Fatal error:  Class 'Aitoc_Aitsys_Model_Mysql4_Setup' not found in /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Resource/Setup.php on line 234
+[07-Oct-2013 10:01:20] PHP Stack trace:
+[07-Oct-2013 10:01:20] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 10:01:20] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 10:01:20] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 10:01:20] PHP   4. Mage_Core_Model_App->_initModules() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:343
+[07-Oct-2013 10:01:20] PHP   5. Mage_Core_Model_Resource_Setup::applyAllUpdates() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:417
+[07-Oct-2013 10:01:39] PHP Fatal error:  Class 'Aitoc_Aitsys_Model_Mysql4_Setup' not found in /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Resource/Setup.php on line 234
+[07-Oct-2013 10:01:39] PHP Stack trace:
+[07-Oct-2013 10:01:39] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 10:01:39] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 10:01:39] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 10:01:39] PHP   4. Mage_Core_Model_App->_initModules() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:343
+[07-Oct-2013 10:01:39] PHP   5. Mage_Core_Model_Resource_Setup::applyAllUpdates() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:417
+[07-Oct-2013 10:11:05] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/var/www/html/elenis_main/media/catalog/category/' does not exists.' in /var/www/html/elenis_main/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /var/www/html/elenis_main/get.php(205): Varien_File_Transfer_Adapter_Http->send('/var/www/html/e...')
+#1 /var/www/html/elenis_main/get.php(165): sendFile('/var/www/html/e...')
+#2 {main}
+  thrown in /var/www/html/elenis_main/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[07-Oct-2013 10:19:08] PHP Fatal error:  Class 'Aitoc_Aitsys_Model_Rewriter_Conflict' not found in /var/www/html/elenis_main/app/code/community/Aitoc/Aitsys/Model/Rewriter.php on line 46
+[07-Oct-2013 10:19:08] PHP Stack trace:
+[07-Oct-2013 10:19:08] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 10:19:08] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 10:19:08] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 10:19:08] PHP   4. Mage_Core_Model_App->_initCurrentStore() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:349
+[07-Oct-2013 10:19:08] PHP   5. Mage_Core_Model_App->_initStores() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:466
+[07-Oct-2013 10:19:08] PHP   6. Mage_Core_Model_Abstract->getCollection() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:608
+[07-Oct-2013 10:19:08] PHP   7. Mage_Core_Model_Abstract->getResourceCollection() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Abstract.php:213
+[07-Oct-2013 10:19:08] PHP   8. Mage::getResourceModel() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Abstract.php:208
+[07-Oct-2013 10:19:08] PHP   9. Mage_Core_Model_Config->getResourceModelInstance() /var/www/html/elenis_main/app/Mage.php:490
+[07-Oct-2013 10:19:08] PHP  10. Mage_Core_Model_Config->getModelInstance() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Config.php:1380
+[07-Oct-2013 10:19:08] PHP  11. Mage_Core_Model_Resource_Db_Collection_Abstract->__construct() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Config.php:1348
+[07-Oct-2013 10:19:08] PHP  12. Mage_Core_Model_Resource_Db_Collection_Abstract->_initSelect() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php:135
+[07-Oct-2013 10:19:08] PHP  13. Mage_Core_Model_Resource_Db_Collection_Abstract->getMainTable() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php:192
+[07-Oct-2013 10:19:08] PHP  14. Mage_Core_Model_Resource_Db_Abstract->getMainTable() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php:155
+[07-Oct-2013 10:19:08] PHP  15. Mage_Core_Model_Resource_Db_Abstract->getTable() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Resource/Db/Abstract.php:247
+[07-Oct-2013 10:19:08] PHP  16. Mage_Core_Model_Resource->getTableName() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Resource/Db/Abstract.php:284
+[07-Oct-2013 10:19:08] PHP  17. Mage::dispatchEvent() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Resource.php:283
+[07-Oct-2013 10:19:08] PHP  18. Mage_Core_Model_App->dispatchEvent() /var/www/html/elenis_main/app/Mage.php:447
+[07-Oct-2013 10:19:08] PHP  19. Mage_Core_Model_App->_callObserverMethod() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:1317
+[07-Oct-2013 10:19:08] PHP  20. Aitoc_Aitsys_Model_Rewriter_Observer->init() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:1338
+[07-Oct-2013 10:19:08] PHP  21. Aitoc_Aitsys_Model_Rewriter_Autoload::register() /var/www/html/elenis_main/app/code/community/Aitoc/Aitsys/Model/Rewriter/Observer.php:10
+[07-Oct-2013 10:19:08] PHP  22. Aitoc_Aitsys_Model_Rewriter->preRegisterAutoloader() /var/www/html/elenis_main/app/code/community/Aitoc/Aitsys/Model/Rewriter/Autoload.php:77
+[07-Oct-2013 10:19:08] PHP  23. Aitoc_Aitsys_Model_Rewriter->prepare() /var/www/html/elenis_main/app/code/community/Aitoc/Aitsys/Model/Rewriter.php:32
+[07-Oct-2013 10:23:10] PHP Parse error:  syntax error, unexpected ')' in /var/www/html/elenis_main/app/code/local/Elenis/CatalogNavigation/Block/Catalog/Navigation.php on line 53
+[07-Oct-2013 10:23:10] PHP Stack trace:
+[07-Oct-2013 10:23:10] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 10:23:10] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 10:23:10] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 10:23:10] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[07-Oct-2013 10:23:10] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[07-Oct-2013 10:23:10] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[07-Oct-2013 10:23:10] PHP   7. Mage_Cms_IndexController->noRouteAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[07-Oct-2013 10:23:10] PHP   8. Mage_Cms_Helper_Page->renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/controllers/IndexController.php:75
+[07-Oct-2013 10:23:10] PHP   9. Mage_Cms_Helper_Page->_renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:52
+[07-Oct-2013 10:23:10] PHP  10. Mage_Core_Controller_Varien_Action->generateLayoutBlocks() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:113
+[07-Oct-2013 10:23:10] PHP  11. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:344
+[07-Oct-2013 10:23:10] PHP  12. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:206
+[07-Oct-2013 10:23:10] PHP  13. Mage_Core_Model_Layout->_generateBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:205
+[07-Oct-2013 10:23:10] PHP  14. Mage_Core_Model_Layout->addBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:239
+[07-Oct-2013 10:23:10] PHP  15. Mage_Core_Model_Layout->createBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:472
+[07-Oct-2013 10:23:10] PHP  16. Mage_Core_Model_Layout->_getBlockInstance() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:437
+[07-Oct-2013 10:23:10] PHP  17. Varien_Autoload->autoload() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:0
+[07-Oct-2013 10:23:10] PHP Parse error:  syntax error, unexpected ')' in /var/www/html/elenis_main/app/code/local/Elenis/CatalogNavigation/Block/Catalog/Navigation.php on line 53
+[07-Oct-2013 10:23:10] PHP Stack trace:
+[07-Oct-2013 10:23:10] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 10:23:10] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 10:23:10] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 10:23:10] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[07-Oct-2013 10:23:10] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[07-Oct-2013 10:23:10] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[07-Oct-2013 10:23:10] PHP   7. Mage_Cms_IndexController->noRouteAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[07-Oct-2013 10:23:10] PHP   8. Mage_Cms_Helper_Page->renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/controllers/IndexController.php:75
+[07-Oct-2013 10:23:10] PHP   9. Mage_Cms_Helper_Page->_renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:52
+[07-Oct-2013 10:23:10] PHP  10. Mage_Core_Controller_Varien_Action->generateLayoutBlocks() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:113
+[07-Oct-2013 10:23:10] PHP  11. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:344
+[07-Oct-2013 10:23:10] PHP  12. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:206
+[07-Oct-2013 10:23:10] PHP  13. Mage_Core_Model_Layout->_generateBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:205
+[07-Oct-2013 10:23:10] PHP  14. Mage_Core_Model_Layout->addBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:239
+[07-Oct-2013 10:23:10] PHP  15. Mage_Core_Model_Layout->createBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:472
+[07-Oct-2013 10:23:10] PHP  16. Mage_Core_Model_Layout->_getBlockInstance() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:437
+[07-Oct-2013 10:23:10] PHP  17. Varien_Autoload->autoload() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:0
+[07-Oct-2013 10:23:11] PHP Parse error:  syntax error, unexpected ')' in /var/www/html/elenis_main/app/code/local/Elenis/CatalogNavigation/Block/Catalog/Navigation.php on line 53
+[07-Oct-2013 10:23:11] PHP Stack trace:
+[07-Oct-2013 10:23:11] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 10:23:11] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 10:23:11] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 10:23:11] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[07-Oct-2013 10:23:11] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[07-Oct-2013 10:23:11] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[07-Oct-2013 10:23:11] PHP   7. Mage_Cms_IndexController->noRouteAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[07-Oct-2013 10:23:11] PHP   8. Mage_Cms_Helper_Page->renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/controllers/IndexController.php:75
+[07-Oct-2013 10:23:11] PHP   9. Mage_Cms_Helper_Page->_renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:52
+[07-Oct-2013 10:23:11] PHP  10. Mage_Core_Controller_Varien_Action->generateLayoutBlocks() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:113
+[07-Oct-2013 10:23:11] PHP  11. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:344
+[07-Oct-2013 10:23:11] PHP  12. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:206
+[07-Oct-2013 10:23:11] PHP  13. Mage_Core_Model_Layout->_generateBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:205
+[07-Oct-2013 10:23:11] PHP  14. Mage_Core_Model_Layout->addBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:239
+[07-Oct-2013 10:23:11] PHP  15. Mage_Core_Model_Layout->createBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:472
+[07-Oct-2013 10:23:11] PHP  16. Mage_Core_Model_Layout->_getBlockInstance() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:437
+[07-Oct-2013 10:23:11] PHP  17. Varien_Autoload->autoload() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:0
+[07-Oct-2013 10:23:13] PHP Parse error:  syntax error, unexpected ')' in /var/www/html/elenis_main/app/code/local/Elenis/CatalogNavigation/Block/Catalog/Navigation.php on line 53
+[07-Oct-2013 10:23:13] PHP Stack trace:
+[07-Oct-2013 10:23:13] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 10:23:13] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 10:23:13] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 10:23:13] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[07-Oct-2013 10:23:13] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[07-Oct-2013 10:23:13] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[07-Oct-2013 10:23:13] PHP   7. Mage_Cms_IndexController->noRouteAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[07-Oct-2013 10:23:13] PHP   8. Mage_Cms_Helper_Page->renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/controllers/IndexController.php:75
+[07-Oct-2013 10:23:13] PHP   9. Mage_Cms_Helper_Page->_renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:52
+[07-Oct-2013 10:23:13] PHP  10. Mage_Core_Controller_Varien_Action->generateLayoutBlocks() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:113
+[07-Oct-2013 10:23:13] PHP  11. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:344
+[07-Oct-2013 10:23:13] PHP  12. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:206
+[07-Oct-2013 10:23:13] PHP  13. Mage_Core_Model_Layout->_generateBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:205
+[07-Oct-2013 10:23:13] PHP  14. Mage_Core_Model_Layout->addBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:239
+[07-Oct-2013 10:23:13] PHP  15. Mage_Core_Model_Layout->createBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:472
+[07-Oct-2013 10:23:13] PHP  16. Mage_Core_Model_Layout->_getBlockInstance() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:437
+[07-Oct-2013 10:23:13] PHP  17. Varien_Autoload->autoload() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:0
+[07-Oct-2013 10:23:28] PHP Fatal error:  Class 'Aitoc_Aitsys_Model_Rewriter_Conflict' not found in /var/www/html/elenis_main/app/code/community/Aitoc/Aitsys/Model/Rewriter.php on line 46
+[07-Oct-2013 10:23:28] PHP Stack trace:
+[07-Oct-2013 10:23:28] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 10:23:28] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 10:23:28] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 10:23:28] PHP   4. Mage_Core_Model_App->_initCurrentStore() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:349
+[07-Oct-2013 10:23:28] PHP   5. Mage_Core_Model_App->_initStores() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:466
+[07-Oct-2013 10:23:28] PHP   6. Mage_Core_Model_Abstract->getCollection() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:608
+[07-Oct-2013 10:23:28] PHP   7. Mage_Core_Model_Abstract->getResourceCollection() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Abstract.php:213
+[07-Oct-2013 10:23:28] PHP   8. Mage::getResourceModel() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Abstract.php:208
+[07-Oct-2013 10:23:28] PHP   9. Mage_Core_Model_Config->getResourceModelInstance() /var/www/html/elenis_main/app/Mage.php:490
+[07-Oct-2013 10:23:28] PHP  10. Mage_Core_Model_Config->getModelInstance() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Config.php:1380
+[07-Oct-2013 10:23:28] PHP  11. Mage_Core_Model_Resource_Db_Collection_Abstract->__construct() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Config.php:1348
+[07-Oct-2013 10:23:28] PHP  12. Mage_Core_Model_Resource_Db_Collection_Abstract->_initSelect() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php:135
+[07-Oct-2013 10:23:28] PHP  13. Mage_Core_Model_Resource_Db_Collection_Abstract->getMainTable() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php:192
+[07-Oct-2013 10:23:28] PHP  14. Mage_Core_Model_Resource_Db_Abstract->getMainTable() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php:155
+[07-Oct-2013 10:23:28] PHP  15. Mage_Core_Model_Resource_Db_Abstract->getTable() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Resource/Db/Abstract.php:247
+[07-Oct-2013 10:23:28] PHP  16. Mage_Core_Model_Resource->getTableName() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Resource/Db/Abstract.php:284
+[07-Oct-2013 10:23:28] PHP  17. Mage::dispatchEvent() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Resource.php:283
+[07-Oct-2013 10:23:28] PHP  18. Mage_Core_Model_App->dispatchEvent() /var/www/html/elenis_main/app/Mage.php:447
+[07-Oct-2013 10:23:28] PHP  19. Mage_Core_Model_App->_callObserverMethod() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:1317
+[07-Oct-2013 10:23:28] PHP  20. Aitoc_Aitsys_Model_Rewriter_Observer->init() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:1338
+[07-Oct-2013 10:23:28] PHP  21. Aitoc_Aitsys_Model_Rewriter_Autoload::register() /var/www/html/elenis_main/app/code/community/Aitoc/Aitsys/Model/Rewriter/Observer.php:10
+[07-Oct-2013 10:23:28] PHP  22. Aitoc_Aitsys_Model_Rewriter->preRegisterAutoloader() /var/www/html/elenis_main/app/code/community/Aitoc/Aitsys/Model/Rewriter/Autoload.php:77
+[07-Oct-2013 10:23:28] PHP  23. Aitoc_Aitsys_Model_Rewriter->prepare() /var/www/html/elenis_main/app/code/community/Aitoc/Aitsys/Model/Rewriter.php:32
+[07-Oct-2013 10:26:42] PHP Parse error:  syntax error, unexpected T_RETURN, expecting T_FUNCTION in /var/www/html/elenis_main/app/code/local/Elenis/CatalogNavigation/Block/Catalog/Navigation.php on line 69
+[07-Oct-2013 10:26:42] PHP Stack trace:
+[07-Oct-2013 10:26:42] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 10:26:42] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 10:26:42] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 10:26:42] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[07-Oct-2013 10:26:42] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[07-Oct-2013 10:26:42] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[07-Oct-2013 10:26:42] PHP   7. Mage_Customer_AccountController->loginAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[07-Oct-2013 10:26:42] PHP   8. Mage_Core_Controller_Varien_Action->loadLayout() /var/www/html/elenis_main/app/code/core/Mage/Customer/controllers/AccountController.php:128
+[07-Oct-2013 10:26:42] PHP   9. Mage_Core_Controller_Varien_Action->generateLayoutBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:269
+[07-Oct-2013 10:26:42] PHP  10. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:344
+[07-Oct-2013 10:26:42] PHP  11. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:206
+[07-Oct-2013 10:26:42] PHP  12. Mage_Core_Model_Layout->_generateBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:205
+[07-Oct-2013 10:26:42] PHP  13. Mage_Core_Model_Layout->addBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:239
+[07-Oct-2013 10:26:42] PHP  14. Mage_Core_Model_Layout->createBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:472
+[07-Oct-2013 10:26:42] PHP  15. Mage_Core_Model_Layout->_getBlockInstance() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:437
+[07-Oct-2013 10:26:42] PHP  16. Varien_Autoload->autoload() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:0
+[07-Oct-2013 10:26:53] PHP Parse error:  syntax error, unexpected T_RETURN, expecting T_FUNCTION in /var/www/html/elenis_main/app/code/local/Elenis/CatalogNavigation/Block/Catalog/Navigation.php on line 69
+[07-Oct-2013 10:26:53] PHP Stack trace:
+[07-Oct-2013 10:26:53] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 10:26:53] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 10:26:53] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 10:26:53] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[07-Oct-2013 10:26:53] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[07-Oct-2013 10:26:53] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[07-Oct-2013 10:26:53] PHP   7. Mage_Catalog_ProductController->viewAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[07-Oct-2013 10:26:53] PHP   8. Mage_Catalog_Helper_Product_View->prepareAndRender() /var/www/html/elenis_main/app/code/core/Mage/Catalog/controllers/ProductController.php:132
+[07-Oct-2013 10:26:53] PHP   9. Mage_Catalog_Helper_Product_View->initProductLayout() /var/www/html/elenis_main/app/code/core/Mage/Catalog/Helper/Product/View.php:144
+[07-Oct-2013 10:26:53] PHP  10. Mage_Core_Controller_Varien_Action->generateLayoutBlocks() /var/www/html/elenis_main/app/code/core/Mage/Catalog/Helper/Product/View.php:73
+[07-Oct-2013 10:26:53] PHP  11. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:344
+[07-Oct-2013 10:26:53] PHP  12. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:206
+[07-Oct-2013 10:26:53] PHP  13. Mage_Core_Model_Layout->_generateBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:205
+[07-Oct-2013 10:26:53] PHP  14. Mage_Core_Model_Layout->addBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:239
+[07-Oct-2013 10:26:53] PHP  15. Mage_Core_Model_Layout->createBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:472
+[07-Oct-2013 10:26:53] PHP  16. Mage_Core_Model_Layout->_getBlockInstance() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:437
+[07-Oct-2013 10:26:53] PHP  17. Varien_Autoload->autoload() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:0
+[07-Oct-2013 10:30:51] PHP Parse error:  syntax error, unexpected ';' in /var/www/html/elenis_main/app/code/local/Elenis/CatalogNavigation/Block/Catalog/Navigation.php on line 44
+[07-Oct-2013 10:30:51] PHP Stack trace:
+[07-Oct-2013 10:30:51] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 10:30:51] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 10:30:51] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 10:30:51] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[07-Oct-2013 10:30:51] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[07-Oct-2013 10:30:51] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[07-Oct-2013 10:30:51] PHP   7. Mage_Cms_IndexController->noRouteAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[07-Oct-2013 10:30:51] PHP   8. Mage_Cms_Helper_Page->renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/controllers/IndexController.php:75
+[07-Oct-2013 10:30:51] PHP   9. Mage_Cms_Helper_Page->_renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:52
+[07-Oct-2013 10:30:51] PHP  10. Mage_Core_Controller_Varien_Action->generateLayoutBlocks() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:113
+[07-Oct-2013 10:30:51] PHP  11. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:344
+[07-Oct-2013 10:30:51] PHP  12. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:206
+[07-Oct-2013 10:30:51] PHP  13. Mage_Core_Model_Layout->_generateBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:205
+[07-Oct-2013 10:30:51] PHP  14. Mage_Core_Model_Layout->addBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:239
+[07-Oct-2013 10:30:51] PHP  15. Mage_Core_Model_Layout->createBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:472
+[07-Oct-2013 10:30:51] PHP  16. Mage_Core_Model_Layout->_getBlockInstance() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:437
+[07-Oct-2013 10:30:51] PHP  17. Varien_Autoload->autoload() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:0
+[07-Oct-2013 10:30:52] PHP Parse error:  syntax error, unexpected ';' in /var/www/html/elenis_main/app/code/local/Elenis/CatalogNavigation/Block/Catalog/Navigation.php on line 44
+[07-Oct-2013 10:30:52] PHP Stack trace:
+[07-Oct-2013 10:30:52] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 10:30:52] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 10:30:52] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 10:30:52] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[07-Oct-2013 10:30:52] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[07-Oct-2013 10:30:52] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[07-Oct-2013 10:30:52] PHP   7. Mage_Cms_IndexController->noRouteAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[07-Oct-2013 10:30:52] PHP   8. Mage_Cms_Helper_Page->renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/controllers/IndexController.php:75
+[07-Oct-2013 10:30:52] PHP   9. Mage_Cms_Helper_Page->_renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:52
+[07-Oct-2013 10:30:52] PHP  10. Mage_Core_Controller_Varien_Action->generateLayoutBlocks() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:113
+[07-Oct-2013 10:30:52] PHP  11. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:344
+[07-Oct-2013 10:30:52] PHP  12. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:206
+[07-Oct-2013 10:30:52] PHP  13. Mage_Core_Model_Layout->_generateBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:205
+[07-Oct-2013 10:30:52] PHP  14. Mage_Core_Model_Layout->addBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:239
+[07-Oct-2013 10:30:52] PHP  15. Mage_Core_Model_Layout->createBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:472
+[07-Oct-2013 10:30:52] PHP  16. Mage_Core_Model_Layout->_getBlockInstance() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:437
+[07-Oct-2013 10:30:52] PHP  17. Varien_Autoload->autoload() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:0
+[07-Oct-2013 10:30:53] PHP Parse error:  syntax error, unexpected ';' in /var/www/html/elenis_main/app/code/local/Elenis/CatalogNavigation/Block/Catalog/Navigation.php on line 44
+[07-Oct-2013 10:30:53] PHP Stack trace:
+[07-Oct-2013 10:30:53] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 10:30:53] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 10:30:53] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 10:30:53] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[07-Oct-2013 10:30:53] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[07-Oct-2013 10:30:53] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[07-Oct-2013 10:30:53] PHP   7. Mage_Cms_IndexController->noRouteAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[07-Oct-2013 10:30:53] PHP   8. Mage_Cms_Helper_Page->renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/controllers/IndexController.php:75
+[07-Oct-2013 10:30:53] PHP   9. Mage_Cms_Helper_Page->_renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:52
+[07-Oct-2013 10:30:53] PHP  10. Mage_Core_Controller_Varien_Action->generateLayoutBlocks() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:113
+[07-Oct-2013 10:30:53] PHP  11. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:344
+[07-Oct-2013 10:30:53] PHP  12. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:206
+[07-Oct-2013 10:30:53] PHP  13. Mage_Core_Model_Layout->_generateBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:205
+[07-Oct-2013 10:30:53] PHP  14. Mage_Core_Model_Layout->addBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:239
+[07-Oct-2013 10:30:53] PHP  15. Mage_Core_Model_Layout->createBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:472
+[07-Oct-2013 10:30:53] PHP  16. Mage_Core_Model_Layout->_getBlockInstance() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:437
+[07-Oct-2013 10:30:53] PHP  17. Varien_Autoload->autoload() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:0
+[07-Oct-2013 10:54:17] PHP Fatal error:  Can't use method return value in write context in /var/www/html/elenis_main/app/code/local/Elenis/CatalogNavigation/Block/Catalog/Navigation.php on line 42
+[07-Oct-2013 10:54:17] PHP Stack trace:
+[07-Oct-2013 10:54:17] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 10:54:17] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 10:54:17] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 10:54:17] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[07-Oct-2013 10:54:17] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[07-Oct-2013 10:54:17] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[07-Oct-2013 10:54:17] PHP   7. Mage_Catalog_CategoryController->viewAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[07-Oct-2013 10:54:17] PHP   8. Mage_Core_Controller_Varien_Action->generateLayoutBlocks() /var/www/html/elenis_main/app/code/core/Mage/Catalog/controllers/CategoryController.php:146
+[07-Oct-2013 10:54:17] PHP   9. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:344
+[07-Oct-2013 10:54:17] PHP  10. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:206
+[07-Oct-2013 10:54:17] PHP  11. Mage_Core_Model_Layout->_generateBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:205
+[07-Oct-2013 10:54:17] PHP  12. Mage_Core_Model_Layout->addBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:239
+[07-Oct-2013 10:54:17] PHP  13. Mage_Core_Model_Layout->createBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:472
+[07-Oct-2013 10:54:17] PHP  14. Mage_Core_Model_Layout->_getBlockInstance() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:437
+[07-Oct-2013 10:54:17] PHP  15. Varien_Autoload->autoload() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:0
+[07-Oct-2013 10:54:20] PHP Fatal error:  Can't use method return value in write context in /var/www/html/elenis_main/app/code/local/Elenis/CatalogNavigation/Block/Catalog/Navigation.php on line 42
+[07-Oct-2013 10:54:20] PHP Stack trace:
+[07-Oct-2013 10:54:20] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 10:54:20] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 10:54:20] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 10:54:20] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[07-Oct-2013 10:54:20] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[07-Oct-2013 10:54:20] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[07-Oct-2013 10:54:20] PHP   7. Mage_Catalog_CategoryController->viewAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[07-Oct-2013 10:54:20] PHP   8. Mage_Core_Controller_Varien_Action->generateLayoutBlocks() /var/www/html/elenis_main/app/code/core/Mage/Catalog/controllers/CategoryController.php:146
+[07-Oct-2013 10:54:20] PHP   9. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:344
+[07-Oct-2013 10:54:20] PHP  10. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:206
+[07-Oct-2013 10:54:20] PHP  11. Mage_Core_Model_Layout->_generateBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:205
+[07-Oct-2013 10:54:20] PHP  12. Mage_Core_Model_Layout->addBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:239
+[07-Oct-2013 10:54:20] PHP  13. Mage_Core_Model_Layout->createBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:472
+[07-Oct-2013 10:54:20] PHP  14. Mage_Core_Model_Layout->_getBlockInstance() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:437
+[07-Oct-2013 10:54:20] PHP  15. Varien_Autoload->autoload() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:0
+[07-Oct-2013 12:20:49] PHP Parse error:  syntax error, unexpected ';' in /var/www/html/elenis_main/app/code/local/Elenis/CatalogNavigation/Block/Catalog/Navigation.php on line 47
+[07-Oct-2013 12:20:49] PHP Stack trace:
+[07-Oct-2013 12:20:49] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 12:20:49] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 12:20:49] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 12:20:49] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[07-Oct-2013 12:20:49] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[07-Oct-2013 12:20:49] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[07-Oct-2013 12:20:49] PHP   7. Mage_Cms_IndexController->noRouteAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[07-Oct-2013 12:20:49] PHP   8. Mage_Cms_Helper_Page->renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/controllers/IndexController.php:75
+[07-Oct-2013 12:20:49] PHP   9. Mage_Cms_Helper_Page->_renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:52
+[07-Oct-2013 12:20:49] PHP  10. Mage_Core_Controller_Varien_Action->generateLayoutBlocks() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:113
+[07-Oct-2013 12:20:49] PHP  11. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:344
+[07-Oct-2013 12:20:49] PHP  12. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:206
+[07-Oct-2013 12:20:49] PHP  13. Mage_Core_Model_Layout->_generateBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:205
+[07-Oct-2013 12:20:49] PHP  14. Mage_Core_Model_Layout->addBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:239
+[07-Oct-2013 12:20:49] PHP  15. Mage_Core_Model_Layout->createBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:472
+[07-Oct-2013 12:20:49] PHP  16. Mage_Core_Model_Layout->_getBlockInstance() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:437
+[07-Oct-2013 12:20:49] PHP  17. Varien_Autoload->autoload() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:0
+[07-Oct-2013 12:20:50] PHP Parse error:  syntax error, unexpected ';' in /var/www/html/elenis_main/app/code/local/Elenis/CatalogNavigation/Block/Catalog/Navigation.php on line 47
+[07-Oct-2013 12:20:50] PHP Stack trace:
+[07-Oct-2013 12:20:50] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 12:20:50] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 12:20:50] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 12:20:50] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[07-Oct-2013 12:20:50] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[07-Oct-2013 12:20:50] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[07-Oct-2013 12:20:50] PHP   7. Mage_Cms_IndexController->noRouteAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[07-Oct-2013 12:20:50] PHP   8. Mage_Cms_Helper_Page->renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/controllers/IndexController.php:75
+[07-Oct-2013 12:20:50] PHP   9. Mage_Cms_Helper_Page->_renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:52
+[07-Oct-2013 12:20:50] PHP  10. Mage_Core_Controller_Varien_Action->generateLayoutBlocks() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:113
+[07-Oct-2013 12:20:50] PHP  11. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:344
+[07-Oct-2013 12:20:50] PHP  12. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:206
+[07-Oct-2013 12:20:50] PHP  13. Mage_Core_Model_Layout->_generateBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:205
+[07-Oct-2013 12:20:50] PHP  14. Mage_Core_Model_Layout->addBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:239
+[07-Oct-2013 12:20:50] PHP  15. Mage_Core_Model_Layout->createBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:472
+[07-Oct-2013 12:20:50] PHP  16. Mage_Core_Model_Layout->_getBlockInstance() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:437
+[07-Oct-2013 12:20:50] PHP  17. Varien_Autoload->autoload() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:0
+[07-Oct-2013 12:20:53] PHP Parse error:  syntax error, unexpected ';' in /var/www/html/elenis_main/app/code/local/Elenis/CatalogNavigation/Block/Catalog/Navigation.php on line 47
+[07-Oct-2013 12:20:53] PHP Stack trace:
+[07-Oct-2013 12:20:53] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 12:20:53] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 12:20:53] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 12:20:53] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[07-Oct-2013 12:20:53] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[07-Oct-2013 12:20:53] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[07-Oct-2013 12:20:53] PHP   7. Mage_Cms_IndexController->noRouteAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[07-Oct-2013 12:20:53] PHP   8. Mage_Cms_Helper_Page->renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/controllers/IndexController.php:75
+[07-Oct-2013 12:20:53] PHP   9. Mage_Cms_Helper_Page->_renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:52
+[07-Oct-2013 12:20:53] PHP  10. Mage_Core_Controller_Varien_Action->generateLayoutBlocks() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:113
+[07-Oct-2013 12:20:53] PHP  11. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:344
+[07-Oct-2013 12:20:53] PHP  12. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:206
+[07-Oct-2013 12:20:53] PHP  13. Mage_Core_Model_Layout->_generateBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:205
+[07-Oct-2013 12:20:53] PHP  14. Mage_Core_Model_Layout->addBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:239
+[07-Oct-2013 12:20:53] PHP  15. Mage_Core_Model_Layout->createBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:472
+[07-Oct-2013 12:20:53] PHP  16. Mage_Core_Model_Layout->_getBlockInstance() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:437
+[07-Oct-2013 12:20:53] PHP  17. Varien_Autoload->autoload() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:0
+[07-Oct-2013 12:20:57] PHP Parse error:  syntax error, unexpected ';' in /var/www/html/elenis_main/app/code/local/Elenis/CatalogNavigation/Block/Catalog/Navigation.php on line 47
+[07-Oct-2013 12:20:57] PHP Stack trace:
+[07-Oct-2013 12:20:57] PHP   1. {main}() /var/www/html/elenis_main/index.php:0
+[07-Oct-2013 12:20:57] PHP   2. Mage::run() /var/www/html/elenis_main/index.php:87
+[07-Oct-2013 12:20:57] PHP   3. Mage_Core_Model_App->run() /var/www/html/elenis_main/app/Mage.php:683
+[07-Oct-2013 12:20:57] PHP   4. Mage_Core_Controller_Varien_Front->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/App.php:354
+[07-Oct-2013 12:20:57] PHP   5. Mage_Core_Controller_Varien_Router_Standard->match() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Front.php:176
+[07-Oct-2013 12:20:57] PHP   6. Mage_Core_Controller_Varien_Action->dispatch() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php:250
+[07-Oct-2013 12:20:57] PHP   7. Mage_Cms_IndexController->noRouteAction() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:419
+[07-Oct-2013 12:20:57] PHP   8. Mage_Cms_Helper_Page->renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/controllers/IndexController.php:75
+[07-Oct-2013 12:20:57] PHP   9. Mage_Cms_Helper_Page->_renderPage() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:52
+[07-Oct-2013 12:20:57] PHP  10. Mage_Core_Controller_Varien_Action->generateLayoutBlocks() /var/www/html/elenis_main/app/code/core/Mage/Cms/Helper/Page.php:113
+[07-Oct-2013 12:20:57] PHP  11. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Controller/Varien/Action.php:344
+[07-Oct-2013 12:20:57] PHP  12. Mage_Core_Model_Layout->generateBlocks() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:206
+[07-Oct-2013 12:20:57] PHP  13. Mage_Core_Model_Layout->_generateBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:205
+[07-Oct-2013 12:20:57] PHP  14. Mage_Core_Model_Layout->addBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:239
+[07-Oct-2013 12:20:57] PHP  15. Mage_Core_Model_Layout->createBlock() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:472
+[07-Oct-2013 12:20:57] PHP  16. Mage_Core_Model_Layout->_getBlockInstance() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:437
+[07-Oct-2013 12:20:57] PHP  17. Varien_Autoload->autoload() /var/www/html/elenis_main/app/code/core/Mage/Core/Model/Layout.php:0
+[07-Oct-2013 12:54:33] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/var/www/html/elenis_main/media/catalog/category/' does not exists.' in /var/www/html/elenis_main/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /var/www/html/elenis_main/get.php(205): Varien_File_Transfer_Adapter_Http->send('/var/www/html/e...')
+#1 /var/www/html/elenis_main/get.php(165): sendFile('/var/www/html/e...')
+#2 {main}
+  thrown in /var/www/html/elenis_main/lib/Varien/File/Transfer/Adapter/Http.php on line 96

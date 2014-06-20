@@ -1,0 +1,65 @@
+
+	<link href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS); ?>colorpicker/css/prototype_colorpicker.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript">
+		Event.observe(window,'load',function(){
+			var cp1 = new colorPicker('bg_color',{
+				onShow:function(picker){
+					new Effect.Appear(picker.cp);
+					return false;
+				},
+				onHide:function(picker){
+					new Effect.Fade(picker.cp);
+					return false;
+				},
+			});
+			
+			var cp1 = new colorPicker('btn_bg_color',{
+				onShow:function(picker){
+					new Effect.Appear(picker.cp);
+					return false;
+				},
+				onHide:function(picker){
+					new Effect.Fade(picker.cp);
+					return false;
+				},
+			});
+			
+			var cp1 = new colorPicker('btn_color',{
+				onShow:function(picker){
+					new Effect.Appear(picker.cp);
+					return false;
+				},
+				onHide:function(picker){
+					new Effect.Fade(picker.cp);
+					return false;
+				},
+			});
+			
+			var cp1 = new colorPicker('product_name_color',{
+				onShow:function(picker){
+					new Effect.Appear(picker.cp);
+					return false;
+				},
+				onHide:function(picker){
+					new Effect.Fade(picker.cp);
+					return false;
+				},
+			});
+		});
+	</script>
+
+	<style>
+		.color-preview{
+			width:16px;
+			height:16px;
+			border:1px solid #000;
+		}
+		pre{
+			text-align:left;
+			padding:10px;
+			background:#EAEAEA;
+			border:1px solid #AAA;
+			width:800px;
+			overflow:auto;
+		}
+	</style>

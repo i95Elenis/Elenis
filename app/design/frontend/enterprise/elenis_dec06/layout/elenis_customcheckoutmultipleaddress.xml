@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<layout version="1.0.0">
+    <!--<checkout_multishipping_addresses> 
+        <reference name="content">
+            <block type="customcheckoutmultipleaddress/recipientlinks" name="customcheckoutmultipleaddress.recipientlinks" as="recipientlinks"  template="elenis/customcheckoutmultipleaddress/checkout/cart/recipientlinks.phtml" after="checkout.cart.totals"/>
+        </reference>
+    </checkout_multishipping_addresses>-->
+    
+    <checkout_multishipping_addresses translate="label">
+        <label>Multishipping Checkout Address (Any) Form</label>
+        <update handle="checkout_multishipping"/>
+        <reference name="checkout.addresses">
+            <block type="checkout/multishipping_addresses" name="checkout_addresses" template="elenis/customcheckoutmultipleaddress/checkout/multishipping/addresses.phtml">
+                <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>checkout/multishipping/item/default.phtml</template></action>
+                <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/multishipping/item/default.phtml</template></action>
+                <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/multishipping/item/default.phtml</template></action>
+            </block>
+        </reference>
+    </checkout_multishipping_addresses>
+    
+</layout>

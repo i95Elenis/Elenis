@@ -1,0 +1,203 @@
+<style>
+    #element_to_pop_up { 
+        background-color:#fff;
+        border-radius:15px;
+        color:#000;
+        display:none; 
+        padding:20px;
+        min-width:400px;
+        min-height: 180px;
+    }
+    .b-close{
+        /*cursor:pointer;
+        position:absolute;
+        right:10px;
+        top:5px;*/
+
+    }
+
+    .close-button{
+        cursor:pointer;
+        position:absolute;
+        left:351px;;
+        bottom:10px;
+    }
+
+</style>
+<?php $_product = $this->getProduct(); ?>
+<?php $buttonTitle = $this->__('Add to Shopping bag'); ?>
+<?php if ($_product->isSaleable()): ?>
+    <div class="add-to-cart">
+    <?php if (!$_product->isGrouped()): ?>
+        <label for="qty"><?php echo $this->__('Quantity:') ?></label>
+        <input type="text" name="qty" id="qty-<?php echo $_product->getId(); ?>" maxlength="12" value="<?php echo (($_product->getMinqty() > 0) ? $_product->getMinqty() : 1); ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+    <?php endif; ?>
+    <?php if ($_product->getHasOptions() == 1): ?>
+
+
+            <button type="button" id="my-buttonadd" title="personalize this item" class="btn btn-primary btn-lg button btn-cart"> <span><span><?php echo "personalize this item"; ?></span></span></button>
+            <!-- Element to pop up -->
+            <div id="element_to_pop_up">
+                <a class="b-close">x<a/>
+                    <div id="customOptions"></div>
+                    <div id="simpleCustomOption"></div>
+                    <a onclick="mainJs();" class="close-button"><button>SAVE</button></a>
+                    <button type="button" id="btnadd-<?php echo $_product->getId(); ?>" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="mainJs();productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+
+            <?php /* <button type="button" id="btnadd-save" title="Save" class="button btn-cart" onclick="mainJs();"><span><span><a class="close-button"><?php echo "Save" ?></a></span></span></button> */ ?>
+    </div>
+    <?php endif; ?>
+            <button type="button" id="btnadd-<?php echo $_product->getId(); ?>" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+    <?php echo $this->getChildHtml('', true, true) ?>
+        </div>
+<?php endif; ?>
+            <script type="text/javascript">
+
+<?php if ($_product->getMinqty() > 0) { ?>
+                    ob.minqty.init('<?php echo $_product->getId(); ?>', '<?php echo $_product->getMinqty(); ?>');
+<?php } ?>
+            </script>
+            <script type="text/javascript" src="<?php echo Mage::getSingleton('core/design_package')->getSkinBaseUrl(array('_area' => 'frontend')) ?>/js/jqzoom/jquery.bpopup.js"></script>
+            <script type="text/javascript">
+                //alert(jQuery('#SCPcustomOptionsDiv').length);
+                jQuery(document).ready(function() {
+                    //alert(jQuery("#simpleCustomOption dl dt label").text());
+
+                    jQuery("input[id^='options_']").each(function() {
+                        
+                        //
+                      
+                        
+                       // var ss=jQuery("#"+this.id).parent().parent().parent().find('label').text().substring(0,13);
+                       if(jQuery("#"+this.id).hasClass( "maximum-length-15" )==true)
+                           {
+                              // alert(jQuery("#"+this.id).hasClass( "maximum-length-15" ).toString());
+                               jQuery("#"+this.id).attr('maxlength',15);
+                                jQuery("#"+this.id).attr('value',this.value);
+                           }
+                           
+                     
+                       // console.log(jQuery("#"+this.id).parent().parent().parent().find('label').text());
+                      //  if(jQuery("#simpleCustomOption dl dt label").text().substring(0, 7) == "15 char")
+                    /*  if(ss=="15 characters")
+                        {
+                            
+                            
+
+                        }*/
+                    });
+                              
+                });
+
+
+                //alert("<?php //echo $_product->getTypeId();   ?>");
+                var typeid=  "<?php echo $_product->getTypeId(); ?>";
+
+                if(typeid=="simple")
+                {
+                    if (jQuery('#simpleCustomOption').is(':empty')) {
+                        span=jQuery("fieldset#product-options-wrapper dl").clone();
+                        jQuery("fieldset#product-options-wrapper dl").remove();
+                        //jQuery("div#customOptions").append(jQuery("div#otherproduct-customoptions"));
+                        jQuery("div#simpleCustomOption").append(span);
+
+                    }
+                }
+                function mainJs()
+                {
+                    //alert("jh");
+
+                    var typeId="<?php echo $_product->getTypeId(); ?>";
+
+                    // alert("<?php //echo $_product->getTypeId();   ?>");
+        if(typeId=="simple")
+        {
+            jQuery("#simpleCustomOption dd div.input-box input[id^='options_']").each(function() {
+                //  alert(jQuery(this).attr("id"));
+                //alert(jQuery(this).val());
+                // alert(jQuery(this).val());
+
+               // jQuery("#"+this.id).keypress(function() {
+                        
+                        var inputVal=jQuery(this).val().replace(" ","");
+                        //jQuery("#"+this.id).val(inputVal);
+                    //});
+                var id=jQuery(this).attr("id");
+               
+                // jQuery("#"+jQuery(this).attr("id")).val(jQuery(this).val());
+                jQuery("<input type=hidden value="+inputVal+" id="+id+" name="+jQuery(this).attr("name")+" />").appendTo("#product_addtocart_form");
+               
+            });
+        }if(typeId=="configurable"){
+            jQuery("#customOptions #otherproduct-customoptions dd div.input-box input[id^='options_']").each(function() {
+                //alert(jQuery().attr("id")+"=="+jQuery(i).attr("value"));
+                //jQuery('<input>').attr({type: 'hidden', id: 'foo',   name: 'bar' value:jQuery(this).val()}).appendTo('form');
+                // alert(jQuery(this).val())
+                // alert(jQuery("[id='product_addtocart_form:"+jQuery(this).attr("name")+"']"));
+                //jQuery("[id='product_addtocart_form:'"+jQuery(this).attr("name")+"]").val(jQuery(this).val());
+                //var id=jQuery(this).attr("id");
+                //jQuery(this).attr("id","123");
+                // alert("#"+id);
+                // alert(jQuery("div#SCPcustomOptionsDiv dl.last div#otherproduct-customoptions dd div.input-box input[id="+id+"]").attr("name"));
+                //var value=jQuery(this).attr("val");
+                //jQuery("div#SCPcustomOptionsDiv dl.last div#otherproduct-customoptions dd div.input-box input[id="+id+"]").attr("value",value);
+                //jQuery("#"+id).val("123");
+                //document.product_addtocart_form.id.value = '1';
+                //alert(id);
+                // jQuery("input[id="+id).remove();
+                var inputVal=jQuery(this).val().replace(" ","");
+                var id=jQuery(this).attr("id");
+               
+                jQuery("<input type=hidden value="+inputVal+" id="+id+" name="+jQuery(this).attr("name")+" maxlength=15 />").appendTo("#product_addtocart_form");
+                
+                //jQuery("#product_addtocart_form").append("<input type=hidden value="+value+" id="+id+" name="+jQuery(this).attr("name")+" />");
+                // $("<input id='thehidden' type='hidden' name='thehidden' value='hiddenval'/>").appendTo("#MenuForm");
+                //jQuery("input[id="+id+"]").val("123");
+                //alert(jQuery("#"+id).val());
+                //jQuery("#"+id).remove();
+          
+                //alert(jQuery("#SCPcustomOptionsDiv dl #otherproduct-customoptions dd div.input-box #"+id).val(value));
+            });
+        }
+// alert("Saved");
+//productAddToCartForm.submit(this);
+jQuery('a.b-close').trigger('click');
+
+/*if (jQuery('#element_to_pop_up').is(':visible')) {
+            jQuery("#element_to_pop_up").css({"display":"none","opacity":"0"});
+        
+        
+        }*/
+//jQuery("#element_to_pop_up").css("dis");
+        
+}
+// Semicolon (;) to ensure closing of earlier scripting
+// Encapsulation
+// $ is assigned to jQuery
+;(function($) {
+
+// DOM Ready
+jQuery(function() {
+            
+    // Binding a click event
+    // From jQuery v.1.7.0 use .on() instead of .bind()
+    jQuery('#my-buttonadd').bind('click', function(e) {
+                
+        // Prevents the default action to be triggered.
+        e.preventDefault();
+               
+        // Triggering bPopup when click event is fired
+        jQuery('#element_to_pop_up').bPopup();
+        //jQuery("#element_to_pop_up").appendTo("dl#custom-options");
+        // $span=jQuery("div#otherproduct-customoptions").clone();
+        //jQuery("div#SCPcustomOptionsDiv dl div#otherproduct-customoptions").remove();
+        //jQuery("div#customOptions").append($span);
+        // jQuery("div#customOptions div#otherproduct-customoptions").css("display","block");
+               
+
+    });
+
+});
+
+})(jQuery);
+</script>

@@ -1,0 +1,137 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+
+<?php
+$_product = $this->getProduct();
+$_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes());
+/*$leadTime = ($_product->getleadTime()) ? $_product->getleadTime() : '';
+if ($leadTime != '') {
+    $leadTimeLabel = $_product->getResource()->getAttribute('lead_time')->getFrontend()->getValue($_product);
+}*/
+?>
+<?php if ($_product->isSaleable() && count($_attributes)): ?>
+    <dl>
+    <?php foreach ($_attributes as $_attribute): ?>
+        <dt><label class="required"><em>*</em><?php echo $_attribute->getLabel() ?></label></dt>
+        <dd<?php if ($_attribute->decoratedIsLast) { ?> class="last"<?php } ?>>
+            <div class="input-box">
+                <select name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" class="required-entry super-attribute-select">
+                    <!--<option><?php //echo $this->__('Choose an Option...')   ?></option>-->
+                </select>
+            </div>
+        </dd>
+    <?php endforeach; ?>
+    </dl>
+
+   <?php /* <div class="lead_time">     <?php echo $this->getChildHtml('other'); ?>
+    <?php
+        if ($leadTimeLabel != '') {
+            echo 'Lead Time : ' . $leadTimeLabel . ' Business Days';
+        }
+    ?>
+    </div>*/ ?>
+<?php /* <div class="nut_free"><img src="<?php echo $this->getSkinUrl() ?>/images/product-detail-bottom-img.jpg" /></div> */ ?>
+        <script type="text/javascript">
+            var spConfig = new Product.Config(<?php echo $this->getJsonConfig() ?>);
+            //spConfig.config.ajaxBaseUrl
+           
+            
+            function fireEvent(element,event)
+            {
+             /*    var arr=new Array();var i=0;
+            for(var key in spConfig.config.attributes) {
+
+                // alert(spConfig.config.attributes[key].options[0].products[0]);
+               // alert(i);
+                arr[i]=spConfig.config.attributes[key].options[0].products[0];
+                i++;
+            }
+            //  console.log(arr);
+           // alert("jhj");
+            jQuery.ajax({
+                data: "id="+arr[0]+"&pid="+arr[1],
+                type: "GET",
+                url: spConfig.config.ajaxBaseUrl+"co/",
+                complete: function(data){
+                    //console.log(data);
+                    jQuery('p.product-image').show();
+             jQuery('div.more-views').show();
+             jQuery('div.product-options-ajax').show();
+             jQuery('SCPcustomOptionsDiv').show();
+                }
+            });*/
+                if (document.createEventObject)
+                {
+                    // dispatch for IE
+                    var evt = document.createEventObject();
+                    return element.fireEvent('on'+event,evt);
+                }
+                else
+                {
+                    // dispatch for firefox + others
+                    var evt = document.createEvent("HTMLEvents");
+                    evt.initEvent(event, true, true );
+                    return !element.dispatchEvent(evt);
+                }
+            }
+
+            function setDefaultConfigOptions()
+            {
+                if (spConfigIndex >= spConfig.settings.length)
+                {
+                    return; // stop
+                }
+
+                spConfig.settings[spConfigIndex].selectedIndex = 1;
+                var obj = spConfig.settings[spConfigIndex];
+                // console.log("javed");
+                // console.log(obj);
+                // console.log(spConfig.config);
+                //console.log(spConfig.config.ajaxBaseUrl);
+                //alert(spConfig.config.attributes[key].id);
+                //console.log(spConfig.config.attributes[188]);
+
+
+
+                ++spConfigIndex;
+
+                Event.observe(obj,'change',function(){});
+                fireEvent(obj,'change');
+
+                window.setTimeout("setDefaultConfigOptions()", 1); // Add a small delay before moving onto the next option
+                // window.setTimeout("setDefaultConfigOptions()", "<?php //echo Mage::getStoreConfig('elenissec/elenisgrp/delay_product_option');   ?>"); // Add a small delay before moving onto the next option
+            }
+
+            var spConfigIndex = 0;
+            Event.observe(window, 'load', function() {
+                // alert("jhjh");
+                
+                setDefaultConfigOptions();
+            });
+        </script>
+
+<?php endif; ?>

@@ -1,0 +1,61 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+<?php
+/**
+ * Category layered navigation state
+ *
+ * @see Mage_Catalog_Block_Layer_State
+ */
+?>
+
+
+
+
+<?php $_filters = array_unique($this->getActiveFilters()) ?>
+<?php if (!empty($_filters)): ?>
+    <p class="block-subtitle"><?php echo $this->__('Currently Shopping by:') ?></p>
+    
+    <?php  foreach ($_filters as $_filter):    ?>
+        <div class="block-content"> <dl id="narrow-by-list"><dt><b><?php echo $this->__($_filter->getName()); ?></b></dt></dl>
+        <dl id="narrow-by-list">
+            <?php
+            $filterItem = Mage::getModel('catalog/layer_filter_price');
+            foreach ($filterItem->getItems() as $_item):
+                //echo "<pre>";print_r(Mage::app()->getRequest()->getParam('price'));
+                //echo "<pre>";print_r($_item->getValue());
+                ?>
+                <?php if(Mage::app()->getRequest()->getParam('price')==$_item->getValue()){
+                //if ($this->stripTags($_filter->getLabel()) == $_item->getLabel()) { ?>
+                     <a href="<?php echo $this->urlEscape($_item->getUrl()) ?>"><div class="selectcat"></div><dt><span style="font-weight:bold;"><?php echo $_item->getLabel() ?></span></dt></a><br/>  
+                <?php } else { ?>
+                     <a href="<?php echo $this->urlEscape($_item->getUrl()) ?>"><div class="unselectcat"></div><dt><?php echo $_item->getLabel() ?></dt></a><br/>  
+                    <?php } ?>
+                <?php endforeach ?>
+            <dl>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>

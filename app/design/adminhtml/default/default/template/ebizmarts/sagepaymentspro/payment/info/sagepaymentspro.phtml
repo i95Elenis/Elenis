@@ -1,0 +1,55 @@
+<?php $authorizations = $this->getAuthorizations(); ?>
+<?php if($authorizations->getSize()):
+    echo $this->__('<strong>AUTHORIZATIONS</strong>');
+    ?>
+    <div class="grid">
+        <table class="data" cellspacing="0">
+            <thead>
+            <tr class="headings">
+                <th><?php echo $this->__('Status'); ?></th>
+                <th><?php echo $this->__('Amount'); ?></th>
+                <th><?php echo $this->__('Reference Number'); ?></th>
+                <th><?php echo $this->__('Date'); ?></th>
+            </tr>
+            </thead>
+            <tbody class="even">
+            <?php foreach($authorizations->getItems() as $rfnd): ?>
+                <tr class="border">
+                    <td><?php echo $rfnd->getResponseStatus(); ?></td>
+                    <td><?php echo Mage::helper('core')->currency($rfnd->getAmount()); ?></td>
+                    <td><?php echo $rfnd->getTrnSecuritykey(); ?></td>
+                    <td><?php echo $rfnd->getTransactionDate(); ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+<?php endif; ?>
+
+<?php $refunds = $this->getRefunds(); ?>
+<?php if($refunds->getSize()):
+    echo $this->__('<strong>REFUNDS</strong>');
+    ?>
+    <div class="grid">
+        <table class="data" cellspacing="0">
+            <thead>
+            <tr class="headings">
+                <th><?php echo $this->__('Status'); ?></th>
+                <th><?php echo $this->__('Amount'); ?></th>
+                <th><?php echo $this->__('Reference Number'); ?></th>
+                <th><?php echo $this->__('Date'); ?></th>
+            </tr>
+            </thead>
+            <tbody class="even">
+            <?php foreach($refunds->getItems() as $rfnd): ?>
+                <tr class="border">
+                    <td><?php echo $rfnd->getResponseStatus(); ?></td>
+                    <td><?php echo Mage::helper('core')->currency($rfnd->getAmount()); ?></td>
+                    <td><?php echo $rfnd->getTrnSecuritykey(); ?></td>
+                    <td><?php echo $rfnd->getTransactionDate(); ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+<?php endif; ?>

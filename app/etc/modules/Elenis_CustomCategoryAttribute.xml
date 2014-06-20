@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ *
+ * @category       
+ * @package        Elenis_CustomCategoryAttribute
+ * @Description    
+ * @author         
+ * @copyright      
+ * @license        
+ */
+-->
+<config>
+    <modules>
+        <Elenis_CustomCategoryAttribute>
+            <active>active</active>
+            <codePool>local</codePool>
+        </Elenis_CustomCategoryAttribute>
+    </modules>
+</config>

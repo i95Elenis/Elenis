@@ -1,0 +1,34 @@
+<?xml version="1.0"?> 
+<config>
+	<acl>
+		<resources>
+			<all>
+				<title>Allow Everything</title>
+			</all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <amconf translate="title" module="amconf">
+                                        <title>Image-Based Dynamic Configurable Products</title>
+                                    </amconf>
+                                </children>
+                            </config>
+                        </children>
+                    </system> 
+                 </children>
+            </admin> 
+		</resources>
+	</acl>
+    <translate>
+        <modules>
+            <Amasty_Conf>
+                <files>
+                    <default>Amasty_Conf.csv</default>
+                </files>
+            </Amasty_Conf>
+        </modules>
+    </translate>
+</config> 

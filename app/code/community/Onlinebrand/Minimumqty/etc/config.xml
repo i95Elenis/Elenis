@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Onlinebrand_Minimumqty>
+            <version>1.0.1</version>
+        </Onlinebrand_Minimumqty>
+    </modules>
+	<global>
+		<models>
+			<onlinebrand_minimumqty>
+				<class>Onlinebrand_Minimumqty_Model</class>
+			</onlinebrand_minimumqty>
+		</models>
+		<resources>
+			<onlinebrand_minimumqty_setup>
+				<setup>
+					<module>Onlinebrand_Minimumqty</module>
+					<class>Onlinebrand_Minimumqty_Model_Resource_Eav_Mysql4_Setup</class>
+				</setup>
+		   
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</onlinebrand_minimumqty_setup>
+	   
+			<onlinebrand_minimumqty_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</onlinebrand_minimumqty_write>
+			
+			<onlinebrand_minimumqty_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</onlinebrand_minimumqty_read>
+		</resources>
+    </global>
+    <frontend>
+        <layout>
+			<updates>
+				<onlinebrand_minimumqty>
+					<file>onlinebrand_minimumqty.xml</file>
+				</onlinebrand_minimumqty>
+			</updates>
+		</layout>
+    </frontend>      
+</config>

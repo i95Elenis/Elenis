@@ -1,0 +1,127 @@
+ <?php
+ 
+/**
+ * Quickrfq extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   FME
+ * @package    FME_Quickrfq
+ * @author     Malik Tahir Mehmood<malik.tahir786@gmail.com>
+ * @copyright  Copyright 2010 © free-magentoextensions.com All right reserved
+ */
+
+ ?>
+	    
+
+	    <div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+	    <div class="page-title">
+		<h1><?php echo Mage::helper('quickrfq')->__('Quick RFQ') ?></h1>
+	    </div>
+	    <form  action="<?php echo $this->getPostActionUrl(); ?>" method="post" enctype="multipart/form-data" id="quickrfq_form">
+                <div class="fieldset">
+		    <h2 class="legend"><?php echo Mage::helper('quickrfq')->__('RFQ Requirements') ?></h2>
+		    <ul class="form-list">
+			<li>
+			    <label for="company"><?php echo Mage::helper('quickrfq')->__('Company Name:') ?></label>
+			    <div class="input-box">
+				<input style="font-size:14px;" name="company" value="" class="input-text" type="text" size="29"/>
+			    </div>
+			</li>
+			<li class="fields">
+			    <div class="field">
+				<label for="name" class="required"><em>*</em><?php echo Mage::helper('quickrfq')->__('Contact Name:') ?></label>
+				<div class="input-box">
+				    <input style="font-size:14px;" name="contact_name" id="name" title="<?php echo Mage::helper('quickrfq')->__('Contact Name') ?>" value="<?php echo $this->htmlEscape($this->helper('quickrfq')->getUserName()) ?>"  size="29"  type="text" class="input-text required-entry" /></td>
+				</div>
+			    </div>
+			</li>
+			<li class="fields">
+			    <div class="field">
+				<label for="email" class="required"><em>*</em><?php echo Mage::helper('quickrfq')->__('Email:') ?></label>
+				<div class="input-box">
+				    <input style="font-size:14px;" name="email" id="email" title="<?php echo Mage::helper('quickrfq')->__('Email') ?>" value="<?php echo $this->htmlEscape($this->helper('quickrfq')->getUserEmail()) ?>"  size="29" type="text" class="input-text required-entry validate-email"/>
+				</div>
+			    </div>
+			</li>
+		       <li>
+			    <label for="telephone"><?php echo Mage::helper('quickrfq')->__('Contact Number:') ?></label>
+			    <div class="input-box">
+				<input style="font-size:14px;" name="phone" id="telephone"  type="text" size="29" />
+			    </div>
+			</li>
+			<li>
+			    <label for="title"><?php echo Mage::helper('quickrfq')->__('Project Title:') ?></label>
+			    <div class="input-box">
+				<input style="font-size:14px;" name="project_title" id="title" type="text" size="29" />
+			    </div>
+			</li>
+			<li>
+			    <label for="date"><?php echo Mage::helper('quickrfq')->__('Quote Needed By:') ?></label>
+			    <div class="input-box">
+				<input style="font-size:14px;" value="<?php echo $this->getEstimateDate() ?>" id="calendar-inputField" name="date">
+				    <img id="calendar-trigger" src="<?php echo $this->getSkinUrl() ?>images/quickrfq/cal.gif" width="20px" height="20px" style="" />
+			    </div>
+			</li>
+			
+			<li>
+			    <label for="status"><?php echo Mage::helper('quickrfq')->__('Project Budget Status:') ?></label>
+			    <div class="input-box">
+			       <input name="budget" value="Approved" checked="checked" type="radio"><?php echo Mage::helper('quickrfq')->__('Approved') ?>
+			       <input name="budget" value="Approval Pending" type="radio"><?php echo Mage::helper('quickrfq')->__('Approval Pending') ?>
+			       <br>
+			       <input name="budget" value="Open" type="radio"><?php echo Mage::helper('quickrfq')->__('Open') ?>
+			       <input name="budget" value="No Approval" type="radio"><?php echo Mage::helper('quickrfq')->__('No Approval') ?>
+			    </div>
+			</li>
+			<li class="wide">
+			    <label for="quickrfq" class="required"><em>*</em><?php echo Mage::helper('quickrfq')->__('Brief Overview:') ?></label>
+			    <div class="input-box">
+				<textarea name="overview" id="overview" title="<?php echo Mage::helper('quickrfq')->__('Brief Overview') ?>" class="input-text required-entry" style="font-size:14px;" name="overview" cols="55" rows="30" id="project_overview"></textarea>
+			    </div>
+			</li>
+			    
+			    
+			<li>
+			    <label for="file"><?php echo Mage::helper('quickrfq')->__('Upload Document:') ?></label>
+			    <div class="input-box">
+				<?php echo $this->getUploadFile() ?>
+				<br>
+				  <p> You can upload files with these file extensions only (<?php echo $this->getAllowedExtensions() ?> )</p>
+			    </div>
+			 </li>
+			<li>
+			    
+			    <input name="captacha_code" type="hidden" id="captacha_code" value="<?php echo $code=$this->getNewrandCode(6)?>" />
+			    <label for="image"><img src="<?php echo $this->getSecureImageUrl() ?>CaptchaSecurityImages.php?width=180&height=40&code=<?php echo $code?>" /></label><br/>
+			    <div class="input-box">
+				<label for="security_code" class="required"><em>*</em><b>Security Code Message:</b></label><br />
+				<input id="security_code" name="security_code" type="text" /> <br />
+				If you have difficulty in reading the image above then refresh your browser a few times until you see an image that is clear enough to copy.
+			
+			    </div> 
+			</li>
+		    </ul>
+		</div>
+		<div class="buttons-set">
+		    <p class="required"><?php echo Mage::helper('quickrfq')->__('* Required Fields') ?></p>
+		    <input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+		    <button type="submit" title="<?php echo Mage::helper('quickrfq')->__('Submit') ?>" class="button"><span><span><?php echo Mage::helper('quickrfq')->__('Send Request') ?></span></span></button>
+		</div>
+		
+            </form>
+		
+		 <script>//<![CDATA[
+		Calendar.setup({ trigger: "calendar-trigger", inputField: "calendar-inputField" });
+		//]]></script>
+		
+		<script type="text/javascript">
+		//<![CDATA[
+		    var contactForm = new VarienForm('quickrfq_form', true);
+		//]]>
+		</script>

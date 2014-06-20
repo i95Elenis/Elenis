@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<config>
+    <default>
+        <carriers>
+            <!-- Use group alias -->
+            <storepickupmodule>
+                <active>1</active>
+                <!-- Use method name -->
+                <allowed_methods>pickup</allowed_methods>
+                <!-- Use method name -->
+                <methods>pickup</methods>
+                <sallowspecific>0</sallowspecific>
+                <!-- Use module name_Shipping_Model_Carrier_class name -->
+                <model>StorePickup_Shipping_Model_Carrier_StorePickup</model>
+                <name>Store Pickup</name>
+                <title>Store Pickup</title>
+                <specificerrmsg>
+                    This shipping method is currently unavailable.
+                    If you would like to ship using this shipping
+                    method, please contact us.
+                </specificerrmsg>
+                <handling_type>F</handling_type>
+            <!-- Use group alias -->
+            </storepickupmodule>
+        </carriers>
+    </default>
+    <modules>
+        <!-- declare module's version information -->
+        <!-- Use module name_Shipping -->
+        <StorePickup_Shipping>
+            <!-- this version number will be used for database upgrades -->
+            <version>0.1.0</version>
+        <!-- Use module name_Shipping -->
+        </StorePickup_Shipping>
+    </modules>
+    <global>
+        <!-- declare model group for new module -->
+        <models>
+            <!-- model group alias to be used in Mage::getModel() -->
+            <!-- Use group alias -->
+            <storepickupmodule>
+                <!-- base class name for the model group -->
+                <!-- Use module name_Shipping_Model -->
+                <class>StorePickup_Shipping_Model</class>
+            <!-- Use group alias -->
+            </storepickupmodule>
+        </models>
+        <!-- declare resource setup for new module -->
+        <resources>
+            <!-- resource identifier -->
+            <!-- Use group alias_setup -->
+            <storepickupmodule_setup>
+                <!-- specify that this resource is a setup resource and used for upgrades -->
+                <setup>
+                    <!-- which module to look for install/upgrade files in -->
+                    <!-- Use module name_Shipping_Model -->
+                    <module>StorePickup_Shipping</module>
+                </setup>
+                <!-- specify database connection for this resource -->
+                <connection>
+                    <!-- do not create new connection, use predefined core setup connection -->
+                    <use>core_setup</use>
+                </connection>
+            <!-- Use group alias_setup -->
+            </storepickupmodule_setup>
+        </resources>
+    </global>
+</config>

@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!--
+/** Upscalendar
+ *
+ * @category   Webshopapps
+ * @package    Webshopapps_upscalendar
+ * @copyright  Copyright (c) 2011 Zowta Ltd (http://www.webshopapps.com)
+ * @license    http://www.webshopapps.com/license/license.txt - Commercial license
+ */
+-->
+<config>
+    <modules>
+        <Webshopapps_Upscalendar>
+            <version>0.0.2</version>
+        </Webshopapps_Upscalendar>
+    </modules>
+    <frontend>
+        <routers>
+            <upscalendar>
+                <use>standard</use>
+                <args>
+                    <module>Webshopapps_Upscalendar</module>
+                    <frontName>upscalendar</frontName>
+                </args>
+            </upscalendar>
+        </routers>
+    </frontend>
+    <global>
+        <blocks>
+            <upscalendar>
+                <class>Webshopapps_Upscalendar_Block</class>
+            </upscalendar>
+        </blocks>
+        <sales>
+            <quote>
+                <item>
+                    <product_attributes>
+                        <max_transit/>
+                    </product_attributes>
+                </item>
+            </quote>
+        </sales>
+        <models>
+            <upscalendar>
+                <class>Webshopapps_Upscalendar_Model</class>
+            </upscalendar>
+            <usa>
+                <rewrite>
+                    <shipping_carrier_ups>Webshopapps_Wsacommon_Model_Usa_Shipping_Carrier_Ups</shipping_carrier_ups>
+                </rewrite>
+            </usa>
+        </models>
+        <resources>
+            <upscalendar_setup>
+                <setup>
+                    <module>Webshopapps_Upscalendar</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+            </upscalendar_setup>
+        </resources>
+        <helpers>
+            <upscalendar>
+                <class>Webshopapps_Upscalendar_Helper</class>
+            </upscalendar>
+        </helpers>
+    </global>
+    <default>
+        <shipping>
+            <webshopapps_dateshiphelper>
+                <max_delivery_days>3</max_delivery_days>
+            </webshopapps_dateshiphelper>
+        </shipping>
+    </default>
+</config>

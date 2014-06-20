@@ -1,0 +1,5 @@
+<?php
+
+class Undottitled_Estimateddeliverydate_Model_Mysql4_Deliveries_Collection extends Undottitled_Estimateddeliverydate_Model_Resource_Message_Collection
+{
+}

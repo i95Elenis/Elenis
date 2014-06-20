@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!--
+* WebShopApps Shipping Module
+*
+* @category    WebShopApps
+* @package     WebShopApps_DateShipHelper
+* User         karen
+* Date         18/05/2013
+* Time         23:41
+* @copyright   Copyright (c) 2013 Zowta Ltd (http://www.webshopapps.com)
+*              Copyright, 2013, Zowta, LLC - US license
+* @license     http://www.WebShopApps.com/license/license.txt - Commercial license
+*
+*
+-->
+<config>
+    <modules>
+        <Webshopapps_DateShipHelper>
+            <version>0.1.0</version>
+        </Webshopapps_DateShipHelper>
+    </modules>
+    <frontend>
+        <routers>
+            <webshopapps_dateshiphelper>
+                <use>standard</use>
+                <args>
+                    <module>Webshopapps_DateShipHelper</module>
+                    <frontName>webshopapps_dateshiphelper</frontName>
+                </args>
+            </webshopapps_dateshiphelper>
+        </routers>
+    </frontend>
+    <global>
+        <models>
+            <webshopapps_dateshiphelper>
+                <class>Webshopapps_DateShipHelper_Model</class>
+            </webshopapps_dateshiphelper>
+        </models>
+        <helpers>
+            <webshopapps_dateshiphelper>
+                <class>Webshopapps_DateShipHelper_Helper</class>
+            </webshopapps_dateshiphelper>
+        </helpers>
+        <events>
+            <admin_system_config_changed_section_shipping>
+                <observers>
+                    <webshopapps_dateshiphelper_error_observer>
+                        <class>webshopapps_dateshiphelper/observer</class>
+                        <method>postError</method>
+                    </webshopapps_dateshiphelper_error_observer>
+                </observers>
+            </admin_system_config_changed_section_shipping>
+        </events>
+    </global>
+    <default>
+        <shipping>
+            <webshopapps_dateshiphelper>
+                <active>0</active>
+                <ship_once>0</ship_once>
+                <serial backend_model="adminhtml/system_config_backend_encrypted"/>
+                <delivery_daysofweek>7</delivery_daysofweek>
+                <production_daysofweek>7</production_daysofweek>
+                <delivery_dates>07/04/2013,09/02/2013,10/14/2013,11/11/2013,11/28/2013,12/25/2013</delivery_dates>
+                <production_dates>07/04/2013,09/02/2013,10/14/2013,11/11/2013,11/28/2013,12/25/2013</production_dates>
+                <date_format>2</date_format>
+                <cutoff_time>13:00</cutoff_time>
+                <production_days>0</production_days>
+                <delivery_display_text>Delivers</delivery_display_text>
+            </webshopapps_dateshiphelper>
+        </shipping>
+    </default>
+</config>

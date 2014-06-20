@@ -1,0 +1,373 @@
+
+/**
+ * Custom Product Preview
+ *
+ * @category:    Aitoc
+ * @package:     Aitoc_Aitcg
+ * @version      11.2.2
+ * @license:     n/a
+ * @copyright:   Copyright (c) 2013 AITOC, Inc. (http://www.aitoc.com)
+ */
+div.popup-separator
+{
+	margin: 3px;
+	clear: both;
+}
+
+div.popup-separator-title
+{
+	font-weight: bold;
+	width: 100%;
+	border-top: 1px solid black;
+	padding: 8px 0;
+}
+
+div.aitcg_image_div {
+    position:relative;
+    float: none;
+	width: 0;
+}
+div.aitcg_image_div img.bg {
+    /*position:absolute;*/
+    top:0px;
+    left:0px;
+    z-index: 97; position:relative;
+}
+
+div.aitcg_image_div div.th {
+    position:absolute;
+    top:-1px;
+    left:-1px; z-index: 0;
+
+}
+
+div.aitcg_image_div div.th div {
+    /*position: relative;*/
+    position: absolute;
+    border:1px solid black;
+    overflow: hidden;
+    width:auto;
+    height:auto;
+
+}
+
+div.aitcg_image_div div.th div img.ith {
+    position:absolute;
+    top:0px;
+    left:0px;
+
+}    
+    
+#loading-mask {
+    background:url(/js/aitoc/aitcg/img/blank.gif) repeat;
+    position:absolute;
+    color:#d85909;
+    font-size:1.1em;
+    font-weight:bold;
+    text-align:center;
+    opacity:0.80;
+/*    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)"; *//* IE8 */
+    filter: alpha(opacity=80);
+
+	z-index:9999;
+    }
+#loading-mask .loader {
+    position:fixed;
+    top:45%;
+    left:50%;
+    width:120px;
+    margin-left:-60px;
+    padding:15px 60px;
+    background:#ffd7e8;
+    border:2px solid #D53679;
+    color:#d85909;
+    font-weight:bold;
+    text-align:center;
+    z-index:1000;
+}
+
+#message-popup-window-mask { position:absolute; top:0; right:0; bottom:0; left:0; width:100%; height:100%; z-index:1000; background-color:#efefef; opacity:.5; /*-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";*//*IE8*/    filter: alpha(opacity=80); }
+.message-popup { position:absolute; z-index:1010; width:407px; top:-9999em; left:50%; margin:0 0 0 -203px; background:#f3bf8f; padding:0 4px 4px; }
+.message-popup.show { top:280px; }
+.message-popup .message-popup-head { padding:1px 0; }
+.message-popup .message-popup-head h2 { padding:0 10px; margin:0; font:bold 12px/19px Arial, Helvetica, sans-serif; color:#644f3b; }
+.message-popup .message-popup-head a { float:right; border:1px solid #ea7601; padding:0 12px 0 7px; background:url(/js/aitoc/aitcg/images/bkg_btn-close.gif) 0 50% repeat-x !important; font:normal 12px/17px Arial, Helvetica, sans-serif; color:#fff; text-decoration:none !important; cursor:pointer; }
+.message-popup .message-popup-head a span { float:left; background:url(/js/aitoc/aitcg/images/bkg_btn-close2.gif) 0 50% no-repeat; padding-left:19px; }
+.message-popup .message-popup-ait { 
+    position:relative; 
+    overflow:hidden;
+}
+
+#wrapperAitcgUrl{
+display: none;
+}
+
+.message-popup .aitclear {
+    clear:both;
+}
+
+.message-popup .message-popup-ait div.message-popup-aitraph {
+    position:absolute;
+    border: 1px solid #FAA819;
+    overflow: hidden;
+}
+
+.message-popup .print-area-editor {
+    padding-bottom:0px;
+}
+
+.print-area-editor .message-popup-head a.apply-but {
+    padding: 0px 12px;
+}
+
+.print-area-editor .message-popup-head a.reset-but {
+    padding: 0px 12px;
+    float:left;
+} 
+
+.input-box .aitinput {
+    /*float: left; */
+    width: auto; 
+    margin-right: 20px;
+}
+.input-box .aitimage {
+}
+.input-box .aitclear {
+    clear:both;
+}
+
+.aitcgpopup{
+    display:block;
+    width:750px;
+    position:absolute;
+    border:1px solid #C4C6C8;
+    background-image:url(/js/aitoc/aitcg/img/pop_bottom_bg.png);
+    background-position:bottom left;
+    background-repeat:repeat-x;
+    background-color:#FFF;
+    padding-bottom:18px;
+    z-index: 1001;left:50%;margin:0 0 0 -350px;
+}
+    
+.aitcgpopInner {
+    height:35px;
+    background-image:url(/js/aitoc/aitcg/img/pop_top_bg.png);
+    background-position:top left;
+    background-repeat:repeat-x;
+    position:relative;
+}
+    
+.aitcgpopInner .close_btn {
+    display:block;
+    height:32px;
+    width:32px;
+    position:absolute;
+    right:5px;
+    top:5px;
+    background-image:url(/js/aitoc/aitcg/img/close_bg.png);
+    background-position:left top;
+    background-repeat:no-repeat;
+    z-index:100;
+    cursor:pointer;
+}
+    
+.aitcgpop_text{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:12px;
+    font-weight:bold;
+    text-align:center;
+    color:#6D6E6E;
+    margin:5px 25px;}
+    
+.aitcgpop_btn{
+    height:40px;
+    background-image:url(/js/aitoc/aitcg/img/btn_left_bg.png);
+    background-position:left top;
+    background-repeat:no-repeat;
+    position:relative;
+    width:150px;
+    margin:auto;
+    margin-top:15px;
+    cursor:pointer;
+    display:inline-block;}
+    a.aitcgpop_btn, a.aitcgpop_btn:hover, a.aitcgpop_btn:visited {
+        text-decoration: none;
+    }
+    
+.aitcgpop_btn .pop_btn_right{
+    width:17px;
+    height:40px;
+    background-image:url(/js/aitoc/aitcg/img/btn_right_bg.png);
+    position:absolute;
+    right:0;
+    top:0;}
+    
+.aitcgpop_btn p{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:18px;
+    font-weight:bold;
+    text-align:center;
+    color:#7D7E7E;
+    padding:0;
+    margin:0;
+    line-height:40px;}
+
+
+/* Styles for ColorPicker popUp */
+
+.jscolorpicker
+{
+    border: 1px solid #406a83;
+    height: 19px;
+    margin-left: 3px;
+}
+
+/* new style */
+
+#message-popup-window{
+	background-color:#fff;
+	border:4px solid #D1226C;
+	padding:10px 15px;}
+	
+	
+	#aitcg_popup_image_container{
+		margin:12px 0 0 0;
+	}
+	
+.message-popup .message-popup-head a.close2 {
+    border: none;
+    cursor: pointer;
+    float: right;
+    font: 12px/17px Arial,Helvetica,sans-serif;
+    text-decoration: none !important;
+	background-image:url(img/close.png) !important;
+	background-position:left top;
+	background-repeat:no-repeat;
+	width:32px;
+	height:32px;
+	padding:0;
+	text-indent:-5000px;}
+	
+.message-popup .message-popup-head a.help2 {
+    border: none;
+    cursor: pointer;
+    float: right;
+    font: 12px/17px Arial,Helvetica,sans-serif;
+    text-decoration: none !important;
+	background-image:url(img/help.png) !important;
+	background-position:right center !important;
+	background-repeat:no-repeat !important;
+	width:32px;
+	height:32px;
+	padding:0;
+	text-indent:-5000px;}	
+	
+#message-popup-window button{
+    background: none repeat scroll 0 0 #D1226C;
+    border: 1px solid #D94A85;
+    color: #FFFFFF;
+    cursor: pointer;
+    float: right;
+    font-size: 11px;
+    font-weight: bold;
+    height: 24px;
+    line-height: 19px;
+    margin: 0 5px 10px 0;
+    padding: 0 8px;
+    text-align: center;
+    white-space: nowrap;
+    width: 100px;	
+}
+
+#message-popup-window button:hover{
+	 background: none repeat scroll 0 0 #D1226C !important;
+}
+
+.message-popup-ait input,.message-popup-ait select{
+	margin: 0 0 12px;
+    padding: 1px;
+    /* width: 200px; */	
+}
+.message-popup-ait table.form-list
+{
+    border-spacing: 5px;
+}
+.message-popup-ait table.form-list label
+{
+    width: auto;
+}
+.message-popup #qqq a
+{
+	border: 1px solid #D94A85;
+	padding:4px 12px;
+	color:#fff;
+	height: auto !important;
+	background-image: none !important;
+	text-indent:0 !important;
+	font-weight:bold;
+	background-color:#D1226C !important;
+}
+
+.message-popup #qqq #saveas-buttons
+{
+    margin: 2px auto;
+    text-align: center;
+    display: none;
+}
+
+/* Tooltips CSS definitions */	
+
+.tooltip {
+	position: absolute!important;
+	overflow:hidden;
+	font-size: 12px;
+	z-index: 10000!important;
+}
+.tooltip .xtop, .tooltip .xbottom { display: block; background: transparent; font-size: 1px; }
+.tooltip .xb1, .tooltip .xb2, .tooltip .xb3, .tooltip .xb4 { display: block; overflow: hidden; }
+.tooltip .xb1, .tooltip .xb2, .tooltip .xb3 { height: 1px; }
+.tooltip .xb2, .tooltip .xb3, .tooltip .xb4 { background: #666; border-left: 1px solid #333; border-right: 1px solid #333; }
+.tooltip .xbottom .xb2, .tooltip .xbottom .xb3, .tooltip .xbottom .xb4 { background: #666; }
+.tooltip .xb1 { margin: 0 5px; background: #333; }
+.tooltip .xb2 { margin: 0 3px; border-width: 0 2px; }
+.tooltip .xb3 { margin: 0 2px; }
+.tooltip .xb4 { height: 2px; margin: 0 1px; }
+
+.tooltip .xarrow {
+    position: relative;
+    top: 2px; left: 12px;
+    width: 11px;
+    height: 7px;
+}
+
+.tooltip .xarrow b {
+    display: block;
+    background:#666;
+    border-left:1px solid #333;
+    border-right:1px solid #333;
+    font-size:1px;
+    height: 1px;
+}
+
+.tooltip .xarrow .a1 { margin: 0 5px; background-color: #333; border: 0 solid; width: 1px; }
+.tooltip .xarrow .a2 { width: 1px; margin: 0 4px;}
+.tooltip .xarrow .a3 { width: 3px; margin: 0 3px;}
+.tooltip .xarrow .a4 { width: 5px; margin: 0 2px;}
+.tooltip .xarrow .a5 { width: 7px; margin: 0 1px;}
+.tooltip .xarrow .a6 { width: 9px; margin: 0 0px;}
+
+.tooltip .xboxcontent {
+    padding: 0 .5em;
+    margin: 0;
+    color: #000;
+    text-shadow: 1px 1px 0px #CCC;
+    word-wrap:break-word;
+    border: 1px solid #333;
+    border-width: 0px 1px 0 1px;
+    background-color: #666;
+}
+
+.aitcg_error {
+    color: #dd0000;
+    font-size: 12px;
+}

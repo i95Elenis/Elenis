@@ -1,0 +1,1123 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     enterprise_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+
+<?php
+/**
+ * Ship to multiple address template
+ *
+ * @see Mage_Checkout_Block_Multishipping_Addresses
+ */
+?>
+
+<?php
+//$totalQty = 0;
+
+$quote = Mage::getSingleton('checkout/session')->getQuote();
+$quoteId = $quote->getId();
+$customerId = Mage::getSingleton('customer/session')->getCustomer()->getId();
+$multiShip = Mage::getModel("customcheckoutmultipleaddress/multiship");
+$storeId = $quote->getStoreId();
+
+//$condition['customer_id'] = $customerId;
+/* foreach($multiShipData as $multiShipVal)
+  {
+  $addresses[]=explode(",",$multiShipVal['addresses']);
+  }
+  $addressesIds=$multiShip->multidimensionalArrayToSingleDimensionArray($addresses);
+ */
+//echo "<pre>";print_r($multiShip->loadByColumn($quoteId,$customerId));exit;
+//echo "<pre>";print_r($multiShip->loadByColumns($condition));
+//echo "<pre>";print_r($multiShip->loadById(4));exit;
+//$addresses  = Mage::getSingleton('checkout/session')->getQuote()->getAllAddresses();
+//$itemAddressArray = array();
+
+/*              $curItemId = $item->getId();
+  $itemAddressArray[$curItemId] = $address->getAddressId();
+  //$tempaddress = Mage::getSingleton('checkout/session')->getQuote()->getAddressById($address->getAddressId());
+  //print_r($address->getCollection()->getData());
+  }
+  }
+ */
+//echo "<pre>";
+//print_r($itemAddressArray); exit;
+//$quoteAddresses = Mage::getModel('sales/quote_address')->getCollection()->addFieldToSelect('address_id')->addFieldToFilter('quote_id', $quoteId)
+$quoteAddresses = Mage::getModel('sales/quote_address')->getCollection()->addFieldToSelect('*')->addFieldToFilter('quote_id', $quoteId)
+                ->addFieldToFilter('customer_id', $customerId)->addFieldToFilter('address_type', 'shipping');
+$flag = 0;
+//echo "<pre>";print_r($multiShip->multidimensionalArrayToSingleDimensionArray($quoteAddresses->getData()));exit;
+?>
+
+<form id="checkout_multishipping_form"   action="<?php echo $this->getPostActionUrl() ?>?operation=update" method="post">
+    <div class="page-title title-buttons">
+        <h1><?php echo $this->__('Ship to Multiple Addresses') ?></h1>
+        <button type="button" title="<?php echo $this->__('Enter a New Address') ?>" class="button" onclick="$('add_new_address_flag').value=1; $('checkout_multishipping_form').submit();"><span><span><?php echo $this->__('Enter a New Address') ?></span></span></button>
+    </div>
+
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <fieldset class="multiple-checkout">
+        <input type="hidden" name="continue" value="0" id="can_continue_flag" />
+        <input type="hidden" name="updated_flag" value="0" id="updated_flag" />
+        <input type="hidden" name="next_step_flag" value="0" id="next_step_flag" />
+        <input type="hidden" name="new_address" value="0" id="add_new_address_flag" />
+        <input type="hidden" name="storepickupVal"  id="storepickupVal" />
+        <input type="hidden" name="checkedstorepickup"  id="checkedstorepickup" />
+        <h2 class="table-caption"><?php echo $this->__('Please select shipping address for applicable items') ?></h2>
+        <table class="data-table" id="multiship-addresses-table">
+            <col />
+            <col width="1" />
+            <col width="1" />
+            <col width="1" />
+            <thead>
+                <tr>
+                    <th><?php echo $this->__('Product') ?></th>
+                    <th class="a-center"><?php echo $this->__('Qty') ?></th>
+                    <th><?php echo $this->__('Send To') ?></th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td colspan="100" class="a-right"><button type="submit" class="button" onclick="$('can_continue_flag').value=0;$('next_step_flag')=0" id="updateqty"><span><span><?php echo $this->__('Update Qty &amp; Addresses') ?></span></span></button></td>
+                </tr>
+            </tfoot>
+            <tbody>
+                <?php
+                $recipientCounter = 1;
+                $quantities = 0;
+                $row = 1;
+                foreach ($quoteAddresses as $address) {
+
+                    $quoteAddressItems = Mage::getModel('sales/quote_address_item')->getCollection()->addFieldToSelect('*')->addFieldToFilter('quote_address_id', $address->getAddressId())->setOrder('address_item_id');
+                    // echo "<pre>";print_r($quoteAddressItems->getData());exit;
+                    foreach ($quoteAddressItems as $addressItems) {
+
+                        //$tempQuoteItemId=$multiShip->quoteItemsListByConditionColumns($quoteId,$storeId,$addressItems->getProductId());
+
+                        $flag = 1;
+                        //$multiShipData=$multiShip->quoteAddressItemsListByConditionColumns($tempQuoteItemId);
+                        $productModel = Mage::getModel('catalog/product')->load($addressItems->getProductId());
+
+                        if ($addressItems->getParentItemId() != '' && $addressItems->getCheckMultiple() == 0) {
+
+                            // echo "<pre>";print_r($multiShipData);
+                            // foreach ($multiShipData as $multiShipVal) {
+                            // echo "<pre>";print_r($multiShipVal);
+                            if ($addressItems->getQty() > 0) {
+                                //echo "<pre>";print_r($multiShipVal);
+                ?>
+                                <tr id="data">
+                                    <td><h3 class="product-name"><a href="<?php echo $productModel->getProductUrl(); ?>" alt="<?php echo ($addressItems->getName()); ?>"><img src="<?php echo $productModel->getImageUrl(); ?>" width="125" height="110" alt="<?php echo $productModel->getName(); ?>" /><?php echo ($addressItems->getName()); ?></a></h3></td>
+
+
+                                    <td><input type="text" name="ship[<?php echo $addressItems->getAddressItemId(); ?>][qty]" value="<?php echo round($addressItems->getQty()) ?>" size="2" class="input-text qty" id="<?php echo "multiple-receipent-qty_" . $row; ?>" /></td>
+
+
+                                    <td><?php
+                                if ($productModel->getIsVirtual()): echo $this->__('Shipping selection is not applicable');
+                                else: echo $this->getAddressesHtmlSelect($addressItems, $row); ?>
+                                    <script type="text/javascript">
+                                        var address=0;
+                                        address=<?php echo Mage::getModel("customcheckoutmultipleaddress/multiship")->getSelectOptionId($addressItems->getId()); ?>
+
+                                        // alert(address);
+                                        jQuery("select.shipping-address_"+<?php echo $row; ?>+" option").each(function(){
+                                            if(jQuery(this).val()==address)
+                                            {
+                                                jQuery("select.shipping-address_"+<?php echo $row; ?>+" option[value="+address+"]").attr("selected","selected");
+                                            }
+                                        });
+                                    </script>
+                        <?php
+                                    endif;
+                                    $row++;
+                        ?>
+                                    <div> <a href="javascript:void(null)" onClick="showItemEditAddress(<?php echo $row; ?>)">EDIT </a>&nbsp;
+                                        |&nbsp;<a href="javascript:void(null)" onClick="showItemAddress(<?php echo $row; ?>)">VIEW</a>&nbsp;
+                                        |&nbsp;<a href="<?php echo Mage::getBaseUrl() ?>checkout/multishipping_address/newShipping/">ADD NEW RECIPIENT </a>
+                                        |
+                                        <form name="storeform" method="post" >
+                                            <input type="checkbox" name="storepickupmodule_<?php echo $row - 1; ?>" id="storepickupmodule_<?php echo $row - 1; ?>" value="<?php echo $row - 1; ?>" class="checkbox" />
+
+                                            <label for="multishipping_id"><?php echo $this->__('Store Pickup (NYC Only)') ?></label>
+                                        </form>
+                                    </div>
+                                    <div class="current-address">
+
+                                        <div id="item_address_<?php echo $row ?>" style="display:none;">
+                                <?php //echo "<pre>";print_r($address->getData()); ?>
+                                    <h3>Current address</h3>
+                                    <p><label>Name :</label> <?php echo $address->getFirstname() . ' ' . $address->getLastname(); ?></p>
+                                    <p><label>Email : </label><?php echo ($address->getEmail()); ?></p>
+                                    <p><label>Company : </label><?php echo (($address->getCompany()) ? $address->getCompany() : "No Data Found"); ?></p>
+                                <?php $street = $address->getStreet(); ?>
+                                    <p><label>Street : </label><?php echo ($street[0] ? $street[0] : "No Data Found"); ?></p>
+                                    <!--<p><label>Street : <?php //echo "<pre>";print_r($address->getStreet());             ?></label></p>-->
+                                    <p><label>City :</label> <?php echo $address->getCity(); ?>,&nbsp;
+                                    <p><label>Telephone :</label><?php echo $address->getTelephone(); ?>, &nbsp; </p>
+                                    <p><label>Country :</label><?php echo $address->getCountryId(); ?>, &nbsp; <?php echo " - " . $address->getPostcode(); ?></p>
+
+                                </div>
+
+                                <div id="item_address_edit_<?php echo $row; ?>" style="display:none;">
+                                    <h3>Current address</h3>
+                                    <p><label>First Name :</label> <input type="text" id="itemaddr_firstname_<?php echo $row; ?>" name="itemaddr_firstname_<?php echo $row; ?>" value="<?php echo $address->getFirstname(); ?>"/></p>
+                                    <p><label>Last Name :</label> <input type="text" id="itemaddr_lastname_<?php echo $row; ?>" name="itemaddr_lastname_<?php echo $row; ?>" value="<?php echo $address->getLastname(); ?>"/></p>
+                                    <p><label>Company : </label> <input type="text" id="itemaddr_company_<?php echo $row; ?>" name="itemaddr_comapny_<?php echo $row; ?>" value="<?php echo $address->getCompany(); ?>"/></p>
+                                <?php $editStreet = $address->getStreet(); ?>
+                                    <p><label>Street : </label> <textarea id="itemaddr_street_<?php echo $row; ?>" name=""itemaddr_street_<?php echo $row; ?>><?php echo $editStreet[0]; ?></textarea></p>
+                                    <p><label>City :</label> <input type="text" id="itemaddr_city_<?php echo $row; ?>" name="itemaddr_city_<?php echo $row; ?>" value="<?php echo $address->getCity(); ?>"/></p>
+                                    <p><label>Post Code :</label> <input type="text" id="itemaddr_postcode_<?php echo $row; ?>" name="itemaddr_postcode_<?php echo $row; ?>" value="<?php echo $address->getPostcode(); ?>"/></p>
+                                    <p><label>Telephone :</label> <input type="text" id="itemaddr_telephone_<?php echo $row; ?>" name="itemaddr_telephone_<?php echo $row; ?>" value="<?php echo $address->getTelephone(); ?>"/></p>
+                                    <input type="button" id="itemaddr_submit_<?php echo $row; ?>" name="itemaddr_submit_<?php echo $row; ?>" value="submit" onclick="makeAjaxSaveItemAddress(<?php echo $row . "," . $address->getCustomerAddressId() . "," . $address->getAddressId(); ?>)"/>
+                                </div>
+
+
+                            </div>
+                        <?php
+                                    $curItemQty = $addressItems->getQty();
+                                    //$totalQty+=$multiShipVal->getQty();
+                                    // Execute only when qty is more than 1
+                                    if ($curItemQty > 1) {
+                        ?>
+                                        <a href="#" class="recipientsques_<?php echo $recipientCounter; ?>">Are you sending this item to multiple recipients?</a>
+                                        <br>
+                                        <div id="receipantsnumform_<?php echo $recipientCounter; ?>" style="display:none;" class="recipient-form">
+                                            <input type="hidden" id="itemsku_<?php echo $recipientCounter; ?>" name="itemsku_<?php echo $recipientCounter; ?>" value="<?php echo $productModel->getSku(); ?>"/><br>
+                                            <label>Please enter total number of recipients:</label>
+                                            <input type="text" id="numrecipients_<?php echo $recipientCounter; ?>" name="numrecipients_<?php echo $recipientCounter; ?>" value="1"/>
+                                            <input type="button" id="receipantsnumformsubmit_<?php echo $recipientCounter; ?>" name="receipantsnumformsubmit_<?php echo $recipientCounter; ?>" value="submit" />
+
+                                        </div>
+                                        <div id="receipantqtyform_<?php echo $recipientCounter; ?>" style="display:none;" class="receipant-section">
+
+                                        </div>
+                                        <div id="warning_<?php echo $recipientCounter; ?>"></div>
+
+                        <?php //echo $this->test(); ?>
+
+                                        <script type="text/javascript">
+                                            $$('.recipientsques_<?php echo $recipientCounter; ?>').invoke('observe', 'click', function(){ $$('#receipantsnumform_<?php echo $recipientCounter; ?>').invoke('show'); });
+                                            $$('#receipantsnumformsubmit_<?php echo $recipientCounter; ?>').invoke('observe', 'click', addQtyElems);
+
+                                            /**
+                                             * UI add form input elements for taking the Qty input.
+                                             */
+                                            function addQtyElems(){
+                                                var numrecipients = document.getElementById("numrecipients_<?php echo $recipientCounter; ?>").value;
+
+                                                document.getElementById("receipantqtyform_<?php echo $recipientCounter; ?>").style.display='block';
+                                                document.getElementById("receipantqtyform_<?php echo $recipientCounter; ?>").innerHTML = '';
+                                                if(numrecipients>10)
+                                                {
+                                                    alert("Only 10 recipients are allowed.");
+                                                }else{
+                                                    for(var i=0;i<numrecipients;i++){
+                                                        addInput("receipantqtyform_<?php echo $recipientCounter; ?>",<?php echo $recipientCounter; ?>);
+                                                    }
+                                                    document.getElementById("receipantqtyform_<?php echo $recipientCounter; ?>").innerHTML +='<div><input type="button" id="receipantqtyformsubmit_<?php echo $recipientCounter; ?>" name="receipantqtyformsubmit_<?php echo $recipientCounter; ?>" value="Add" onClick="makeAjaxRecipientsAdd(<?php echo $recipientCounter . "," . $addressItems->getAddressItemId() . "," . $addressItems->getQuoteAddressId() . "," . $addressItems->getQuoteItemId(); ?>)"/></div>';
+                                                }
+                                    }
+                                        </script>
+
+
+                        <?php } ?>
+
+
+
+
+                                </td>
+
+                                <td class="a-center"><a href="<?php echo $this->getItemDeleteUrl($addressItems); ?>?qty=<?php echo base64_encode($addressItems->getQty()) ?>&multiship-id=<?php echo $addressItems->getAddressItemId(); ?>&type=ci&row=<?php echo $recipientCounter; ?>" title="<?php echo $this->__('Remove Item') ?>" class="btn-remove"><img src="<?php echo $this->getSkinUrl('images/btn_remove.gif') ?>" alt="<?php echo $this->__('Remove item') ?>" /></a></td>
+                            </tr>
+
+                <?php
+                                }
+                                $recipientCounter++;
+                ?>
+                <?php
+                                // }
+                ?>
+
+                <?php
+                            }
+                            //  $qty = $addressItems->getQty() - $quantities;
+                            //   if (!in_array($addressItems->getProductId(), $productIds)) {
+                            //if ($productModel->getId() != $multiShipVal->getProductId()) {
+                            if ($addressItems->getCheckMultiple() != 1 && $addressItems->getParentItemId() == NULL) {
+
+                                if ($addressItems->getQty() > 0) {
+                ?>
+
+                                    <tr id="data">
+                                        <td><h3 class="product-name"><a href="<?php echo $productModel->getProductUrl(); ?>" alt="<?php echo ($addressItems->getName()); ?>"><img src="<?php echo $productModel->getImageUrl(); ?>" width="125" height="110" alt="<?php echo $productModel->getName(); ?>" /><?php echo ($addressItems->getName()); ?></a></h3></td>
+
+                                        <td><input type="text" name="ship[<?php echo $addressItems->getAddressItemId(); ?>][qty]" value="<?php echo round($this->htmlEscape($addressItems->getQty())) ?>" size="2" class="input-text qty" id="<?php echo "multiple-receipent-qty_" . $row; ?>" /></td>
+                                        <td><?php
+                                    if ($productModel->getIsVirtual()): echo $this->__('Shipping selection is not applicable');
+                                    else: echo $this->getAddressesHtmlSelect($addressItems, $row); ?>
+                                        <script type="text/javascript">
+                                    var address=0;
+                                    address=<?php echo Mage::getModel("customcheckoutmultipleaddress/multiship")->getSelectOptionId($addressItems->getId()); ?>
+                                    //  alert(address);
+                                    jQuery("select.shipping-address_"+<?php echo $row; ?>+" option").each(function(){
+                                        if(jQuery(this).val()==address)
+                                        {
+                                            jQuery("select.shipping-address_"+<?php echo $row; ?>+" option[value="+address+"]").attr("selected","selected");
+                                        }
+                                    });
+                                    //alert(<?php //echo Mage::getModel("customcheckoutmultipleaddress/multiship")->getSelectOptionId($addressItems->getId());       ?>);
+                                    //
+                                        </script>
+                        <?php
+                                        endif;
+                                        $row++;
+                        ?>
+                                        <div> <a href="javascript:void(null)" onClick="showItemEditAddress(<?php echo $row; ?>)">EDIT </a>&nbsp;
+                                            |&nbsp;<a href="javascript:void(null)" onClick="showItemAddress(<?php echo $row; ?>)">VIEW</a>&nbsp;
+                                            |&nbsp;<a href="<?php echo Mage::getBaseUrl() ?>checkout/multishipping_address/newShipping/">ADD NEW RECIPIENT </a>
+                                            |
+                                            <form name="storeform" method="post" >
+                                                <input type="checkbox" name="storepickupmodule_<?php echo $row - 1; ?>" id="storepickupmodule_<?php echo $row - 1; ?>" value="<?php echo $row - 1; ?>" class="checkbox" />
+
+                                                <label for="multishipping_id"><?php echo $this->__('Store Pickup (NYC Only)') ?></label>
+                                            </form>
+                                        </div>
+                                        <div class="current-address">
+
+                                            <div id="item_address_<?php echo $row ?>" style="display:none;">
+                                <?php //echo "<pre>";print_r($address->getData());   ?>
+                                        <h3>Current address</h3>
+                                        <p><label>Name :</label> <?php echo $address->getFirstname() . ' ' . $address->getLastname(); ?></p>
+                                        <p><label>Email : </label><?php echo ($address->getEmail()); ?></p>
+                                        <p><label>Company : </label><?php echo (($address->getCompany()) ? $address->getCompany() : "No Data Found"); ?></p>
+                                <?php $street = $address->getStreet(); ?>
+                                        <p><label>Street : </label><?php echo ($street[0] ? $street[0] : "No Data Found"); ?></p>
+                                        <!--<p><label>Street : <?php //echo "<pre>";print_r($address->getStreet());             ?></label></p>-->
+                                        <p><label>City :</label> <?php echo $address->getCity(); ?>&nbsp;
+                                        <p><label>Telephone :</label><?php echo $address->getTelephone(); ?> &nbsp; </p>
+                                        <p><label>Country :</label><?php echo $address->getCountryId(); ?> &nbsp; </p>
+                                        <p><label>Post Code :</label><?php echo $address->getPostcode(); ?></p>
+                                    </div>
+
+                                    <div id="item_address_edit_<?php echo $row; ?>" style="display:none;">
+                                        <h3>Current address</h3>
+                                        <p><label>First Name :</label> <input type="text" id="itemaddr_firstname_<?php echo $row; ?>" name="itemaddr_firstname_<?php echo $row; ?>" value="<?php echo $address->getFirstname(); ?>"/></p>
+                                        <p><label>Last Name :</label> <input type="text" id="itemaddr_lastname_<?php echo $row; ?>" name="itemaddr_lastname_<?php echo $row; ?>" value="<?php echo $address->getLastname(); ?>"/></p>
+                                        <p><label>Company : </label> <input type="text" id="itemaddr_company_<?php echo $row; ?>" name="itemaddr_comapny_<?php echo $row; ?>" value="<?php echo $address->getCompany(); ?>"/></p>
+                                <?php $editStreet = $address->getStreet(); ?>
+                                        <p><label>Street : </label> <textarea id="itemaddr_street_<?php echo $row; ?>" name=""itemaddr_street_<?php echo $row; ?>><?php echo $editStreet[0]; ?></textarea></p>
+                                        <p><label>City :</label> <input type="text" id="itemaddr_city_<?php echo $row; ?>" name="itemaddr_city_<?php echo $row; ?>" value="<?php echo $address->getCity(); ?>"/></p>
+                                        <p><label>Post Code :</label> <input type="text" id="itemaddr_postcode_<?php echo $row; ?>" name="itemaddr_postcode_<?php echo $row; ?>" value="<?php echo $address->getPostcode(); ?>"/></p>
+                                        <p><label>Telephone :</label> <input type="text" id="itemaddr_telephone_<?php echo $row; ?>" name="itemaddr_telephone_<?php echo $row; ?>" value="<?php echo $address->getTelephone(); ?>"/></p>
+                                        <input type="button" id="itemaddr_submit_<?php echo $row; ?>" name="itemaddr_submit_<?php echo $row; ?>" value="submit" onclick="makeAjaxSaveItemAddress(<?php echo $row . "," . $address->getCustomerAddressId() . "," . $address->getAddressId(); ?>)"/>
+                                    </div>
+
+
+                                </div>
+
+                        <?php
+                                        $curItemQty = $addressItems->getQty();
+                                        //$totalQty+=$addressItems->getQty();
+                                        // Execute only when qty is more than 1
+                                        if ($curItemQty > 1) {
+                        ?>
+                                            <a href="#" class="recipientsques_<?php echo $recipientCounter; ?>">Are you sending this item to multiple recipients?</a>
+                                            <br>
+                                            <div id="receipantsnumform_<?php echo $recipientCounter; ?>" style="display:none;" class="recipient-form">
+                                                <input type="hidden" id="itemsku_<?php echo $recipientCounter; ?>" name="itemsku_<?php echo $recipientCounter; ?>" value="<?php echo $addressItems->getSku(); ?>"/><br>
+                                                <label>Please enter Number of Recipients :</label>
+                                                <input type="text" id="numrecipients_<?php echo $recipientCounter; ?>" name="numrecipients_<?php echo $recipientCounter; ?>" value="1"/>
+                                                <input type="button" id="receipantsnumformsubmit_<?php echo $recipientCounter; ?>" name="receipantsnumformsubmit_<?php echo $recipientCounter; ?>" value="submit" />
+                                            </div>
+                                            <div id="receipantqtyform_<?php echo $recipientCounter; ?>" style="display:none;" class="receipant-section">
+
+                                            </div>
+                                            <div id="warning_<?php echo $recipientCounter; ?>"></div>
+
+
+
+                                            <script type="text/javascript">
+                                        $$('.recipientsques_<?php echo $recipientCounter; ?>').invoke('observe', 'click', function(){ $$('#receipantsnumform_<?php echo $recipientCounter; ?>').invoke('show'); });
+                                        $$('#receipantsnumformsubmit_<?php echo $recipientCounter; ?>').invoke('observe', 'click', addQtyElems);
+
+                                        /**
+                                         * UI add form input elements for taking the Qty input.
+                                         */
+                                        function addQtyElems(){
+                                            var numrecipients = document.getElementById("numrecipients_<?php echo $recipientCounter; ?>").value;
+                                            // alert(numrecipients);
+                                            document.getElementById("receipantqtyform_<?php echo $recipientCounter; ?>").style.display='block';
+                                            document.getElementById("receipantqtyform_<?php echo $recipientCounter; ?>").innerHTML = '';
+                                            if(numrecipients>10)
+                                            {
+                                                alert("Only 10 recipients are allowed.");
+                                            }else{
+                                                for(var i=0;i<numrecipients;i++){
+                                                    addInput("receipantqtyform_<?php echo $recipientCounter; ?>",<?php echo $recipientCounter; ?>);
+                                                }
+                                                document.getElementById("receipantqtyform_<?php echo $recipientCounter; ?>").innerHTML +='<div><input type="button" id="receipantqtyformsubmit_<?php echo $recipientCounter; ?>" name="receipantqtyformsubmit_<?php echo $recipientCounter; ?>" value="Add" onClick="makeAjaxRecipientsAdd(<?php echo $recipientCounter . "," . $addressItems->getAddressItemId() . "," . $addressItems->getQuoteAddressId() . "," . $addressItems->getQuoteItemId(); ?>)"/></div>';
+                                            }
+
+
+                                        }
+                                            </script>
+
+
+                        <?php } ?>
+
+
+
+
+                                    </td>
+                                    <td class="a-center"><a href="<?php echo $this->getItemDeleteUrl($addressItems); ?>?qty=<?php echo base64_encode($addressItems->getQty()) ?>&multiship-id=<?php echo ""; ?>&type=ci&row=<?php echo $recipientCounter; ?>" title="<?php echo $this->__('Remove Item') ?>" class="btn-remove"><img src="<?php echo $this->getSkinUrl('images/btn_remove.gif') ?>" alt="<?php echo $this->__('Remove item') ?>" /></a></td>
+                                </tr>
+
+                <?php
+                                    }
+                                    $recipientCounter++;
+                ?>
+                <?php
+                                }
+                            }
+                        }
+                ?>
+                    </tbody>
+                </table>
+                <script type="text/javascript">decorateTable('multiship-addresses-table')</script>
+                <script type="text/javascript">
+
+
+            jQuery( "tr#data td select" ).change(function() {
+
+
+                var a = [];var s;
+                jQuery("tr#data td select[class^='shipping-address_']").each(function(i) {
+
+                    a.push(jQuery('#'+this.id).find(":selected").val());
+
+                });
+                s = a.join(',');
+                jQuery("#checkedstorepickup").val(s);
+
+
+            });
+            jQuery("input[type='checkbox']").change(function() {
+                var b=[];var s1;
+                jQuery("input[id^='storepickupmodule_']").each(function() {
+
+                    if(jQuery('#'+this.id).is(':checked'))
+                    {
+                        //var test= jQuery(this). parent().attr("id");
+                        // alert(jQuery(this).closest("tr#data td").find("select[class^='shipping-address_']").attr("value"))
+                        b.push(jQuery(this).closest("tr#data td").find("select[class^='shipping-address_']").attr("value"));
+                        //alert(test);
+                        // b.push(jQuery('#'+this.id).val());
+                    }
+
+                });
+
+                s1=b.join(',');
+
+                jQuery("#storepickupVal").val(s1);
+            });
+
+
+            /* jQuery('#updateqty').click(function(){
+                        var flag = true;
+                        jQuery("#data input[type=text]").each(function(){
+                            if(jQuery(this).val() === '') flag = false
+                        });
+
+                        if(flag==false){
+                            alert("Please enter Quantity");
+                            return false;
+                        }
+
+                    });
+             */
+            /* jQuery("select.shipping-address option").each(function()
+                    {
+                        // add $(this).val() to your list
+                        //alert(jQuery(this).val());
+
+                        if(isNaN(jQuery(this).val()))
+                        {
+                            str=jQuery(this).val();
+
+                            var replace=str.replace(/[^0-9]+/ig,"")
+                            //  jQuery('select.shipping-address option option:contains("+str+")').prop('selected', true);
+                            jQuery("select.shipping-address option[value='"+str+"']").attr("value",replace);
+                            jQuery("select.shipping-address option[value='"+replace+"']").attr("selected","selected");
+                        }
+                        //alert(isNaN(jQuery(this).val()))
+
+                    });
+             */
+            /*   var i;var totaltr=jQuery("tr#data").length;
+                    for (i = 1; i <=totaltr; i++) {
+
+                        jQuery("select.shipping-address_"+i+" option").each(function()
+                        {
+                         if(isNaN(jQuery(this).val()))
+                        {
+                            str=jQuery(this).val();
+                            var replace=str.replace(/[^0-9]+/ig,"");
+                            jQuery("select.shipping-address_"+i+" option[value='"+str+"']").attr("value",replace);
+                            jQuery("select.shipping-address_"+i+" option[value='"+replace+"']").attr("selected","selected");
+
+                        }
+                    });
+                    }
+             */
+            //  jQuery("select option[value='72']").attr("selected","selected");
+
+            /*jQuery( "tr#data td" ).each(function( i ) {
+                   // alert(i);
+                    jQuery("select.shipping-address_"+i+" option:").each(function(){
+                        alert(jQuery(this).val());
+                      if(isNaN(jQuery(this).val()))
+                        {
+                            str=jQuery(this).val();
+
+                            var replace=str.replace(/[^0-9]+/ig,"")
+                          //  jQuery('select.shipping-address option option:contains("+str+")').prop('selected', true);
+                          jQuery("select.shipping-address_"+i+" option[value='"+str+"']").attr("value",replace);
+                          jQuery("select.shipping-address_"+i+" option[value='"+replace+"']").attr("selected","selected");
+                        }
+                    });
+                });
+             */
+
+            document.observe("dom:loaded", function() {
+                //initially hide all containers for tab content
+                //$$('div.tabcontent').invoke('hide');
+                //alert($$('#multiship-addresses-table .button'));
+            });
+
+            function showItemAddress(index){
+                //alert(jQuery("#item_address_"+index).css("display"));
+                if($("item_address_"+index).getStyle('display')=='none'){
+                    $$("#item_address_"+index).invoke('show');
+                }else{
+                    $$("#item_address_"+index).invoke('hide');
+                }
+
+            }
+
+            function showItemEditAddress(index){
+
+                if($("item_address_edit_"+index).getStyle('display')=='none'){
+                    $$("#item_address_edit_"+index).invoke('show');
+                }else{
+                    $$("#item_address_edit_"+index).invoke('hide');
+                }
+
+            }
+
+
+            /**
+             * Helper function for adding UI element.
+             */
+            function addInput(parentdivname,counter) {
+                var fields = document.getElementsByClassName("recifieldqty_"+counter).length;
+
+                if (fields < 10) {
+                    var id = "recifield_" + fields;
+                    document.getElementById(parentdivname).innerHTML +=
+                        "<div>Qty "+(fields+1)+":  <input type='text' id='"+id+"' name='"+id+"' class='recifieldqty_"+counter+"'/>";
+                    //+ " <a href='#' onclick='removeInput(this.parentNode,\"receipantqtyform\")' />remove</a>"
+                        +"</div><br>";
+                    fields += 1;
+                } else {
+                    document.getElementById('warning').innerHTML =
+                        "Only 10 recipients are allowed.";
+                    //document.form.add.disabled = true;
+                }
+            }
+
+            /**
+             * Helper function for removing UI element.
+             */
+            function removeInput( el , parentdivname ) {
+                var fields = document.getElementsByClassName("recifieldqty").length;
+                if (fields > 0) {
+                    document.getElementById('warning').innerHTML = "";
+                    var parent = document.getElementById(parentdivname);
+                    parent.removeChild(el);
+                    fields -= 1;
+                }
+            }
+
+
+
+            /**
+             * Prepare the Ajax request data.
+             */
+            function preparePostData(counter){
+                //alert(counter);
+                // var qtys=document.getElementById("qtyids_"+counter).value;
+                //alert(qtys);
+                var numrecipients = document.getElementById("numrecipients_"+counter).value;
+                var fieldsLen = document.getElementsByClassName("recifieldqty_"+counter).length;
+                var recipientsQtyData = null;;
+                var dataString = null;
+                for(var i=0;i<fieldsLen;i++){
+                    var qtyval = document.getElementById("recifield_"+i).value;
+                    if(dataString==null){
+                        dataString = '{"qty":"'+qtyval+'"}';
+                    }else{
+                        dataString += ',{"qty":"'+qtyval+'"}';
+                    }
+                }
+                recipientsQtyData = '['+dataString+']';
+
+                return recipientsQtyData;
+            }
+            /*  function getActualQuantity(counter)
+                    {
+                        return qtys=document.getElementById("qtyids_"+counter).value;
+
+                    }
+                    /**
+             * Prepare the Ajax request data.
+             */
+            function prepareQtyCount(counter){
+                var numrecipients = document.getElementById("numrecipients_"+counter).value;
+                var fieldsLen = document.getElementsByClassName("recifieldqty_"+counter).length;
+                var totalqty="";
+
+                for(var i=0;i<fieldsLen;i++){
+                    var qtyval = parseInt(document.getElementById("recifield_"+i).value);
+                    totalqty+=qtyval+",";
+                }
+
+
+                return totalqty;
+            }
+
+
+        /**
+         * Prepare the Ajax request data.
+         */
+        function prepareItemAddressPostData(counter){
+            var firstname = document.getElementById("itemaddr_firstname_"+counter).value;
+            var lastname = document.getElementById("itemaddr_lastname_"+counter).value;
+            var company = document.getElementById("itemaddr_company_"+counter).value;
+            var telephone = document.getElementById("itemaddr_telephone_"+counter).value;
+            var street = document.getElementById("itemaddr_street_"+counter).value;
+            var city = document.getElementById("itemaddr_city_"+counter).value;
+            var postcode = document.getElementById("itemaddr_postcode_"+counter).value;
+            var recipientsQtyData = null;;
+            var dataString = null;
+            dataString = '{"firstname":"'+firstname+'"}'+','+'{"lastname":"'+lastname+'"}'+','+'{"company":"'+company+'"}'+','+'{"telephone":"'+telephone+'"}'+','+'{"street":"'+street+'"}'+','+'{"city":"'+city+'"}'+','+'{"postcode":"'+postcode+'"}';
+            recipientsQtyData = '['+dataString+']';
+
+            return recipientsQtyData;
+        }
+
+        /**
+         * Ajax call to make the final request.
+         */
+        function makeAjaxRecipientsAdd(counter,address_item_id,quote_address_id,quote_item_id){
+
+            var recipientdata = preparePostData(counter);
+            var totalquantity=prepareQtyCount(counter);
+            //alert(totalquantity.length)
+            //var qtys=getActualQuantity(counter);
+            // alert(totalquantity);
+            var itemsku = document.getElementById("itemsku_"+counter).value;
+            //alert(recipientdata);
+            //alert(recipientdata);
+            //alert(recipientdata.split(":"));
+
+            /* jQuery("table#multiship-addresses-table").find("tr#data").each(function() { //get all rows in table
+
+                            var value = jQuery('td#multiple-receipent-qty').val();
+                            if(!isNaN(value) && value.length != 0) {
+                            sum += parseInt(value);
+                            }
+
+
+                            });
+             */
+            var sum = 0;
+            jQuery("tr#data").each(function() {
+                var value = jQuery("#multiple-receipent-qty").val();
+                if(!isNaN(value) && value.length != 0) {
+                    sum += parseFloat(value);
+                }
+            });
+
+
+
+            new Ajax.Request('<?php echo Mage::getBaseUrl() ?>elecheckout/checkout_multi/addreceipents?quote_item_id='+quote_item_id+'&address_item_id='+address_item_id+'&quote_address_id='+quote_address_id+'&totqty='+sum+'&numofrecipient='+<?php echo $recipientCounter; ?>, {
+                //method: 'get',
+                parameters: {itemsku: itemsku, 'recipientqtydata':recipientdata},
+                onSuccess: function(transport, json){
+                    //alert(json ? Object.inspect(json) : "no JSON object");
+                    //alert('success');
+                    //window.location.reload();
+                    //$$('#multiship-addresses-table .button').simulate('click');
+                    $('checkout_multishipping_form').submit();
+                }
+            });
+
+
+        }
+
+        /**
+         * Ajax call to make the final request.
+         */
+        function makeAjaxSaveItemAddress(counter,cust_address_id,address_id){
+            //alert(counter);
+            var itemAddressdata = prepareItemAddressPostData(counter);
+            //alert(itemAddressdata);
+            //var itemsku = document.getElementById("itemsku_"+counter).value;
+            //alert(recipientdata);
+            new Ajax.Request('<?php echo Mage::getBaseUrl() ?>elecheckout/checkout_multi/saveaddress', {
+                //method: 'get',
+                parameters: {customer_addressid: cust_address_id, 'itemaddressdata':itemAddressdata, addressid:address_id},
+                onSuccess: function(transport, json){
+                    //alert(json ? Object.inspect(json) : "no JSON object");
+                    alert('Recod saved');
+                    //window.location.reload();
+                    //$$('#multiship-addresses-table .button').simulate('click');
+
+                }
+            });
+
+
+        }
+                </script>
+                <div class="buttons-set">
+                    <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to Shopping Cart') ?></a></p>
+                    
+                    
+                    <span id="address-please-wait" style="display:none;" class="please-wait">
+<img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" class="v-middle" title="Loading next step..." alt="Loading next step..." /> &nbsp; <?php echo $this->__('Loading next step...') ?> &nbsp;
+</span>
+                    <button type="submit" class="shipping-next-step-button button<?php if ($this->isContinueDisabled()): ?> disabled<?php endif; ?>" onclick="$('can_continue_flag').value=1;"<?php if ($this->isContinueDisabled()): ?> disabled="disabled"<?php endif; ?>><span><span><?php echo $this->__('Continue to Shipping Information') ?></span></span></button>
+                        </div>
+                    </fieldset>
+                </form>
+                  
+                 <script type="text/javascript" src="<?php echo Mage::getBaseUrl('js')."base64/jquery.redirect.min.js"; ?>"></script>
+                <script type="text/javascript">
+                    jQuery("#address-please-wait").hide();
+                    jQuery(".shipping-next-step-button").click(function(){
+                        jQuery("#address-please-wait").show();
+                        jQuery("#checkout_multishipping_form").submit(function(e)
+{
+    var postData = jQuery(this).serializeArray();
+    var formURL = jQuery(this).attr("action");
+
+    jQuery.ajax(
+    {
+        url : formURL,
+        type: "POST",
+        data : postData,
+        timeout:1000000,
+        success:function(data, textStatus, jqXHR)
+        {
+            //data: return data from server
+            //alert(window.location.href);
+          //window.location.href ="<?php //echo Mage::getBaseUrl()."checkout/multishipping/shipping/?data="?>"+jqXHR;
+          //console.log(jqXHR);
+         
+//alert( "Data Loaded: " + data );
+//var s=jQuery( "#checkout_multishipping_form" ).serializeArray();
+
+jQuery("#address-please-wait").hide();
+
+//window.location.href ="<?php //echo Mage::getBaseUrl()."checkout/multishipping/shipping/?data="?>"+jQuery( "#checkout_multishipping_form" ).serialize();
+//window.location.assign(jQuery( "#checkout_multishipping_form" ).serialize());
+//window.location.href ="<?php //echo Mage::getBaseUrl()."checkout/multishipping/shipping/"?>";
+
+window.location.href="<?php echo Mage::getBaseUrl()."checkout/multishipping/shipping/?"?>"+jQuery( "#checkout_multishipping_form" ).serialize();
+//jQuery(location).attr('post',jQuery( "#checkout_multishipping_form" ).serialize());
+//jQuery(location).attr('href',url);
+        },
+        error: function(jqXHR, textStatus, errorThrown)
+        {
+            //if fails
+            return;
+        }
+    });
+    e.preventDefault(); //STOP default action
+    //e.unbind(); //unbind. to stop multiple form submit.
+});
+
+//jQuery("#checkout_multishipping_form").submit(); //Submit  the FORM
+                    });
+                    //callback handler for form submit
+
+
+
+                   /* jQuery(".shipping-next-step-button").click(function() {
+                        document.getElementById('checkout_multishipping_form').submit();
+                        
+                        document.getElementById('shipping-step').submit();
+                    });*/
+                   /* if(jQuery("#can_continue_flag").val()==0 )
+                        {
+                            jQuery("#next_step_flag").val(1);
+                        }
+                        
+                    jQuery('.shipping-next-step-button').click(function(e) {
+                      //  var postData=jQuery( "#checkout_multishipping_form" ).serialize();
+                        if(jQuery("#next_step_flag").val()==0)
+                            {
+                                alert("please Update Qty & Addresses Button");
+                                jQuery("#next_step_flag").val(1);
+                                return false;
+                            }
+                        //var newURLString = "<?php //echo Mage::getBaseUrl()."checkout/multishipping/shipping/?data="?>"+postData;
+
+                       
+                       /* jQuery.post(jQuery( "#checkout_multishipping_form" ).attr("action"),postData,function()
+                        {*/
+                  /*      if(jQuery("#next_step_flag").val()==1){
+                         document.getElementById('checkout_multishipping_form').action ="<?php //echo Mage::getBaseUrl()."checkout/multishipping/shipping/"?>";
+                        }
+                         
+                      //  });
+                    });
+                    //   document.getElementById('checkout_multishipping_form').submit();
+                   
+                //var postData=jQuery('input:hidden').serialize();
+              /*  var postData=jQuery( "#checkout_multishipping_form" ).serialize();
+                jQuery.post(
+                document.getElementById('checkout_multishipping_form').action,
+                postData,
+                                       function(data){
+                                           //jQuery("#hiddenresult").html(data);
+
+                                            alert(data);
+                                            
+                                         var newURLString = "<?php //echo Mage::getBaseUrl()."checkout/multishipping/shipping/?data="?>"+data;
+                                         document.getElementById('checkout_multishipping_form').action =newURLString;
+                        
+                                       }
+                                   );
+                //alert(data);
+                
+                //alert(newURLString);
+
+                
+
+                
+              /*  jQuery.ajax({
+    url: document.getElementById('checkout_multishipping_form').action,
+    type: "post",
+    data:postData,
+     timeout: 10000,
+      beforeSend: function(){ alert("zapme beforeSend");   },
+    success: function(response) { alert(response+'1'); },
+    error: function(x, t, m) {
+        if(t==="timeout") {
+            alert("got timeout");
+        } else {
+            alert(t+'2');
+        }
+    }
+});*/
+        
+    /*jQuery.ajax({
+	url: document.getElementById('checkout_multishipping_form').action,
+	async:true,
+        data:postData,
+        cache:false,
+	beforeSend: function(objeto){
+		console.log("beforesend"+objeto);
+               // document.getElementById('checkout_multishipping_form').submit();
+	},
+	complete: function(objeto, exito){
+		
+		if(exito=="success"){
+			alert("Y con éxito");
+                        console.log(objeto);
+		}
+	},
+	contentType: "application/x-www-form-urlencoded",
+	dataType: "html",
+	error: function (xmlHttpRequest, textStatus, errorThrown) {
+         if(xmlHttpRequest.readyState == 0 || xmlHttpRequest.status == 0)
+              return;
+	},
+	global: false,
+	success: function(datos){
+		alert(datos);
+	},
+	timeout: 10000,
+	type: "POST"
+});
+     
+
+
+    /*jQuery.ajax({
+      url: document.getElementById('checkout_multishipping_form').action,
+      timeout: 100000,
+      data:postData,
+      beforeSend: function(){},      
+      success: function(data){
+        alert("success");
+       },
+      error: function(){ alert("error"); },
+      complete: function(){ alert("complete"); },
+      context: this
+    });*/
+
+
+/*jQuery(".shipping-next-step-button").click(function(e) {
+
+        e.preventDefault();
+
+        var form_data = jQuery(this).serialize();
+        var form_url = jQuery(this).attr("action");
+        var form_method = "POST";
+       // alert(form_data);alert(form_url);alert(form_method);
+       // $("#loadingimg").show();
+
+        jQuery.ajax({
+            url: form_url,
+            type: form_method,
+            data: form_data,
+            cache: false,
+            timeout:10000
+                                    
+                  
+
+        }).done(function(data){
+           // alert("jkhj");
+           jQuery.post( "<?php //echo Mage::getBaseUrl(); ?>"+"checkout/multishipping/shipping/", function( data ) {
+                window.location.href="<?php //echo Mage::getBaseUrl(); ?>"+"checkout/multishipping/shipping/";
+            });
+        });
+
+    });
+      
+   // });
+                   
+                        //alert(document.getElementById('checkout_multishipping_form').action);
+                        /* if(document.getElementById('checkout_multishipping_form').submit()){
+                               var postData = jQuery('input:hidden').serialize();
+                         jQuery.post(
+                document.getElementById('checkout_multishipping_form').action,
+                                       postData,
+                                       function(data){
+                                           //jQuery("#hiddenresult").html(data);
+
+                                            document.getElementById('checkout_multishipping_form').submit();
+                                           var newURLString = "<?php //echo Mage::getBaseUrl(); ?>"+"checkout/multishipping/shipping/?data="+postData;
+
+                        document.getElementById('checkout_multishipping_form').action =newURLString;
+                                       }
+                                   );
+                                    var newURLString = "<?php //echo Mage::getBaseUrl(); ?>"+"checkout/multishipping/shipping/?data="+postData;
+                                    document.getElementById('checkout_multishipping_form').action =newURLString;
+                         }
+                });
+                   
+                                   //    console.log(post);
+                    //alert("kjhj");
+                    //  document.getElementById('checkout_multishipping_form').submit();
+                      //  var newURLString = <?php //echo Mage::getBaseUrl() . 'checkout/multishipping/shipping/'; ?> +"?data=" + jQuery('input:hidden').serialize();
+
+                        //window.location.href = newURLString;    // The page will redirect instantly
+                        // after this assignment   
+                
+                /*if(jQuery('can_continue_flag').value==1)
+                {
+                alert("jkh");
+                document.getElementById('checkout_multishipping_form').action ="<?php //echo Mage::getBaseUrl() . 'checkout/multishipping/shipping/'; ?>"
+                }*/
+                /*jQuery('#test').click(function(e) {
+                        //alert("jhjkh");
+                          document.getElementById('checkout_multishipping_form').submit();
+
+
+                        });
+                */
+
+
+
+
+                //alert("kjk");
+                /*jQuery.ajax({
+                        type: 'POST',
+                        url: document.getElementById('checkout_multishipping_form').action,
+                        data: jQuery('input:hidden').serialize(),
+                        success: function (msg) {
+                            document.getElementById('checkout_multishipping_form').submit();
+                                console.log(msg);
+
+                            },
+                        error: function (msg) {
+                          document.getElementById('checkout_multishipping_form').submit();
+                           console.log(msg);
+                        }
+                    });
+                */
+
+
+
+
+
+
+
+
+
+
+
+
+                /* function jqsub() {
+
+
+
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: document.getElementById('checkout_multishipping_form').action,
+                        data: jQuery('#checkout_multishipping_form').serialize(),
+                        success: function (msg) {
+                            document.getElementById('checkout_multishipping_form').submit();
+                                console.log(msg);
+
+                            },
+                        error: function (msg) {
+                          document.getElementById('checkout_multishipping_form').submit();
+                           console.log(msg);
+                        }
+                    });
+                }
+                */
+
+
+
+                /*window.setTimeout("testhere()", 1);*/
+                /* jQuery('.shipping-next-step-button').click(function(e) {
+                       // e.preventDefault(); // don't submit multiple times
+                        document.getElementById('checkout_multishipping_form').submit(); // use the native submit method of the form element
+                        //jQuery('#imagefile').val(''); // blank the input
+                        document.getElementById('checkout_multishipping_form').action ="<?php //echo Mage::getBaseUrl().'checkout/multishipping/shipping/';    ?>"
+                    });*/
+                // jQuery('#updateqty').click(function(e) {
+                //  alert("jhj");
+                //  e.preventDefault(); // don't submit multiple times
+                // document.getElementById('checkout_multishipping_form').submit();
+
+                //   document.getElementById('test').submit ="<?php //echo Mage::getBaseUrl().'checkout/multishipping/shipping/';    ?>"
+                // });
+                /*) function testhere()
+                    {
+                       // alert(1);
+                      //  document.getElementById('checkout_multishipping_form').submit();
+                        //alert(2);
+                        //document.getElementById('form2').submit();
+                      //document.getElementById('form2').action ="<?php //echo Mage::getBaseUrl().'checkout/multishipping/shipping/';    ?>";
+                      jQuery('#checkout_multishipping_form').ajaxSuccess(function(evt, request, settings) {
+                          alert(evt);alert(request)alert(settings)
+                         /*if (settings.url == 'xxx')
+                             alert('test');
+                        });*/
+                //}
+
+                /*function testhere()
+                    {
+                     //
+
+                    /* new Ajax.Request(document.getElementById('checkout_multishipping_form').action, {
+                            method: 'post',
+                           // parameters: {itemsku: itemsku, 'recipientqtydata':recipientdata},
+                            onSuccess: function(transport, json){
+                                //alert(json ? Object.inspect(json) : "no JSON object");
+                                //alert('success');
+                                //window.location.reload();
+                                //$$('#multiship-addresses-table .button').simulate('click');
+                                $('checkout_multishipping_form').submit();
+                                document.getElementById('checkout_multishipping_form').action ="<?php //echo Mage::getBaseUrl().'checkout/multishipping/shipping/';    ?>"
+                            }
+                        });*/
+                /* document.getElementById('checkout_multishipping_form').submit();
+                        if(document.getElementById('checkout_multishipping_form').submit())
+                            {
+                                document.getElementById('checkout_multishipping_form').action ="<?php //echo Mage::getBaseUrl().'checkout/multishipping/shipping/';    ?>"
+                            }
+
+
+
+                    }
+                /*
+                    jQuery( "button.shipping-next-step-button" ).click(function() {
+                        document.getElementById('checkout_multishipping_form').submit();
+                        var postData = jQuery('input:hidden').serialize();
+                         jQuery("#shipping_method_form").attr("post",postData);
+
+                        // event.preventDefault();
+                        //jQuery('#updateqty').submit();
+
+
+                      /* jQuery.post(
+                "<?php //echo Mage::getBaseUrl() . 'checkout/multishipping/shipping';    ?>",
+                                       postData,
+                                       function(data){
+                                           jQuery("#hiddenresult").html(data);
+                                           //console.log(data);
+                                           alert(data);
+                                       }
+                                   );*/
+                /* jQuery("#checkout_multishipping_form").attr("action","<?php echo Mage::getBaseUrl() . 'checkout/multishipping/shipping/'; ?>");
+                jQuery("#shipping_method_form").attr("post",postData);
+                                /*   jQuery.ajax({
+                type: "POST",
+                url: "<?php //echo $this->getPostActionUrl()    ?>?operation=update",
+                data: postData,
+                success: function(data) {
+
+                jQuery("#hiddenresult").html(data);
+
+
+                }
+                });
+                /*jQuery.ajax({
+                type: "POST",
+                url: "<?php //echo Mage::getBaseUrl() . 'checkout/multishipping/shipping';    ?>",
+                data: postData,
+                success: function(data) {
+                jQuery("#checkout_multishipping_form").attr("action","<?php //echo Mage::getBaseUrl().'checkout/multishipping/shipping/';    ?>");
+                jQuery("#hiddenresult").html(data);
+
+                }
+                }); */
+                // jQuery("#checkout_multishipping_form").attr("action","<?php //echo Mage::getBaseUrl().'checkout/multishipping/shipping/';    ?>");
+       
+//  });
+                                       
+                                       
+                               
+//  });
+    
+</script>

@@ -1,0 +1,325 @@
+
+Redirect /index.php/shop/seasonal.html /occasion/seasonal.html
+Redirect /index.php/shop/occasions.html /occasion/occasions.html
+Redirect /index.php/shop/theme.html /occasion/theme.html
+Redirect /index.php/shop/cupcakes.html /upload-your-own-photo/cupcakes.html
+Redirect /index.php/shop/crisp-collection.html /crisp-collection.html
+############################################
+## uncomment these lines for CGI mode
+## make sure to specify the correct cgi php binary file name
+## it might be /cgi-bin/php-cgi
+
+#    Action php5-cgi /cgi-bin/php5-cgi
+#    AddHandler php5-cgi .php
+
+############################################
+## GoDaddy specific options
+
+#   Options -MultiViews
+
+## you might also need to add this line to php.ini
+##     cgi.fix_pathinfo = 1
+## if it still doesn't work, rename php.ini to php5.ini
+
+############################################
+## this line is specific for 1and1 hosting
+
+    #AddType x-mapp-php5 .php
+    #AddHandler x-mapp-php5 .php
+
+############################################
+## default index file
+
+    DirectoryIndex index.php
+
+<IfModule mod_php5.c>
+
+############################################
+## adjust memory limit
+
+#    php_value memory_limit 64M
+    php_value memory_limit 256M
+    php_value max_execution_time 18000
+
+############################################
+## disable magic quotes for php request vars
+
+    php_flag magic_quotes_gpc off
+
+############################################
+## disable automatic session start
+## before autoload was initialized
+
+    php_flag session.auto_start off
+
+############################################
+## enable resulting html compression
+
+    #php_flag zlib.output_compression on
+
+###########################################
+# disable user agent verification to not break multiple image upload
+
+    php_flag suhosin.session.cryptua off
+
+###########################################
+# turn off compatibility with PHP4 when dealing with objects
+
+    php_flag zend.ze1_compatibility_mode Off
+
+</IfModule>
+
+<IfModule mod_security.c>
+###########################################
+# disable POST processing to not break multiple image upload
+
+    SecFilterEngine Off
+    SecFilterScanPOST Off
+</IfModule>
+
+<IfModule mod_deflate.c>
+
+############################################
+## enable apache served files compression
+## http://developer.yahoo.com/performance/rules.html#gzip
+
+    # Insert filter on all content
+    ###SetOutputFilter DEFLATE
+    # Insert filter on selected content types only
+    #AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript
+
+    # Netscape 4.x has some problems...
+    #BrowserMatch ^Mozilla/4 gzip-only-text/html
+
+    # Netscape 4.06-4.08 have some more problems
+    #BrowserMatch ^Mozilla/4\.0[678] no-gzip
+
+    # MSIE masquerades as Netscape, but it is fine
+    #BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+
+    # Don't compress images
+    #SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip dont-vary
+
+    # Make sure proxies don't deliver the wrong content
+    #Header append Vary User-Agent env=!dont-vary
+
+</IfModule>
+
+<IfModule mod_ssl.c>
+
+############################################
+## make HTTPS env vars available for CGI mode
+
+    SSLOptions StdEnvVars
+
+</IfModule>
+
+<IfModule mod_rewrite.c>
+
+############################################
+## enable rewrites
+
+    Options +FollowSymLinks
+    RewriteEngine on
+
+############################################
+## you can put here your magento root folder
+## path relative to web root
+
+    #RewriteBase /magento/
+
+############################################
+## uncomment next line to enable light API calls processing
+
+#    RewriteRule ^api/([a-z][0-9a-z_]+)/?$ api.php?type=$1 [QSA,L]
+
+############################################
+## rewrite API2 calls to api.php (by now it is REST only)
+
+    RewriteRule ^api/rest api.php?type=rest [QSA,L]
+
+############################################
+## workaround for HTTP authorization
+## in CGI environment
+
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+############################################
+## TRACE and TRACK HTTP methods disabled to prevent XSS attacks
+
+    RewriteCond %{REQUEST_METHOD} ^TRAC[EK]
+    RewriteRule .* - [L,R=405]
+
+############################################
+## redirect for mobile user agents
+
+    #RewriteCond %{REQUEST_URI} !^/mobiledirectoryhere/.*$
+    #RewriteCond %{HTTP_USER_AGENT} "android|blackberry|ipad|iphone|ipod|iemobile|opera mobile|palmos|webos|googlebot-mobile" [NC]
+    #RewriteRule ^(.*)$ /mobiledirectoryhere/ [L,R=302]
+
+############################################
+## always send 404 on missing files in these folders
+
+    RewriteCond %{REQUEST_URI} !^/(media|skin|js)/
+
+############################################
+## never rewrite for existing files, directories and links
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-l
+
+############################################
+## rewrite everything else to index.php
+
+    RewriteRule .* index.php [L]
+
+</IfModule>
+
+
+############################################
+## Prevent character encoding issues from server overrides
+## If you still have problems, use the second line instead
+
+    AddDefaultCharset Off
+    #AddDefaultCharset UTF-8
+
+<IfModule mod_expires.c>
+
+############################################
+## Add default Expires header
+## http://developer.yahoo.com/performance/rules.html#expires
+
+    ExpiresDefault "access plus 1 year"
+
+</IfModule>
+
+############################################
+## By default allow all access
+
+    #Order allow,deny
+    #Allow from all
+
+###########################################
+## Deny access to release notes to prevent disclosure of the installed Magento version
+
+    <Files RELEASE_NOTES.txt>
+        order allow,deny
+        deny from all
+    </Files>
+
+############################################
+## If running in cluster environment, uncomment this
+## http://developer.yahoo.com/performance/rules.html#etags
+
+    FileETag none
+
+#Authtype Basic
+#AuthName "Authorization Required"
+#AuthUserFile /opt/.htpasswd
+#Require user elenidev2
+#Order Deny,Allow
+#Deny from all
+#Allow from 127.0.0.1
+#Allow from 10.
+#Allow from 119.235.51.138
+#Allow from 115.115.172.164
+#Allow from 183.82.1.216
+#Allow from 182.178.144.179
+#Allow from 202.166.172.91
+#Allow from 192.237.249.7
+#Allow from 49.206.173.184
+satisfy any
+
+Redirect 301 /store/category/winter-2013/ /occasion/seasonal/winter.html
+Redirect 301 /store/category/wicked-the-musical/ /occasion/theme/pop-culture.html
+Redirect 301 /store/category/wedding-anniversary-gifts/ /occasion/occasions/wedding-anniversary.html
+Redirect 301 /store/category/upload-your-own-photo/cupcakes-upload-your-own/ /upload-your-own-photo/cupcakes.html
+Redirect 301 /store/category/thanksgiving/ /occasion/seasonal/thanksgiving.html
+Redirect 301 /store/category/thank_you_business/ /occasion/occasions/thank-you.html
+Redirect 301 /store/category/sports-and-hobbies-theme/ /occasion/theme/sports-hobbies.html
+Redirect 301 /store/category/special_occasion_cupcakes/ /cupcakes/everyday/special-occasion.html
+Redirect 301 /store/category/seasonal-2013/winter-2013/ /occasion/seasonal/winter.html
+Redirect 301 /store/category/seasonal-2013/thanksgiving/ /occasion/seasonal/thanksgiving.html
+Redirect 301 /store/category/seasonal-2013/pop-culture-hbo-annie/wicked-the-musical/ /occasion/theme/pop-culture.html
+Redirect 301 /store/category/seasonal-2013/pop-culture-hbo-annie/hbo-collection/ /occasion/theme/pop-culture.html
+Redirect 301 /store/category/seasonal-2013/pop-culture-hbo-annie/cinderella/ /occasion/theme/pop-culture.html
+Redirect 301 /store/category/seasonal-2013/hanukkah/ /occasion/seasonal/hanukkah.html
+Redirect 301 /store/category/party_favors/ /color-me/color-me-party-favors.html
+Redirect 301 /store/category/occasions-main-nav/shop-by-theme/sports-and-hobbies-theme/ /occasion/theme/sports-hobbies.html
+Redirect 301 /store/category/occasions-main-nav/shop-by-theme/gifts-pfs-kids/ /occasion/theme/kids-teens.html
+Redirect 301 /store/category/occasions-main-nav/shop-by-theme/gift-boxes-new-york-city/ /occasion/theme/city.html
+Redirect 301 /store/category/occasions-main-nav/shop-by-theme/gift-boxes-fruits-flowers/ /occasion/theme/fruit-flowers.html
+Redirect 301 /store/category/occasions-main-nav/shop-by-theme/gift-boxes-animal/ /occasion/theme/animal.html
+Redirect 301 /store/category/occasions-main-nav/shop-by-theme/fashion-and-beauty/ /occasion/theme/fashion-beauty.html
+Redirect 301 /store/category/occasions-main-nav/shop-by-occasion/wedding-anniversary-gifts/ /occasion/occasions/wedding-anniversary.html
+Redirect 301 /store/category/occasions-main-nav/shop-by-occasion/thank_you_business/ /occasion/occasions/thank-you.html
+Redirect 301 /store/category/occasions-main-nav/shop-by-occasion/get-well/ /occasion/occasions/get-well.html
+Redirect 301 /store/category/occasions-main-nav/shop-by-occasion/everyday-occasions/ /occasion/occasions/everyday-occasions.html
+Redirect 301 /store/category/occasions-main-nav/shop-by-occasion/birthday-occasions/ /occasion/occasions/birthday.html
+Redirect 301 /store/category/occasions-main-nav/shop-by-occasion/baby-occasions/ /occasion/occasions/baby.html
+Redirect 301 /store/category/hbo-collection/ /occasion/theme/pop-culture.html
+Redirect 301 /store/category/hanukkah/ /occasion/seasonal/hanukkah.html
+Redirect 301 /store/category/gourmet-everyday/ /cupcakes/everyday/gourmet-everyday.html
+Redirect 301 /store/category/gifts-pfs-kids/ /occasion/theme/kids-teens.html
+Redirect 301 /store/category/gift-boxes-new-york-city/ /occasion/theme/city.html
+Redirect 301 /store/category/gift-boxes-fruits-flowers/ /occasion/theme/fruit-flowers.html
+Redirect 301 /store/category/gift-boxes-animal/ /occasion/theme/animal.html
+Redirect 301 /store/category/get-well/ /occasion/occasions/get-well.html
+Redirect 301 /store/category/fashion-and-beauty/ /occasion/theme/fashion-beauty.html
+Redirect 301 /store/category/everyday-occasions/ /occasion/occasions/everyday-occasions.html
+Redirect 301 /store/category/cupcakes/special_occasion_cupcakes/ /cupcakes/everyday/special-occasion.html
+Redirect 301 /store/category/cupcakes/gourmet-everyday/ /cupcakes/everyday/gourmet-everyday.html
+Redirect 301 /store/category/cupcakes/ /cupcakes.html
+Redirect 301 /store/category/cupcakes-upload-your-own/ /upload-your-own-photo/cupcakes.html
+Redirect 301 /store/category/corporate-gifts/corporate-gifts-gifts/ /occasion/occasions/business-gifting.html
+Redirect 301 /store/category/corporate-gifts-gifts/ /occasion/occasions/business-gifting.html
+Redirect 301 /store/category/color-me-markers/ /color-me.html
+Redirect 301 /store/category/color-me-gift-tins/ /color-me.html
+Redirect 301 /store/category/color_me_design_your_own/party_favors/ /color-me/color-me-party-favors.html
+Redirect 301 /store/category/color_me_design_your_own/color-me-markers/ /color-me.html
+Redirect 301 /store/category/color_me_design_your_own/color-me-gift-tins/ /color-me.html
+Redirect 301 /store/category/cinderella/ /occasion/theme/pop-culture.html
+Redirect 301 /store/category/birthday-occasions/ /occasion/occasions/birthday.html
+Redirect 301 /store/category/baby-occasions/ /occasion/occasions/baby.html
+Redirect 301 /shipping-bottom/ /shipping-information.html
+Redirect 301 /privacy/ /privacy-policy.html
+Redirect 301 /page/nut-free/ /about-us/nut-free-statement.html
+Redirect 301 /page/kosher-certified/ /about-us/kosher-certified.html
+Redirect 301 /page/ingredients/ /resources/ingredients.html
+Redirect 301 /page/hours-of-operation-chelsea-market/ /store/chelsea-market/hours-of-operation.html
+Redirect 301 /page/gallery/wedding/ /idea-gallery/hand-iced/wedding.html
+Redirect 301 /page/gallery/sports/ /idea-gallery/hand-iced/sports-hobbies.html
+Redirect 301 /page/gallery/fashion/ /idea-gallery/hand-iced/fashion.html
+Redirect 301 /page/gallery/corporate/ /idea-gallery/hand-iced/corporate.html
+Redirect 301 /page/gallery/celebrations/ /idea-gallery/edible-image/celebrations.html
+Redirect 301 /page/gallery/birthday/ /idea-gallery/hand-iced/birthday.html
+Redirect 301 /page/gallery/baby/ /idea-gallery/hand-iced/baby.html
+Redirect 301 /page/gallery/animals-nature/ /idea-gallery/hand-iced/animals-nature.html
+Redirect 301 /page/gallery/all/ /idea-gallery.html
+Redirect 301 /contact/ /resources/contact-us.html
+Redirect 301 /all-products/winter-2013/ /occasion/seasonal/winter.html
+Redirect 301 /all-products/wicked-the-musical/ /occasion/theme/pop-culture.html
+Redirect 301 /all-products/wedding-anniversary-gifts/ /occasion/occasions/wedding-anniversary.html
+Redirect 301 /all-products/thanksgiving/ /occasion/seasonal/thanksgiving.html
+Redirect 301 /all-products/thank_you_business/ /occasion/occasions/thank-you.html
+Redirect 301 /all-products/sports-and-hobbies-theme/ /occasion/theme/sports-hobbies.html
+Redirect 301 /all-products/special_occasion_cupcakes/ /cupcakes/everyday/special-occasion.html
+Redirect 301 /all-products/party_favors/ /color-me/color-me-party-favors.html
+Redirect 301 /all-products/hbo-collection/ /occasion/theme/pop-culture.html
+Redirect 301 /all-products/hanukkah/ /occasion/seasonal/hanukkah.html
+Redirect 301 /all-products/gourmet-everyday/ /cupcakes/everyday/gourmet-everyday.html
+Redirect 301 /all-products/gifts-pfs-kids/ /occasion/theme/kids-teens.html
+Redirect 301 /all-products/gift-boxes-new-york-city/ /occasion/theme/city.html
+Redirect 301 /all-products/gift-boxes-fruits-flowers/ /occasion/theme/fruit-flowers.html
+Redirect 301 /all-products/gift-boxes-animal/ /occasion/theme/animal.html
+Redirect 301 /all-products/get-well/ /occasion/occasions/get-well.html
+Redirect 301 /all-products/fashion-and-beauty/ /occasion/theme/fashion-beauty.html
+Redirect 301 /all-products/everyday-occasions/ /occasion/occasions/everyday-occasions.html
+Redirect 301 /all-products/cupcakes-upload-your-own/ /upload-your-own-photo/cupcakes.html
+Redirect 301 /all-products/corporate-gifts-gifts/ /occasion/occasions/business-gifting.html
+Redirect 301 /all-products/color-me-markers/ /color-me.html
+Redirect 301 /all-products/color-me-gift-tins/ /color-me.html
+Redirect 301 /all-products/cinderella/ /occasion/theme/pop-culture.html
+Redirect 301 /all-products/birthday-occasions/ /occasion/occasions/birthday.html
+Redirect 301 /all-products/baby-occasions/ /occasion/occasions/baby.html

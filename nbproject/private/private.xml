@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/design/frontend/enterprise/elenis/template/catalog/product/view/type/options/configurable.phtml</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/design/frontend/enterprise/elenis/template/catalog/product/view/options.phtml</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/design/frontend/enterprise/elenis/template/catalog/product/view/options/wrapper.phtml</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/design/frontend/enterprise/elenis/template/catalog/product/view/options/js.phtml</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/design/frontend/enterprise/elenis/template/catalog/product/view/addto.phtml</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/design/frontend/enterprise/elenis/template/catalog/product/view/addtocart.phtml</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/design/frontend/enterprise/elenis/template/catalog/product/test.phtml</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/design/frontend/enterprise/elenis/layout/local.xml</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/design/frontend/enterprise/elenis/layout/page.xml</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/design/frontend/enterprise/elenis/template/page/3columns.phtml</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/design/frontend/enterprise/elenis/template/aitcg/view/options/type/cgfile.phtml</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/design/frontend/enterprise/elenis/layout/aitcg.xml</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/design/frontend/enterprise/elenis/layout/amconf.xml</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/etc/modules/OrganicInternet_SimpleConfigurableProducts.xml</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/code/community/OrganicInternet/SimpleConfigurableProducts/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Config/Grid.php</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/code/community/OrganicInternet/SimpleConfigurableProducts/Catalog/Model/Resource/Eav/Mysql4/Product/Collection.php</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/code/community/OrganicInternet/SimpleConfigurableProducts/Catalog/Model/Product.php</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/code/community/OrganicInternet/SimpleConfigurableProducts/Checkout/Block/Cart/Item/Renderer.php</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/code/community/OrganicInternet/SimpleConfigurableProducts/Helper/Data.php</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/code/community/OrganicInternet/SimpleConfigurableProducts/controllers/AjaxController.php</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/code/community/OrganicInternet/SimpleConfigurableProducts/Catalog/Model/Product/Type/Configurable.php</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/code/community/OrganicInternet/SimpleConfigurableProducts/Catalog/Model/Product/Type/Simple.php</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/code/community/OrganicInternet/SimpleConfigurableProducts/Catalog/Model/Resource/Eav/Mysql4/Product/Indexer/Price.php</file>
+        <file>file:/D:/xampp/htdocs/elenis-kiln/app/code/community/OrganicInternet/SimpleConfigurableProducts/Catalog/Model/Product/Type/Configurable/Price.php</file>
+    </open-files>
+</project-private>

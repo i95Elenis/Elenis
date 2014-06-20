@@ -1,0 +1,23 @@
+.overlay-container
+{
+    position:relative;
+}
+
+.overlay-bg
+{
+    position:absolute;
+    width:19.2em;
+    height:195px;
+    background-color:rgba(200,200,200,0.5);
+    visibility: hidden;
+    z-index: 101;
+}
+
+.overlay-text
+{
+    position:relative;
+    top:45%;
+    left:15%;
+    font-size:16px;
+    font-weight:bold;
+}

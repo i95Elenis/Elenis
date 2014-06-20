@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config>
+  
+		<menu>
+			<all module="all">
+				<title>All</title>
+				<sort_order>71</sort_order>   
+			</all>
+		</menu>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<Cynosure_All>
+							<title>All Module</title>
+							<sort_order>10</sort_order>
+						</Cynosure_All>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		
+    
+</config>

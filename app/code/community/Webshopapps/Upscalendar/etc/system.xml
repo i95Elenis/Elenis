@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * WebShopApps Shipping Module
+ *
+ * @category    WebShopApps
+ * @package     WebShopApps_CalendarBase
+ * User         Karen Baker
+ * Date         2nd May 2013
+ * Time         3pm
+ * @copyright   Copyright (c) 2013 Zowta Ltd (http://www.WebShopApps.com)
+ *              Copyright, 2013, Zowta, LLC - US license
+ * @license     http://www.WebShopApps.com/license/license.txt - Commercial license
+ *
+ */
+
+-->
+<config>
+    <sections>
+        <shipping translate="label" module="shipping">
+            <groups>
+                <webshopapps_dateshiphelper translate="label">
+                    <fields>
+                        <transit_heading translate="label">
+                            <label>UPS Specific Configuration</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>250</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </transit_heading>
+                        <max_delivery_days translate="label">
+                            <label>Maximum Time in Transit</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>260</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_delivery_days>
+                    </fields>
+                </webshopapps_dateshiphelper>
+            </groups>
+        </shipping>
+    </sections>
+</config>

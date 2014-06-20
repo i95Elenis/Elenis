@@ -1,0 +1,581 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * */
+/**
+ * WebShopApps Shipping Module
+ *
+ * @category    WebShopApps
+ * @package     WebShopApps_CalendarBase
+ * User         Karen Baker
+ * Date         2nd May 2013
+ * Time         3pm
+ * @copyright   Copyright (c) 2013 Zowta Ltd (http://www.WebShopApps.com)
+ *              Copyright, 2013, Zowta, LLC - US license
+ * @license     http://www.WebShopApps.com/license/license.txt - Commercial license
+ *
+ */
+$messengerShippingEnabled = false;
+$session = Mage::getSingleton('checkout/session')->getQuote();
+$cartItems = $session->getAllVisibleItems();
+
+
+foreach ($cartItems as $item) :
+    $product = Mage::getModel('catalog/product')->load($item->getProductId());
+    $isByHandEnabled[] = $product->getByHand();
+endforeach;
+//echo "jhaved".$this->getQuote()->getShippingAddress()->getRegionCode();
+$regionName = $this->getQuote()->getShippingAddress()->getRegionCode();
+?>
+
+
+<?php if (!($_shippingRateGroups = $this->getShippingRates())): ?>
+    <p><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></p>
+<?php else: ?>
+<?php
+        $storePickup = false;
+        if (isset($_REQUEST['store_pickup']) && !empty($_REQUEST['store_pickup'])) {
+            if ($_REQUEST['store_pickup'] == 'storepickupmodule') {
+                $storePickup = true;
+            }
+        }
+?>
+<?php if ($storePickup == true): ?>
+            <dl class="sp-methods">
+    <?php $shippingCodePrice = array(); ?>
+    <?php $_initialRates = $this->getInitialRates(); ?>
+    <?php $_minDate = $this->getMinDate(); ?>
+    <?php $_useUPSRates = Mage::helper('calendarbase')->useUPSRates();
+    ?>
+    <?php $_sole = count($_shippingRateGroups) == 1; ?>
+    <?php foreach ($_shippingRateGroups as $code => $_rates):
+    ?>
+
+    <?php if ($code == 'storepickupmodule'): ?>
+                    <dt><?php echo $this->escapeHtml($this->getCarrierName($code)) ?></dt>
+                    <dd>
+        <?php if (($_useUPSRates && $code == 'ups') || $code == 'customcalendar'): ?>
+                        <div class="overlay-container">
+                            <div class="overlay-bg" id="retrieving-rates"></div>
+                        </div>
+                        <div id="modal_dialog"></div>
+                        <br />
+                        <p id="date_chosen">Delivery date chosen: <?php echo $_initialRates[0]['expected_delivery']; ?></p>
+                        <div id="ship_options">
+                            <div id="radio_choices">
+                                <ul>
+                    <?php if ($_initialRates[0]['code'] == 'customcalendar_error'): ?>
+                            <ul class="messages"><li class="error-msg"><ul><li><?php echo Mage::getStoreConfig('carriers/customcalendar/specificerrmsg'); ?></li></ul></li></ul>
+                    <?php else: ?>
+                    <?php foreach ($_initialRates as $_rate): ?>
+                                    <li>
+                                        <input name="shipping_method" type="radio" value="<?php echo $_rate['code'] ?>" id="s_method_<?php echo $_rate['code'] ?>" <?php if ($_rate['checked'])
+                                        echo 'checked="checked"' ?> class="radio"/>
+                                 <label for="s_method_<?php echo $_rate['code'] ?>"><?php echo $this->escapeHtml($_rate['method_description']) ?>
+                            <?php echo $_rate['price']; ?>
+                                    </label>
+                                </li>
+                    <?php endforeach ?>
+                    <?php endif; ?>
+                                    </ul>
+                                </div>
+                            </div>
+        <?php if (Mage::helper('calendarbase')->showCustomText()): ?>
+                                            <div id="onepage-checkout-webshopapps-calendarbase">
+                                                <div class="content">
+                                                    <p><?php echo Mage::helper('calendarbase')->getCustomText1($this->getAddress()) ?></p>
+                                                    <p><?php echo Mage::helper('calendarbase')->getCustomText2($this->getAddress()) ?></p>
+                                                </div>
+                                            </div>
+        <?php endif; ?>
+        <?php else: ?>
+                                                <ul>
+            <?php
+                                                $_sole = $_sole && count($_rates) == 1;
+                                                foreach ($_rates as $_rate):
+            ?>
+            <?php $shippingCodePrice[] = "'" . $_rate->getCode() . "':" . (float) $_rate->getPrice(); ?>
+                                                    <li>
+                <?php if ($_rate->getErrorMessage()): ?>
+                                                        <ul class="messages"><li class="error-msg"><ul><li><?php echo $this->escapeHtml($_rate->getErrorMessage()) ?></li></ul></li></ul>
+                <?php else: ?>
+                <?php if ($_sole) : ?>
+                                                                <span class="no-display"><input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_rate->getCode() ?>" checked="checked" /></span>
+                <?php else: ?>
+                                                                    <input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if ($_rate->getCode() === $this->getAddressShippingMethod())
+                                                                        echo 'checked="checked"' ?> class="radio"/>
+
+                <?php if ($_rate->getCode() === $this->getAddressShippingMethod()): ?>
+                                                                            <script type="text/javascript">
+                                                                                //<![CDATA[
+                                                                                lastPrice = <?php echo (float) $_rate->getPrice(); ?>;
+                                                                                //]]>
+                                                                            </script>
+                <?php endif; ?>
+
+                <?php endif; ?>
+                                                                            <label for="s_method_<?php echo $_rate->getCode() ?>"><?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
+                    <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                    <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
+                    <?php echo $_excl; ?>
+                    <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                                                                                (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                    <?php endif; ?>
+                                                                            </label>
+                <?php endif ?>
+                                                                            </li>
+
+            <?php endforeach; ?>
+                                                                            </ul>
+        <?php if ($code == 'storepickupmodule' && $code != 'matrixrate' && $code != 'ups'): ?>
+                                                                                    <div class="deliverydateblock">
+            <?php
+                                                                                    Mage::getModel('core/session')->setData('shipping_code', $code);
+                                                                                    echo $this->getChildHtml('custom_deliverydate');
+                                                                                    //echo $code;
+                                                                                    Mage::getModel('core/session')->setData('shipping_code', '');
+            ?>
+                                                                                </div><?php endif; ?>
+                                                                                <script type="text/javascript">
+                                                                                    jQuery("div.deliverydateblock ul li:nth-child(2)" ).css('display','block');
+                                                                                    jQuery("div#checkout-shipping-method-load dl.sp-methods dd ul li:nth-child(1) input[class='radio']").attr('checked','checked');
+                                                                                    jQuery("#s_method_storepickupmodule_pickup").attr('checked','checked');
+                                                                                </script>
+        <?php endif; ?>
+                                                                                </dd>
+
+    <?php endif; ?>
+    <?php endforeach; ?>
+                                                                                </dl><?php endif; ?>
+<?php if ($storePickup == false): ?>
+
+
+
+                                                                                        <dl class="sp-methods">
+    <?php $shippingCodePrice = array(); ?>
+    <?php $_initialRates = $this->getInitialRates(); ?>
+    <?php $_minDate = $this->getMinDate(); ?>
+    <?php $_useUPSRates = Mage::helper('calendarbase')->useUPSRates(); ?>
+    <?php $_sole = count($_shippingRateGroups) == 1; ?>
+    <?php
+                                                                                        foreach ($_shippingRateGroups as $code => $_rates):
+                                                                                            $shippingMethods[] = $code;
+                                                                                        endforeach;
+                                                                                        //echo "<pre>";print_r($shippingMethods);print_r($isByHandEnabled);
+    ?>
+
+    <?php
+                                                                                        foreach ($_shippingRateGroups as $code => $_rates):
+                                                                                            if (in_array('matrixrate', $shippingMethods) && in_array(1, $isByHandEnabled)) {
+                                                                                                $messengerShippingEnabled = true;
+                                                                                            } else {
+    ?>      <dd><?php
+                                                                                                if ($code != 'storepickupmodule') {
+
+                                                                                                    if (($_useUPSRates && $code == 'ups') || $code == 'customcalendar'):
+    ?>
+                                                                                                        <div class="overlay-container">
+                                                                                                            <div class="overlay-bg" id="retrieving-rates"></div>
+                                                                                                        </div>
+                                                                                                        <div id="modal_dialog"></div>
+                                                                                                        <br />
+                                                                                                        <p id="date_chosen">Delivery date chosen: <?php echo $_initialRates[0]['expected_delivery']; ?></p>
+                                                                                                        <div id="ship_options">
+                                                                                                            <div id="radio_choices">
+                                                                                                                <ul>
+                    <?php if ($_initialRates[0]['code'] == 'customcalendar_error'): ?>
+                                                                                                            <ul class="messages"><li class="error-msg"><ul><li><?php echo Mage::getStoreConfig('carriers/customcalendar/specificerrmsg'); ?></li></ul></li></ul>
+                    <?php else: ?>
+                    <?php foreach ($_initialRates as $_rate): ?>
+                    
+                                                                                                                   <?php if ($_rate['code'] == 'ups_GND') :?>
+                 
+                                                                                                                        <li>
+                                                                                                                            <input name="shipping_method" type="radio" value="<?php echo $_rate['code'] ?>" id="s_method_<?php echo $_rate['code'] ?>" <?php if ($_rate['checked'])
+                                                                                                                            echo 'checked="checked"' ?> class="radio"/>
+                                                                                                                     <label for="s_method_<?php echo $_rate['code'] ?>"><?php echo $this->escapeHtml($_rate['method_description']) ?> 
+                            <?php echo $_rate['price']; ?>
+                                                                                                                        </label> <span style='font-size:11px;color:#E73785 !important'> (Delivery Date Not Guaranteed)</span>
+                                                                                                                    </li>
+                    <?php else: ?>
+
+
+                                                                                                                                <li>
+                                                                                                                                    <input name="shipping_method" type="radio" value="<?php echo $_rate['code'] ?>" id="s_method_<?php echo $_rate['code'] ?>" <?php if ($_rate['checked'])
+                                                                                                                                    echo 'checked="checked"' ?> class="radio"/>
+                                                                                                                             <label for="s_method_<?php echo $_rate['code'] ?>"><?php echo $this->escapeHtml($_rate['method_description']) ?>
+                            <?php echo $_rate['price']; ?>
+                                                                                                                                </label>
+                                                                                                                            </li>
+                    <?php endif; ?>
+                    <?php endforeach ?>
+                    <?php endif; ?>
+                                                                                                                                </ul>
+                                                                                                                            </div>
+                                                                                                                        </div>
+        <?php if (Mage::helper('calendarbase')->showCustomText()): ?>
+                                                                                                                                        <div id="onepage-checkout-webshopapps-calendarbase">
+                                                                                                                                            <div class="content">
+                                                                                                                                                <p><?php echo Mage::helper('calendarbase')->getCustomText1($this->getAddress()) ?></p>
+                                                                                                                                                <p><?php echo Mage::helper('calendarbase')->getCustomText2($this->getAddress()) ?></p>
+                                                                                                                                            </div>
+                                                                                                                                        </div>
+        <?php endif; ?>
+        <?php else: ?>
+                                                                                                                                            <ul>
+            <?php
+                                                                                                                                            $_sole = $_sole && count($_rates) == 1;
+                                                                                                                                            foreach ($_rates as $_rate):
+            ?>
+            <?php $shippingCodePrice[] = "'" . $_rate->getCode() . "':" . (float) $_rate->getPrice(); ?>
+                                                                                                                                                <li>
+                <?php if ($_rate->getErrorMessage()): ?>
+                                                                                                                                                    <ul class="messages"><li class="error-msg"><ul><li><?php echo $this->escapeHtml($_rate->getErrorMessage()) ?></li></ul></li></ul>
+                <?php else: ?>
+                <?php if ($_sole) : ?>
+                                                                                                                                                            <span class="no-display"><input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_rate->getCode() ?>" checked="checked" /></span>
+                <?php else: ?>
+                                                                                                                                                                <input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if ($_rate->getCode() === $this->getAddressShippingMethod())
+                                                                                                                                                                    echo 'checked="checked"' ?> class="radio"/>
+
+                <?php if ($_rate->getCode() === $this->getAddressShippingMethod()): ?>
+                                                                                                                                                                        <script type="text/javascript">
+                                                                                                                                                                            //<![CDATA[
+                                                                                                                                                                            lastPrice = <?php echo (float) $_rate->getPrice(); ?>;
+                                                                                                                                                                            //]]>
+                                                                                                                                                                        </script>
+
+
+                <?php endif; ?>
+
+                <?php endif; ?>
+                                                                                                                                                                        <label for="s_method_<?php echo $_rate->getCode() ?>"><?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
+                    <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                    <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
+                    <?php echo $_excl; ?>
+                    <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                                                                                                                                                                            (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                    <?php endif; ?>
+                                                                                                                                                                        </label>
+                <?php endif ?>
+                                                                                                                                                                        </li>
+
+            <?php endforeach; ?>
+                                                                                                                                                                        </ul>
+        <?php endif; ?>
+                                                                                                                                                                        </dd>
+    <?php if ($code == 'matrixrate' && ($code != 'storepickupmodule' && $code != 'ups')): ?>
+                                                                                                                                                                                <div class="deliverydateblock">
+        <?php
+                                                                                                                                                                                Mage::getModel('core/session')->setData('shipping_code', $code);
+                                                                                                                                                                                echo $this->getChildHtml('custom_deliverydate');
+
+                                                                                                                                                                                Mage::getModel('core/session')->setData('shipping_code', '');
+        ?>
+                                                                                                                                                                            </div><?php endif; ?>
+
+    <?php
+                                                                                                                                                                            }
+                                                                                                                                                                        }
+    ?>
+
+    <?php if ($code != 'storepickupmodule' && $messengerShippingEnabled == true && $regionName == "NY"): ?>
+                                                                                                                                                                            <dt><?php echo $this->escapeHtml($this->getCarrierName($code)) ?></dt>
+                                                                                                                                                                            <dd>
+
+
+
+
+
+                                                                                                                                                                                <ul>
+            <?php
+                                                                                                                                                                            $_sole = $_sole && count($_rates) == 1;
+                                                                                                                                                                            foreach ($_rates as $_rate):
+            ?>
+            <?php $shippingCodePrice[] = "'" . $_rate->getCode() . "':" . (float) $_rate->getPrice(); ?>
+                                                                                                                                                                                <li>
+                <?php if ($_rate->getErrorMessage()): ?>
+                                                                                                                                                                                    <ul class="messages"><li class="error-msg"><ul><li><?php echo $this->escapeHtml($_rate->getErrorMessage()) ?></li></ul></li></ul>
+                <?php else: ?>
+                <?php if ($_sole) : ?>
+                                                                                                                                                                                            <span class="no-display"><input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_rate->getCode() ?>" checked="checked" /></span>
+                <?php else: ?>
+                                                                                                                                                                                                <input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if ($_rate->getCode() === $this->getAddressShippingMethod())
+                                                                                                                                                                                                    echo 'checked="checked"' ?> class="radio"/>
+
+                <?php if ($_rate->getCode() === $this->getAddressShippingMethod()): ?>
+                                                                                                                                                                                                        <script type="text/javascript">
+                                                                                                                                                                                                            //<![CDATA[
+                                                                                                                                                                                                            lastPrice = <?php echo (float) $_rate->getPrice(); ?>;
+                                                                                                                                                                                                            //]]>
+                                                                                                                                                                                                        </script>
+
+
+                <?php endif; ?>
+
+                <?php endif; ?>
+                                                                                                                                                                                                        <label for="s_method_<?php echo $_rate->getCode() ?>"><?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
+                    <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                    <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
+                    <?php echo $_excl; ?>
+                    <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                                                                                                                                                                                                            (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                    <?php endif; ?>
+                                                                                                                                                                                                        </label>
+                <?php endif ?>
+                                                                                                                                                                                                        </li>
+
+            <?php endforeach; ?>
+                                                                                                                                                                                                        </ul>
+        <?php endif; ?>
+                                                                                                                                                                                                        </dd>
+    <?php if ($code == 'matrixrate' && $code != 'storepickupmodule'): ?>
+                                                                                                                                                                                                                <div class="deliverydateblock">
+        <?php
+                                                                                                                                                                                                                Mage::getModel('core/session')->setData('shipping_code', $code);
+                                                                                                                                                                                                                echo $this->getChildHtml('custom_deliverydate');
+
+                                                                                                                                                                                                                Mage::getModel('core/session')->setData('shipping_code', '');
+        ?>
+                                                                                                                                                                                                            </div><?php endif; ?>
+                                                                                                                                                                                                            <script type="text/javascript">
+                                                                                                                                                                                                                jQuery("div.deliverydateblock ul li:nth-child(2)" ).css('display','none');
+                                                                                                                                                                                                                if(jQuery("div#checkout-shipping-method-load dl.sp-methods dd").length==2)
+                                                                                                                                                                                                                {
+                                                                                                                                                                                                                    jQuery("div#checkout-shipping-method-load dl.sp-methods div#ship_options div#radio_choices ul li:nth-child(1) input[class='radio']").attr('checked','checked');
+                                                                                                                                                                                                                    jQuery("div.deliverydateblock ul li:nth-child(2)" ).css('display','none');
+                                                                                                                                                                                                                }
+                                                                                                                                                                                                                if(jQuery("div#checkout-shipping-method-load dl.sp-methods dd").length==1)
+                                                                                                                                                                                                                {
+                                                                                                                                                                                                                    jQuery("div#checkout-shipping-method-load dl.sp-methods dd ul li:nth-child(1) input[class='radio']").attr('checked','checked');
+                                                                                                                                                                                                                    jQuery("div.deliverydateblock ul li:nth-child(2)" ).css('display','block');
+                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                jQuery("li input[id^='s_method_ups_']").each(function() {
+                                                                                                                                                                                                                    //alert(this.id);
+                                                                                                                                                                                                                    jQuery("#"+this.id).click(function() {
+                                                                                                                                                                                                                        jQuery("div.deliverydateblock ul li:nth-child(2)" ).css('display','none');
+                                                                                                                                                                                                                    });
+
+
+                                                                                                                                                                                                                });
+
+                                                                                                                                                                                                                jQuery("li input[id^='s_method_matrixrate_matrixrate_']").each(function(i) {
+                                                                                                                                                                                                                    var count=i+1;
+                                                                                                                                                                                                                    //alert("div#checkout-shipping-method-load dl.sp-methods dd ul li:nth-child("+count+") input[id='"+this.id+"']");
+
+                                                                                                                                                                                                                    if(count==1)
+                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                        jQuery("div#checkout-shipping-method-load dl.sp-methods dd ul li:nth-child("+count+") input[class='radio']").attr('checked','checked');
+                                                                                                                                                                                                                        jQuery("div.deliverydateblock ul li:nth-child(2)" ).css('display','block');
+
+
+                                                                                                                                                                                                                        jQuery("div#checkout-shipping-method-load dl.sp-methods dd ul li:nth-child("+count+") input[id='"+this.id+"']").click(function() {
+                                                                                                                                                                                                                            jQuery("div.deliverydateblock ul li:nth-child(2)" ).css('display','block');
+                                                                                                                                                                                                                        });
+
+                                                                                                                                                                                                                    } else
+                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                        jQuery("div#checkout-shipping-method-load dl.sp-methods dd ul li:nth-child("+count+") input[id='"+this.id+"']").click(function() {
+                                                                                                                                                                                                                            jQuery("div.deliverydateblock ul li:nth-child(2)" ).css('display','none');
+                                                                                                                                                                                                                        });
+                                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                                });
+
+                                                                                                                                                                                                            </script>
+
+
+
+    <?php endforeach; ?>
+                                                                                                                                                                                                            </dl>
+
+<?php endif; ?>
+
+
+                                                                                                                                                                                                                <script type="text/javascript">
+                                                                                                                                                                                                                    //<![CDATA[
+<?php if (!empty($shippingCodePrice)): ?>
+                                                                                                                                                                                                                    var shippingCodePrice = "{<?php echo implode(',', $shippingCodePrice); ?>}";
+<?php endif; ?>
+
+                                                                                                                                                                                                                    $$('input[type="radio"][name="shipping_method"]').each(function(el){
+                                                                                                                                                                                                                    Event.observe(el, 'click', function(){
+                                                                                                                                                                                                                    if (el.checked == true) {
+                                                                                                                                                                                                                    var getShippingCode = el.getValue();
+<?php if (!empty($shippingCodePrice)): ?>
+                                                                                                                                                                                                                        var newPrice = shippingCodePrice[getShippingCode];
+                                                                                                                                                                                                                        var quoteBaseGrandTotal;
+                                                                                                                                                                                                                        var lastPrice;
+
+                                                                                                                                                                                                                        if (!lastPrice) {
+                                                                                                                                                                                                                        lastPrice = newPrice;
+                                                                                                                                                                                                                        quoteBaseGrandTotal += newPrice;
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                        if (newPrice != lastPrice) {
+                                                                                                                                                                                                                        quoteBaseGrandTotal += (newPrice-lastPrice);
+                                                                                                                                                                                                                        lastPrice = newPrice;
+                                                                                                                                                                                                                        }
+<?php endif; ?>
+
+                                                                                                                                                                                                                        var checkQuoteBaseGrandTotal = quoteBaseGrandTotal;
+                                                                                                                                                                                                                        return false;
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                        });
+                                                                                                                                                                                                                        });
+
+                                                                                                                                                                                                                        $j(function() {
+                                                                                                                                                                                                                        $j( '#modal_dialog' ).datepicker({
+                                                                                                                                                                                                                        numberOfMonths: 1,
+                                                                                                                                                                                                                        dateFormat: '<?php echo Mage::helper('webshopapps_dateshiphelper')->getDateFormatString() ?>',
+                                                                                                                                                                                                                        beforeShowDay: nonWorkingDates,
+                                                                                                                                                                                                                        minDate: '<?php echo $this->getMinDate() ?>',
+                                                                                                                                                                                                                        maxDate: '+<?php echo Mage::helper('calendarbase')->getNumOfWeeks() ?>W',
+                                                                                                                                                                                                                        altField: '.dialog',
+                                                                                                                                                                                                                        altFormat: 'DD, d MM, yy',
+                                                                                                                                                                                                                        showOn: 'button',
+                                                                                                                                                                                                                        buttonImage: '$this->getSkinUrl("images/wsa/calendar.gif")',
+                                                                                                                                                                                                                        onSelect: function(dateText, inst){
+
+                                                                                                                                                                                                                        var retrievingrates = document.getElementById('retrieving-rates');
+                                                                                                                                                                                                                        var sStyleHeight = "height:" + document.getElementById('modal_dialog').clientHeight + "px; ";
+                                                                                                                                                                                                                        retrievingrates.setAttribute("style",sStyleHeight);
+
+                                                                                                                                                                                                                        retrievingrates.innerHTML = "<div class='overlay-text'><img src='<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>'> Retrieving rates...</div>";
+                                                                                                                                                                                                                        retrievingrates.style.visibility = "visible";
+
+                                                                                                                                                                                                                        var radioButtons = document.getElementsByName('shipping_method');
+                                                                                                                                                                                                                        for ( var i = 0; i < radioButtons.length; i++ ) {
+                                                                                                                                                                                                                        radioButtons[i].disabled = true;
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                        $('date_chosen').innerHTML='Delivery date chosen: '+dateText;
+
+                                                                                                                                                                                                                        $j.ajax({
+                                                                                                                                                                                                                        type: 'GET',
+                                                                                                                                                                                                                        dataType: 'json',
+                                                                                                                                                                                                                        url: '<?php echo $this->getUrl("calendarbase/tablegrid/getDayRate", array("_secure" => true)) ?>',
+                                                                                                                                                                                                                        data: 'date='+dateText,
+                                                                                                                                                                                                                        success: function(data) {
+                                                                                                                                                                                                                        changeShipOptions(data,dateText)
+                                                                                                                                                                                                                        },
+                                                                                                                                                                                                                        complete: function(data) {
+                                                                                                                                                                                                                        document.getElementById('retrieving-rates').innerHTML = "";
+                                                                                                                                                                                                                        document.getElementById('retrieving-rates').style.visibility = "hidden";
+                                                                                                                                                                                                                        var radioButtons = document.getElementsByName('shipping_method');
+                                                                                                                                                                                                                        for ( var i = 0; i < radioButtons.length; i++ ) {
+                                                                                                                                                                                                                        radioButtons[i].disabled = false;
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                        });
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                        });
+                                                                                                                                                                                                                        });
+
+                                                                                                                                                                                                                        function changeShipOptions(data,dateText) {
+                                                                                                                                                                                                                        $('radio_choices').remove();
+                                                                                                                                                                                                                        $('date_chosen').innerHTML='Delivery date chosen: '+dateText;
+                                                                                                                                                                                                                        var radOptions = new Element('rad',{id:'radio_choices'});
+                                                                                                                                                                                                                        $('ship_options').insert(radOptions);
+                                                                                                                                                                                                                        if (data=='') {
+<?php $errorMessage = $_useUPSRates ? Mage::getStoreConfig('carriers/ups/specificerrmsg') : Mage::getStoreConfig('carriers/customcalendar/specificerrmsg') ?>
+                                                                                                                                                                                                                        $('radio_choices').innerHTML='<ul class="messages"><li class="error-msg"><ul><li><?php echo preg_replace("!\s+!", " ", $errorMessage); ?></li></ul></li></ul>';
+                                                                                                                                                                                                                        }else{
+                                                                                                                                                                                                                        var radioText ='<ul>';
+                                                                                                                                                                                                                        checkedFlag = true;
+                                                                                                                                                                                                                        for (code in data) {
+                                                                                                                                                                                                                        element = data[code];
+                                                                                                                                                                                                                        if (checkedFlag == true) {
+                                                                                                                                                                                                                        radioIndText= '<li><input name="shipping_method" type="radio" checked  value="'+code+'" id="s_method_'+code+'" class="radio"/>\
+                                                                                                                                                                                                                                                        <label for="s_method_'+code+'">'+element.method_description+' '+element.price+'</label></li>';
+                                                                                                                                                                                                                        checkedFlag = false;
+                                                                                                                                                                                                                        }	else {
+                                                                                                                                                                                                                        radioIndText= '<li><input name="shipping_method" type="radio" value="'+code+'" id="s_method_'+code+'" class="radio"/>\
+                                                                                                                                                                                                                                                        <label for="s_method_'+code+'">'+element.method_description+' '+element.price+'</label></li>';
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                        radioText += radioIndText;
+
+                                                                                                                                                                                                                        };
+                                                                                                                                                                                                                        $('radio_choices').innerHTML=radioText+'</ul>';
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                        }
+
+<?php
+                                                                                                                                                                                                                        if (!empty($_initialRates) && isset($_initialRates[0]['expected_delivery'])) {
+                                                                                                                                                                                                                            $given_date = $_initialRates[0]['expected_delivery'];
+                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                            $given_date = date("m-d-Y");
+                                                                                                                                                                                                                        }
+?>
+
+                                                                                                                                                                                                                        var queryDate =  '<?php echo $given_date; ?>';   // '16-10-2012' or '10-16-2012;
+                                                                                                                                                                                                                        dateParts = queryDate.match(/(\d+)/g);
+                                                                                                                                                                                                                        if ('<?php echo Mage::helper('webshopapps_dateshiphelper')->getDateFormatString() ?>'=='mm/dd/yy') {
+                                                                                                                                                                                                                        realDate = new Date(dateParts[2], dateParts[0] - 1, dateParts[1]);
+                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                        realDate = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                        $j('#modal_dialog').datepicker('setDate',realDate);
+
+                                                                                                                                                                                                                        function nonWorkingDates(date){
+                                                                                                                                                                                                                        var day = date.getDay();
+                                                                                                                                                                                                                        if (day==0) { day=7; }
+                                                                                                                                                                                                                        var closedDatesArr = <?php echo $this->getBlackoutDeliveryDates(); ?>;
+                                                                                                                                                                                                                        var closedDaysArr 	= <?php echo $this->getBlackoutDeliveryDays(); ?>;
+
+                                                                                                                                                                                                                        for (var i = 0; i < closedDaysArr.length; i++) {
+                                                                                                                                                                                                                        if (day == closedDaysArr[i]) {
+                                                                                                                                                                                                                        return [false];
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                        var month=date.getMonth();
+                                                                                                                                                                                                                        var year=date.getFullYear();
+                                                                                                                                                                                                                        day = date.getDate();
+                                                                                                                                                                                                                        var format = '<?php echo Mage::helper('webshopapps_dateshiphelper')->getDateFormatString() ?>';
+
+                                                                                                                                                                                                                        if(format == 'dd-mm-yy'){
+                                                                                                                                                                                                                        for (i = 0; i < closedDatesArr.length; i++) {
+                                                                                                                                                                                                                        if (month == closedDatesArr[i][0][1] - 1 &&
+                                                                                                                                                                                                                        day == closedDatesArr[i][0][0] &&
+                                                                                                                                                                                                                        year == closedDatesArr[i][0][2]) {
+                                                                                                                                                                                                                        return [false];
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                        return [true];
+                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                        for (i = 0; i < closedDatesArr.length; i++) {
+                                                                                                                                                                                                                        if (month == closedDatesArr[i][0][0] - 1 &&
+                                                                                                                                                                                                                        day == closedDatesArr[i][0][1] &&
+                                                                                                                                                                                                                        year == closedDatesArr[i][0][2]) {
+                                                                                                                                                                                                                        return [false];
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                        return [true];
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                        //]]>
+                                                                                                                                                                                                                        </script>
+<?php endif; ?>
+
+

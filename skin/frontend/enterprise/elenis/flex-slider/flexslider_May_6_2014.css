@@ -1,0 +1,108 @@
+/*
+ * jQuery FlexSlider v2.0
+ * http://www.woothemes.com/flexslider/
+ *
+ * Copyright 2012 WooThemes
+ * Free to use under the GPLv2 license.
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ * Contributing author: Tyler Smith (@mbmufffin)
+ */
+
+ 
+/* Browser Resets */
+.flex-container a:active,
+.flexslider a:active,
+.flex-container a:focus,
+.flexslider a:focus  {outline: none;}
+.slides,
+.flex-control-nav,
+.flex-direction-nav {margin: 0; padding: 0; list-style: none;} 
+
+/* FlexSlider Necessary Styles
+*********************************/ 
+.slides-bg {border-bottom: 1px dotted #C9C9C9;  bottom: 0; left: 68px; margin: 0; padding: 0 20px; position: absolute; width: 85%;}
+.flexslider {width:998px;
+height:500px;
+margin: 0 auto 15px; padding: 0 0 20px; border-bottom: 0px dotted #c9c9c9;}
+.flexslider .slides > li {display: none; -webkit-backface-visibility: hidden; position:relative; } /* Hide the slides before the JS is loaded. Avoids image jumping */
+.flexslider .slides img {display: block;}
+.flex-pauseplay span {text-transform: capitalize;}
+
+/* Clearfix for the .slides element */
+.slides:after {content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0;} 
+html[xmlns] .slides {display: block;} 
+* html .slides {height: 1%;}
+
+/* No JavaScript Fallback */
+/* If you are not using another script, such as Modernizr, make sure you
+ * include js that eliminates this class on page load */
+.no-js .slides > li:first-child {display: block;}
+
+
+/* FlexSlider Default Theme
+*********************************/
+.flexslider {position: relative; background:#FFF; background: url(../images/loading.gif) no-repeat 50% 50%; margin:0 -67px; width:1130px !important; }
+.flex-viewport {max-height: 2000px; -webkit-transition: all 1s ease; -moz-transition: all 1s ease; transition: all 1s ease;}
+.loading .flex-viewport {max-height: 300px; background: url(../images/loading.gif) no-repeat 0 0;}
+.flexslider .slides {zoom: 1;}
+
+.carousel li {margin-right: 5px}
+
+
+/* Direction Nav */
+.flex-direction-nav {*height: 0;}
+.flex-direction-nav a {width: 53px; height: 53px; margin: -20px 0 0; display: block; background: url(../images/pre-next.png) no-repeat 0 0; position: absolute; top: 50%; cursor: pointer; text-indent: -9999px; opacity: 0; -webkit-transition: all .3s ease;}
+.flex-direction-nav .flex-next { right: -36px; }
+.flex-direction-nav .flex-prev {left: -36px;background-position: 0 -63px;}
+.flexslider:hover .flex-next {opacity: 0.8; right: 20px;}
+.flexslider:hover .flex-prev {opacity: 0.8; left: 20px;}
+.flexslider:hover .flex-next:hover, .flexslider:hover .flex-prev:hover {opacity: 1;}
+.flex-direction-nav .flex-disabled {opacity: .3!important; filter:alpha(opacity=30); cursor: default;}
+
+/* Control Nav */
+.flex-control-nav {background: #FFFFFF; bottom: -21px; clear: both; float: left;padding: 0 10px !important; position: absolute;right: 45%;text-align: center;}
+.flex-control-nav li {display: inline-block; zoom: 1; *display: inline;}
+.flex-control-paging li a {width: 22px; height: 22px; display: block; margin-left:6px; cursor: pointer; text-indent: -9999px; background: url(../images/bullets.png) no-repeat -24px 0;}
+.flex-control-paging li a.flex-active { cursor: default; background: url(../images/bullets.png) no-repeat 0 0px;}
+
+.flex-control-thumbs {margin: 5px 0 0; position: static; overflow: hidden;}
+.flex-control-thumbs li {width: 25%; float: left; margin: 0;}
+.flex-control-thumbs img {width: 100%; display: block; opacity: .7; cursor: pointer;}
+.flex-control-thumbs img:hover {opacity: 1;}
+.flex-control-thumbs .flex-active {opacity: 1; cursor: default;}
+
+/* flex-caption */
+.flex-caption{ position:absolute; top:62%; left:14.8%; background:none; padding:0; font-family: Arial, Helvetica, sans-serif; text-align:right;}
+.flex-caption h3{ font-size:50px; color:#FFF; text-transform:uppercase;}
+.flex-caption h3 span{color:#000;}
+.flex-caption .f-price{ font-size:30px; color:#ff0054; line-height:34px;}
+/*.flex-caption .f-btn{ background: #1e1e1e; color: #b4b4b4; font-size:18px; padding:8px 18px; float:right; margin-left:10px;}*/
+
+.flex-caption .f-btn span  {
+    border: 0 none;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    height: 35px;
+    margin: 0;
+    text-decoration: none;	
+}
+
+.flex-caption .f-btn  { 
+	background-position: 100% 0;  
+    color: #FFFFFF;
+    display: inline-block;
+	font-size:16px;
+    height:43px;
+	width:150px;
+	line-height:43px;
+	text-align:center;
+	font-weight:bold;
+    text-transform: uppercase;
+    white-space: nowrap;
+	background-color: rgba(0, 0, 0, 0);
+    background-image: url("../images/shopnow.png");
+    background-repeat: no-repeat;
+}
+

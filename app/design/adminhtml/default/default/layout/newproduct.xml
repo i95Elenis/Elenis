@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <newproduct_adminhtml_newproduct_index>
+        <reference name="content">
+            <block type="newproduct/adminhtml_newproduct" name="newproduct" />
+        </reference>
+    </newproduct_adminhtml_newproduct_index>
+    <newproduct_adminhtml_newproduct_grid>
+       <block type="core/text_list" name="root" output="toHtml">
+           <block type="newproduct/adminhtml_newproduct_edit_tab_grid" name="customer.grid"/>
+           <block type="adminhtml/widget_grid_serializer" name="grid_serializer">
+               <reference name="grid_serializer">
+                   <action method="initSerializerBlock">
+                       <grid_block_name>customer.grid</grid_block_name>
+                       <data_callback>getSelectedCustomers</data_callback>
+                       <hidden_input_name>links[customers]</hidden_input_name>
+                       <reload_param_name>customers</reload_param_name>
+                   </action>
+                   <action method="addColumnInputName">
+                       <input_name>position</input_name>
+                   </action>
+               </reference>
+           </block>
+       </block>
+   </newproduct_adminhtml_newproduct_grid>
+   <newproduct_adminhtml_newproduct_upsellgrid>
+	        <block type="core/text_list" name="root" output="toHtml">
+	            <block type="newproduct/adminhtml_newproduct_edit_tab_grid" name="customer.grid"/>
+	        </block>
+	</newproduct_adminhtml_newproduct_upsellgrid>
+</layout>

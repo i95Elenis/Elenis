@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <videolink_adminhtml_videolink_index>
+	<reference name="content">
+	  <block type="videolink/adminhtml_videolink" name="videolink" />
+	</reference>
+  </videolink_adminhtml_videolink_index>
+</layout>

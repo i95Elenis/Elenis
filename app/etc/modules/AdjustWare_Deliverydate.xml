@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <AdjustWare_Deliverydate>
+            <active>true</active>
+            <codePool>local</codePool>
+            <self_name>Delivery Date</self_name>
+            <priority>10090</priority>
+        </AdjustWare_Deliverydate>
+    </modules>
+</config>
+<!--
+/**
+ * Delivery Date
+ *
+ * @category:    AdjustWare
+ * @package:     AdjustWare_Deliverydate
+ * @version      10.1.5
+ * @license:     5WLwzjinYV1BwwOYUOiHBcz0D7SjutGH8xWy5nN0br
+ * @copyright:   Copyright (c) 2013 AITOC, Inc. (http://www.aitoc.com)
+ */
+-->

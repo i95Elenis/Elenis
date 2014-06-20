@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Elenis_CheckData>
+      <version>0.1.0</version>
+    </Elenis_CheckData>
+  </modules>
+  <global>
+    <helpers>
+      <checkdata>
+        <class>Elenis_CheckData_Helper</class>
+      </checkdata>
+    </helpers>
+	<models>
+	  <checkdata>
+		<class>Elenis_CheckData_Model</class>
+		<resourceModel>checkdata_mysql4</resourceModel>
+	  </checkdata>
+			<sales>
+				<rewrite>
+					<quote_item_abstract>Elenis_CheckData_Model_Sales_Quote_Item_Abstract</quote_item_abstract>
+				</rewrite>
+			</sales>
+	</models>
+  </global>
+</config> 

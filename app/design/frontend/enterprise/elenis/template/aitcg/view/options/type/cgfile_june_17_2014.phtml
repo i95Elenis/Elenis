@@ -1,0 +1,193 @@
+<?php
+/**
+ * Custom Product Preview
+ *
+ * @category:    Aitoc
+ * @package:     Aitoc_Aitcg
+ * @version      11.2.2
+ * @license:     AJifvLXz2Jhov40GDpSzkNqfs4dkmEPJtRhHJxJI2y
+ * @copyright:   Copyright (c) 2013 AITOC, Inc. (http://www.aitoc.com)
+ */
+$_option = $this->getOption(); ?>
+<?php $_fileInfo = $this->getFileInfo(); ?>
+<?php $_image = $this->getImage(); ?>
+<?php $_rand = rand(); ?>
+<?php $_fileOption = 'options_' . $_option->getId(); ?>
+<?php $_defaultValues = ($this->getProduct()->hasPreconfiguredValues()?$this->getProduct()->getPreconfiguredValues()->getData('options/' . $this->getOption()->getId()):array('img_data'=>'')); ?>
+<?php $checkboxEnabled = Mage::getStoreConfig('catalog/aitcg/aitcg_confirm_checkbox'); ?>
+<?php if($checkboxEnabled): ?>
+    <?php $fullCheckboxEnabled = Mage::getStoreConfig('catalog/aitcg/aitcg_confirm_fullcheckbox'); ?>
+<?php endif; ?>
+<?php $sharedImgId = Mage::helper('aitcg')->getSharedImgId($_rand) ?>
+<?php $sharedImgUrl = Mage::helper('aitcg')->getSharedImgUrl($sharedImgId) ?>
+<?php
+ $minWidth = Mage::getStoreConfig('elenissec/elenisgrp/upload_mininum_dimension_width');
+            $minHeight = Mage::getStoreConfig('elenissec/elenisgrp/upload_mininum_dimension_height');
+            $minWidth = isset($minWidth) ? $minWidth : "260";
+            $minHeight = isset($minHeight) ? $minHeight : "210";?>
+<script type="text/javascript">
+//<![CDATA[
+
+AitPopupHtml = '<div id="loading-mask" style="display:none">'+
+            '<p class="loader" id="loading_mask_loader">'+
+                '<img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Please wait...') ?>" title="<?php echo $this->__('Please wait...') ?>" class="v-middle" /> <?php echo $this->__('Please wait...') ?>'+
+            '</p></div>';
+
+
+<?php if($this->getAllowPredefinedColors()): ?>
+    var aitcgColorset<?php echo $_rand ?> = new aitcgColorSet({
+        source: '<?php echo $this->getColorset()->getValue();?>',
+        containerId: 'aitcg_colorset_container<?php echo $_rand ?>',
+        initVarName: 'aitcgColorset<?php echo $_rand ?>',
+        id: '<?php echo $_rand ?>',
+        colorInputId:'colorfield<?php echo $_rand ?>'
+    });
+<?php endif; ?>
+
+cimage<?php echo $_rand; ?> = Class.create(<?php echo Mage::helper('aitcg')->getAitcgMainJsClass() ?>,  
+{     
+        <?php if($_image !== false): ?>
+        optionIsRequired: '<?php echo $_option->getIsRequire(); ?>',
+        productImageThumbnailUrl: '<?php echo $_image["thumbnail_url"]; ?>',
+        productImageFullUrl: '<?php echo $_image["full_image"]; ?>',
+        productImageSizeX: <?php echo $_image["default_size"][0]; ?>,
+        productImageSizeY: <?php echo $_image["default_size"][1]; ?>,
+        productImageThubnailSizeX: <?php echo $_image["thumbnail_size"][0]; ?>,
+        productImageThubnailSizeY: <?php echo $_image["thumbnail_size"][1]; ?>,
+        areaSizeX: <?php echo $_option->getAreaSizeX() ?>,
+        areaSizeY: <?php echo $_option->getAreaSizeY() ?>,
+        areaOffsetX: <?php echo $_option->getAreaOffsetX() ?>,
+        areaOffsetY: <?php echo $_option->getAreaOffsetY() ?>,
+        editorEnabled: true,
+        useUserImage : <?php echo (int)$_option->getUseUserImage() ?>,
+        useText : <?php echo (int)$_option->getUseText() ?>,
+        usePredefinedImage : <?php echo (int)$_option->getUsePredefinedImage() ?>,
+        outline: "<?php echo Mage::getStoreConfig('catalog/aitcg/aitcg_font_outline'); ?>",
+        shadow: "<?php echo Mage::getStoreConfig('catalog/aitcg/aitcg_font_shadow'); ?>",
+        useMasks : <?php echo (int)$_option->getUseMasks() ?>,
+        predefinedOptions: <?php echo Mage::helper('aitcg/category')->getPredefinedCatsOptionHtml($_option->getPredefinedCats()); ?>'',
+        masksOptions: <?php echo Mage::helper('aitcg/mask_category')->getMaskCatsOptionHtml($_option->getMasksCatId()); ?>'',
+        masksLocation : <?php echo (int)$_option->getMaskLocation() ?>,
+        fontOptions: '<?php echo Mage::helper('aitcg/font')->getFontOptionHtml(); ?>',
+        fontPreviewUrl: '<?php echo Mage::getUrl('aitcg/ajax/fontPreview')?>',        
+        categoryPreviewUrl: '<?php echo Mage::getUrl('aitcg/ajax/categoryPreview')?>',        
+        masksCategoryUrl: '<?php echo Mage::getUrl('aitcg/ajax/masksCategory')?>',        
+        jsUrl: '<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS);?>',  
+         <?php else: ?>
+        editorEnabled: false,
+        <?php endif; ?>
+        rand: '<?php echo $_rand; ?>',
+        checkboxEnabled:'<?php echo $checkboxEnabled; ?>',
+        text: {
+            close: "<?php echo $this->__('Close'); ?>",
+            apply: "<?php echo $this->__('Apply') ?>",
+            reset: "<?php echo $this->__('Reset'); ?>",
+            required: "<?php echo $this->__('This is a required field.'); ?>",
+            texttoadd: "<?php echo $this->__('Text to add:'); ?>",
+            font: "<?php echo $this->__('Font:'); ?>",
+            addtext: "<?php echo $this->__('Add text'); ?>",
+            pickcolor: "<?php echo $this->__('Pick color'); ?>",
+            outline: "<?php echo $this->__('Outline'); ?>",
+            shadow: "<?php echo $this->__('Shadow'); ?>",
+            shadowalpha: "<?php echo $this->__('Alpha of Shadow (from 0 to 126)'); ?>",
+            shadowoffsetx: "<?php echo $this->__('Offset X of Shadow'); ?>",
+            shadowoffsety: "<?php echo $this->__('Offset Y of Shadow'); ?>",
+            pickcoloroutline: "<?php echo $this->__('Pick outline color'); ?>",
+            pickcolorshadow: "<?php echo $this->__('Pick outline shadow'); ?>",
+            widthoutline: "<?php echo $this->__('Choose outline width'); ?>",
+            addimage: "<?php echo $this->__('Add image'); ?>",
+            addmasks: "<?php echo $this->__('Add shape'); ?>",
+            delmasks: "<?php echo $this->__('Delete shape'); ?>",
+            user_title: "<?php echo $this->__('Click to add your own image <strong>Min Dimensions ( '.$minWidth.' * '.$minHeight.' )</strong> '); ?>",
+            predefined_title: "<?php echo $this->__('Click to add predefined image'); ?>",
+            masks_title: "<?php echo $this->__('Click to add custom shape'); ?>",
+            text_title: "<?php echo $this->__('Click to add text image'); ?>",            
+            svg: "<?php echo $this->__('Save as SVG'); ?>",
+            png: "<?php echo $this->__('Convert to PNG'); ?>",
+            pdf: "<?php echo $this->__('Save as Pdf'); ?>",
+            scale: "<?php echo $this->__('Scale'); ?>"
+            <?php if ($checkboxEnabled && $fullCheckboxEnabled): ?>,
+            confirm: "<?php echo Mage::getStoreConfig('catalog/aitcg/aitcg_confirm_fulltext'); ?>",
+            agree: "<?php echo $this->__('Agree'); ?>",
+            disagree: "<?php echo $this->__('Disagree'); ?>"
+            <?php endif; ?>
+        },
+        product_id: '<?php echo $_option->getProductId(); ?>',
+        addImageUrl: '<?php echo Mage::getUrl('aitcg/ajax/addImage'); ?>',
+        addTextUrl: '<?php echo Mage::getUrl('aitcg/ajax/addText'); ?>',
+        addPredefinedUrl: '<?php echo Mage::getUrl('aitcg/ajax/addPredefined'); ?>',        
+        addMaskUrl: '<?php echo Mage::helper('aitcg')->getSecureUnsecureUrl(Mage::getUrl('aitcg/ajax/addMask')); ?>',        
+        createMaskUrl: '<?php echo Mage::helper('aitcg')->getSecureUnsecureUrl(Mage::getUrl('aitcg/ajax/createMask')); ?>',        
+        getMaskUrl: '<?php echo Mage::helper('aitcg')->getSecureUnsecureUrl(Mage::getUrl('aitcg/ajax/getMask')); ?>',        
+        delMaskUrl: '<?php echo Mage::helper('aitcg')->getSecureUnsecureUrl(Mage::getUrl('aitcg/ajax/delMask')); ?>',        
+        saveSvgUrl: '<?php echo Mage::helper('aitcg')->getSecureUnsecureUrl(Mage::getUrl('aitcg/index/svg')); ?>',
+        normalizateSvgToPngUrl: '<?php echo Mage::helper('aitcg')->getSecureUnsecureUrl(Mage::getUrl('aitcg/index/svgtopng')); ?>',
+        savePdfUrl: '<?php echo Mage::helper('aitcg')->getSecureUnsecureUrl($this->getSavePdfUrl()); ?>',
+        optionId : <?php echo $_option->getId() ?>,
+        textLength : <?php echo (int)$_option->getTextLength() ?>,
+        allowColorpick : <?php echo (int)$_option->getAllowColorpick() ?>,
+        allowOnlyPredefColor: <?php echo (int)$this->getAllowPredefinedColors()?>,
+        textImgAspectRatio: '<?php echo $this->getTextObjAspectRatio()?>',
+        editorHelp: "<?php echo $this->__('Once you select your image, click Add Image to add it to the product. Next move around or resize the image to suit your desired end state. If you would like to add multiple images or text, you can select another image or text and click add to image.'); ?>", 
+        buttonHelp: "<?php echo $this->__('Save custom image preview to your hard drive (optional)'); ?>", 
+        emptyImgUrl : '<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS).'aitoc/aitcg/img/blank.gif' ?>',
+        socialWidgetsImgCreatePath : '<?php echo Mage::helper('aitcg')->getImgCreatePath() ?>',
+        socialWidgetsReservedImgId : '<?php echo $sharedImgId ?>',
+        templateImgPath : '<?php echo $_image['value'] ?>',
+        socialWidgetsImgViewUrl : '<?php echo $sharedImgUrl ?>'
+        });
+opCimage<?php echo $_rand; ?> = new cimage<?php echo $_rand; ?>('<?php echo $_fileOption; ?>');
+
+//]]>
+</script>
+<dt><label<?php if ($_option->getIsRequire()) : ?> class="required"<?php endif ?>><?php echo  $this->htmlEscape($_option->getTitle()) ?><?php if ($_option->getIsRequire()) : ?> <span class="required"><em>*</em></span><?php endif ?></label>
+    <?php echo $this->getFormatedPrice() ?></dt>
+<dd<?php if ($_option->decoratedIsLast){?> class="last"<?php }?>>
+  <div>
+      
+      <div class="aitcg_error" style="display: none;">
+        <?php echo $this->__('Sorry, but your browser does NOT support HTML5 elements and this feature is not working or may work incorrectly.');?><br />
+        <span class="error_default" style="display: none"><?php echo $this->__('Please, try using different browser.');?></span>
+        <span class="error_android" style="display: none"><?php echo $this->__('Please, try using different browser (Opera Mini for example) or update your Android to a newer version.');?></span>
+      </div>
+      <span style="color:#D1226C"> <?php echo $this->__('Click on the image to upload your image'); ?></span><br/>
+      <div class="aitcg_image_div"  style="float:none;" id="preview_container<?php echo  $_option->getId(); ?>"  onclick="opCimage<?php echo $_rand; ?>.startEditor();">
+      </div>
+              <input type="hidden" id="options_<?php echo $_option->getId() ?>" class="input-text<?php echo $_option->getIsRequire() ? ' required-entry' : '' ?> product-custom-option" name="options[<?php echo $_option->getId() ?>]" value="<?php echo $this->htmlEscape($_defaultValues['img_data'])?>" />
+            <?php if ($checkboxEnabled == 1): ?>
+            <p class="no-margin">                
+                <input type="checkbox" name="<?php echo $_rand; ?>_checkbox" id="<?php echo $_fileOption; ?>_checkbox" class="product-custom-option <?php if ($_option->getIsRequire()) : ?>required-entry<?php endif ?>" <?php if($fullCheckboxEnabled == 1): ?>onClick="return opCimage<?php echo $_rand; ?>.checkConfirmBox(this);"<?php endif; ?>/>
+                <?php if($fullCheckboxEnabled == 1): ?>
+                <a href="#" onClick="return opCimage<?php echo $_rand; ?>.checkConfirmBox(this);"><?php echo Mage::getStoreConfig('catalog/aitcg/aitcg_confirm_text'); ?></a>
+                <?php else: ?>
+                <label for="<?php echo $_fileOption; ?>_checkbox"><?php echo Mage::getStoreConfig('catalog/aitcg/aitcg_confirm_text'); ?></label>
+                <?php endif; ?>
+            </p>
+            <?php endif; ?>
+
+  </div>
+</dd>
+<script type="text/javascript">
+//<![CDATA[
+/*Event.observe(document, 'dom:loaded', function(){*/ opCimage<?php echo $_rand; ?>.preview("preview_container<?php echo  $_option->getId(); ?>");/*});*/
+//]]>
+</script>
+<img class='techimg' style="display:none;">
+
+<?php if(Mage::getStoreConfig('catalog/aitcg/aitcg_use_social_networks_sharing')) : ?>
+<div id="socialWidgetsTip<?php echo $_option->getId() ?>" style="display:none;" onclick="opCimage<?php echo $_rand; ?>.createImage();return false;">
+<?php /*<a href="#"><?php echo $this->__('Click to share your customized image'); ?></a>*/?></div>
+<div id="imgSizeError<?php echo $_option->getId() ?>" style="display:none;">
+<?php echo $this->__('You image exceeds maximum allowed size'); echo ' (' . 
+Mage::getStoreConfig('catalog/aitcg/aitcg_social_networks_sharing_max_img_width') . 'x' . 
+Mage::getStoreConfig('catalog/aitcg/aitcg_social_networks_sharing_max_img_height') . ')';?></div>
+<div class="fb-like" style="visibility:hidden;display:inline;vertical-align:top;" id="fbaitcg<?php echo $_option->getId() ?>" data-layout="button_count" data-href="<?php echo $sharedImgUrl ?>" data-send="true" data-show-faces="false"></div>
+<div id="gaitcgWrapper<?php echo $_option->getId() ?>" style="display:inline;"> </div>
+    <?php if ($this->canEmailToFriend()): ?>
+    <?php $emailToFriendUrl = Mage::helper('aitcg')->getEmailToFriendUrl($this->getProduct(), $sharedImgId) ?>
+    <div id="emailToFriend<?php echo $_option->getId() ?>" style="display:none;">
+    <p style="display:inline;" class="email-friend"><a href="<?php echo $emailToFriendUrl ?>" target="_blank"><img style="widht:107px;height:20px;" src="<?php echo $this->getSkinUrl('aitoc/aitcg/images') . '/email_to_a_friend.gif' ?>" /></a></p>
+    </div>
+    <?php endif; ?>
+<div id="socialButtonsLoader<?php echo $_option->getId() ?>" style="display:none;"><img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Email to a Friend') ?>" /></div>
+<?php endif; ?>

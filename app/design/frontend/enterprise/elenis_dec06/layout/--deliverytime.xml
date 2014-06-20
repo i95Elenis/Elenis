@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+		<reference name="head">
+            <action method="addJs"><script>magestore/deliverytime.js</script></action>
+			 <action method="addCss"><stylesheet>css/magestore/deliverytime.css</stylesheet></action>
+        </reference>
+    </default>
+     <checkout_onepage_index>
+		<update handle="checkout.onepage" />
+		<reference name="checkout.onepage">
+			  <block type="checkout/onepage_shipping_method" name="checkout.onepage.shipping_method" as="shipping_method" template="deliverytime/shipping_method.phtml">
+                    <block type="deliverytime/deliverytime" name="deliverytime.deliverytime" as="deliverytime" template="deliverytime/deliverytime.phtml"/>
+					<block type="checkout/onepage_shipping_method_available" name="checkout.onepage.shipping_method.available" as="available" template="checkout/onepage/shipping_method/available.phtml"/>
+                    <block type="checkout/onepage_shipping_method_additional" name="checkout.onepage.shipping_method.additional" as="additional" template="checkout/onepage/shipping_method/additional.phtml"/>
+					
+               </block>
+		</reference>
+	</checkout_onepage_index> 
+	
+	
+	<checkout_cart_index>
+		<reference name="content">
+			<block type="deliverytime/message" name="deliverytime.message" as="deliverytimemessage" template="deliverytime/message.phtml"/>
+		</reference>
+	</checkout_cart_index>
+	
+	
+</layout> 

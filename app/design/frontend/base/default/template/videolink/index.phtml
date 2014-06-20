@@ -1,0 +1,16 @@
+<?php $videoData=$this->getVideoData(); ?>
+<table width="100%">
+    <tr>
+        <?php foreach($videoData as $videoInfo)
+        {
+            
+            ?>
+            <td width='20%'><?php echo $videoInfo['title'];?></td>
+            <td width="80%"><embed src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).$videoInfo['video_link']; ?>" width="<?php echo $videoInfo['width']; ?>" height="<?php echo $videoInfo['height']; ?>" /></td>            
+            
+      <?php /*  <td><object width="<?php echo $videoInfo['width']; ?>" height="<?php echo $videoInfo['height']; ?>" type="application/x-shockwave-flash" data="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).$videoInfo['video_link']; ?>" id="video_flash_container" style="visibility: visible;"><param name="allowfullscreen" value="true"><param name="allowscriptaccess" value="always"><param name="wmode" value="opaque"><param name="flashvars" value="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).$videoInfo['video_link']; ?>"></object></td> */ ?>
+         <?php
+               }
+  ?>
+    </tr>
+</table>

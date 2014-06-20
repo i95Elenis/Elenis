@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<!--
+ * WebShopApps Shipping Module
+ *
+ * @category    WebShopApps
+ * @package     WebShopApps_Exampleextension
+ * FileName     system.xml
+ * User         karen
+ * Date         18/05/2013
+ * Time         23:41
+ * @copyright   Copyright (c) 2013 Zowta Ltd (http://www.webshopapps.com)
+ *              Copyright, 2013, Zowta, LLC - US license
+ * @license     http://www.WebShopApps.com/license/license.txt - Commercial license
+ *
+ */
+ -->
+<config>
+    <sections>
+        <shipping translate="label" module="shipping">
+            <groups>
+                <webshopapps_dateshiphelper translate="label">
+                    <label>Webshopapps Date Based Shipping</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>400</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <comment>
+                        <![CDATA[
+                <div style="padding:10px;background-color:#fff;border:1px solid #ddd;margin-bottom:7px;">
+                This module was developed by <a href="http://www.webshopapps.com" target="_blank">WebShopApps.com</a> - <b>Magento Shipping Extension Specialists</b>.
+                <br/> For docs & examples for Shipping Calendar refer to the WebShopApps <a href="http://wiki.webshopapps.com">wiki</a>.
+                <br/> For docs & examples for UPS Shipping Calendar refer to the WebShopApps <a href="https://webshopapps.bloomfire.com/series/4837/">wiki</a>.
+                </div>
+                  ]]>
+                    </comment>
+                    <fields>
+                        <active translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </active>
+                        <serial translate="label">
+                            <label>Serial Key</label>
+                            <frontend_type>obscure</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_encrypted
+                            </backend_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip>
+                                If this field is blank, the extension will NOT work.
+                            </tooltip>
+                            <comment>
+                                <![CDATA[If this is emptied after getting a shipping quote and refreshing this page then extension will not work.
+				                <br/>See this <a href="http://wiki.webshopapps.com/installation/serial-keys">wiki</a> article for more info
+				                ]]>
+                            </comment>
+                        </serial>
+                        <delivery_calc translate="label">
+                            <label>Delivery Date Calculation</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading
+                            </frontend_model>
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </delivery_calc>
+                        <date_format translate="label">
+                            <label>Date format</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>webshopapps_dateshiphelper/dateShipHelper_source_dateformat</source_model>
+                            <sort_order>210</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </date_format>
+                        <cutoff_time translate="label">
+                            <label>Cutoff time e.g. 13:00</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>210</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cutoff_time>
+                        <production_days translate="label">
+                            <label>Amount of Lead time on Order being shipped</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>220</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Default is 0 production days</comment>
+                        </production_days>
+                        <heading_live translate="label">
+                            <label>Blackout Periods</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading
+                            </frontend_model>
+                            <sort_order>300</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </heading_live>
+                        <production_daysofweek translate="label">
+                            <label>Blackout Production Days</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>webshopapps_dateshiphelper/dateShipHelper_source_daysofweek</source_model>
+                            <sort_order>310</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Days when order cannot be prepared</comment>
+                        </production_daysofweek>
+                        <production_dates translate="label">
+                            <label>Blackout Production Dates</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>320</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip>Dates when order cannot be prepared</tooltip>
+                            <comment>Use format specified in Date format (mm/dd/yyyy or
+                                dd-mm-yyyy) &amp; separate with comma
+                            </comment>
+                        </production_dates>
+                        <delivery_daysofweek translate="label">
+                            <label>Blackout Delivery Days</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>webshopapps_dateshiphelper/dateShipHelper_source_daysofweek</source_model>
+                            <sort_order>330</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Days when order cannot be delivered</comment>
+                        </delivery_daysofweek>
+                        <delivery_dates translate="label">
+                            <label>Blackout Delivery Dates</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>340</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip>Dates when order cannot be delivered</tooltip>
+                            <comment>Use format specified in Date format (mm/dd/yyyy or
+                                dd-mm-yyyy) &amp; separate with comma
+                            </comment>
+                        </delivery_dates>
+                    </fields>
+                </webshopapps_dateshiphelper>
+            </groups>
+        </shipping>
+    </sections>
+</config>

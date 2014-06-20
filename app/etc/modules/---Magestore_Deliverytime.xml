@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Magestore_Deliverytime>
+            <active>false</active>
+            <codePool>community</codePool>
+        </Magestore_Deliverytime>
+    </modules>
+</config> 

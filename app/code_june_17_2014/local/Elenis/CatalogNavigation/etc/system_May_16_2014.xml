@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <elenistab translate="label" module="catalognavigation">
+            <label>Elenis Tab</label>
+            <sort_order>0</sort_order>
+        </elenistab>
+    </tabs>
+    <sections>
+        <elenissec  translate="label" module="catalognavigation">
+            <label>Elenis Section</label>
+            <tab>elenistab</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>0</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <elenisgrp translate="label">
+                    <label>Elenis Group</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <elenisfld1 translate="label">
+                            <label>Enable Catalog Rewrite</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>yes for enable no for disable</comment>
+                        </elenisfld1>
+                        <elenisexcludenav translate="label">
+                            <label>Exclude Top Navigation Handling</label>
+                            <comment>This will exclude the navigation handling for parent categories</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </elenisexcludenav>
+                        <shippingterms translate="label">
+                            <label>Delivery Options Text</label>
+                            <comment>Delivery Options Text</comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </shippingterms>
+                        <eleniscatlevel translate="label">
+                            <label>Define Level</label>
+                            <comment>This will define the level for categories handling</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </eleniscatlevel>
+                        <messenger_delivery_option translate="label">
+                            <label>Messenger Delivery Ids</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Messenger Delivery Ids while Exporting Order To Netdot.Please Map the Messenger Delivery ids whenever you upload the messenger delivery options</comment>
+                        </messenger_delivery_option>
+                        <delivery_time translate="label">
+                            <label>Delivery Time</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Please separate Dleivery time(Eg:-9=>9am,14=>2pm,17=>5pm)</comment>
+                        </delivery_time>
+                        <delivery_type_handling_request translate="label">
+                            <label>Delivery Type</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Delivery type for handling request</comment>
+                        </delivery_type_handling_request>
+                        <messenger_sameday_delivery translate="label">
+                            <label>SameDay Delivery Days</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Enter the number of days for same day delivery</comment>
+                        </messenger_sameday_delivery>
+                         <messenger_nextday_delivery translate="label">
+                            <label>NextDay Delivery Days</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Enter the number of days for next day delivery</comment>
+                        </messenger_nextday_delivery>
+                         <storepickup_delivery_days translate="label">
+                            <label>Store Pickup Days</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Enter the number of days for store pickup delivery days</comment>
+                        </storepickup_delivery_days>
+                        <custom_options_handler translate="label">
+                            <label>Enter the type of custom options you have in products</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>List out all the custom options separate by comma</comment>
+                        </custom_options_handler>
+                        <shipping_method_flag_text translate="label">
+                            <label>Enter the shpping method text for which you want to hide time dropdown</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>enter the shipping method text for which you want to hide time dropdown</comment>
+                        </shipping_method_flag_text>
+                         <multishipping_notofication_message1>
+                            <label>Enter the your custom message for handling more recipients notification</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>enter the your custom message for handling more recipients notification</comment>
+                        </multishipping_notofication_message1>
+                        <multishipping_notofication_message2>
+                            <label>Enter the your custom message for zero quantity notification</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>enter your custom message for zero quantity notification</comment>
+                        </multishipping_notofication_message2>
+                        <multishipping_notofication_message3>
+                            <label>Enter your custom message for handling recipients must be number and zero</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>enter your custom message for handling recipients must be number and zero</comment>
+                        </multishipping_notofication_message3>
+                    </fields>
+                </elenisgrp>
+            </groups>
+        </elenissec>
+    </sections>
+</config>

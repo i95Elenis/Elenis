@@ -1,0 +1,72 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+<div class="block-content">
+    <dl id="narrow-by-list">
+        <?php
+        $path = Mage::registry('current_category')->getPath();
+        $currentCategoryId = Mage::registry('current_category')->getId();
+        // $level = Mage::registry('current_category')->getLevel();
+        // echo $path;exit;
+        $ids = explode('/', $path);
+        // echo "<pre>";print_r($ids);exit;
+//echo count($ids)-1;exit;
+        //echo "start".$level.Mage::registry('current_category')->getName();
+        /* if ($level == 2 || $level == 1) {
+          $level = 2;
+          } else {
+          $level = $level - 1;
+          }
+         */
+
+//echo $level;echo "<pre>";print_r($ids);exit;
+
+        if (isset($ids[2])) {
+            $topParent = Mage::getModel('catalog/category')->setStoreId(Mage::app()->getStore()->getId())->load($ids[2]);
+            echo $this->get_categories($topParent, $currentCategoryId,1);
+
+
+            /* $childrenIds = $topParent->getChildren();
+              // echo $topParent->getId().$childrenIds;
+              $childrens = explode(",", $childrenIds);
+              // echo "<pre>";print_r($childrens);exit;
+              if (count($childrens) > 0)
+              foreach ($childrens as $child) {
+              $childrenCategories = Mage::getModel('catalog/category')->setStoreId(Mage::app()->getStore()->getId())->load($child);
+              //echo "<pre>";print_r($childrenCategories->getName());exit;
+
+              echo "<dt><b>" . $childrenCategories->getName() . "</b></dt>";
+
+              }
+             */
+        } else {
+            $topParent = null; //it means you are in one catalog root.
+        }
+        ?>
+  </dl></div>
+
+
+

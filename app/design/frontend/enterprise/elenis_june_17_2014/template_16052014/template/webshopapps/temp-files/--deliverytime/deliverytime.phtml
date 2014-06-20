@@ -1,0 +1,32 @@
+<div id="delivertime-box">
+<?php
+	
+	$delivery_options = Mage::helper('deliverytime')->getAllDeliveryTime();
+	
+	
+?>
+	<b><?php echo $this->__("Delivery Time")?></b><br>
+	<select name="deliverytime" id="deliverytime" class="validate-select">
+		<option value="">Please select delivery time</option>
+		<?php
+			if(count($delivery_options))
+			foreach($delivery_options as $option)
+			{
+				echo("<option value='". $option."'>".$option."</option>");
+			}
+		?>
+	</select>
+
+<script type="text/javascript">
+//<![CDATA[
+	 
+	 var deliverytime = new Deliverytime('<?php echo $this->getChangeDeliveryTimeUrl(); ?>');
+	 Event.observe('deliverytime', 'change', function(event){ 		
+			deliverytime.changeDeliveryTime();
+	});
+	
+	
+//]]>
+</script>
+
+</div>

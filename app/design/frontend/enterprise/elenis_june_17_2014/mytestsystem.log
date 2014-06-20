@@ -1,0 +1,7 @@
+./template/persistent/checkout/onepage/billing.phtml
+./template/checkout/onepage.phtml
+./template/checkout/onepage/progress.phtml
+./template/checkout/onepage/shipping.phtml
+./template/webshopapps/calendarbase/checkout/multishipping/shipping.phtml
+./template/webshopapps/calendarbase/checkout/onepage/shipping_method/available_workingafter_deliverydatelogic.phtml
+./template/webshopapps/calendarbase/checkout/onepage/shipping_method/available.phtml

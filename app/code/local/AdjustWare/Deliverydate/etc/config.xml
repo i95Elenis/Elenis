@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <AdjustWare_Deliverydate>
+            <version>10.1.5</version>
+        </AdjustWare_Deliverydate>
+    </modules>
+    
+    <admin>
+        <routers>
+			<adjdeliverydate>
+				<use>admin</use>
+				<args>
+					<module>AdjustWare_Deliverydate</module>
+					<frontName>adjdeliverydate</frontName>
+				</args>
+			</adjdeliverydate>
+        </routers>
+    </admin>
+    
+    <adminhtml>
+		<menu>
+		    <sales>
+                <children>
+                    <adjdeliverydate translate="title" module="adjdeliverydate">
+                        <title>Delivery Date</title>
+                        <sort_order>220</sort_order>
+                        <action>adjdeliverydate/adminhtml_holiday</action>
+                    </adjdeliverydate>
+                </children>
+            </sales>
+		</menu>
+		
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+            		    <sales>
+                            <children>
+                                <adjdeliverydate translate="title" module="adjdeliverydate">
+                                    <title>Delivery Date</title>
+                                    <sort_order>220</sort_order>
+                                </adjdeliverydate>
+                            </children>
+                        </sales>
+                    </children>
+                </admin>
+            </resources>
+        </acl> 
+        <translate>
+            <modules>
+                <AdjustWare_Deliverydate>
+                    <files>
+                        <default>AdjustWare_Deliverydate.csv</default>
+                    </files>
+                </AdjustWare_Deliverydate>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <adjdeliverydate>
+                    <file>adjdeliverydate.xml</file>
+                </adjdeliverydate>
+            </updates>
+        </layout>
+        
+        <events>
+        </events>
+        
+    </adminhtml> 
+    <frontend>
+        <translate>
+            <modules>
+                <AdjustWare_Deliverydate>
+                    <files>
+                        <default>AdjustWare_Deliverydate.csv</default>
+                    </files>
+                </AdjustWare_Deliverydate>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <adjdeliverydate>
+                    <file>adjdeliverydate.xml</file>
+                </adjdeliverydate>
+            </updates>
+        </layout>
+    </frontend> 
+    
+    <global> 
+        <events>
+            <controller_action_predispatch_adminhtml_sales_order_create_save>
+                <observers>
+                    <adjdeliverydate>
+                        <type>singleton</type>
+                        <class>adjdeliverydate/observer</class>
+                        <method>controller_action_predispatch_adminhtml_sales_order_create_loadBlock</method>
+                    </adjdeliverydate>
+                </observers>
+            </controller_action_predispatch_adminhtml_sales_order_create_save> 
+        
+            <sales_order_save_after>
+                <observers>
+                    <adjdeliverydate>
+                        <type>singleton</type>
+                        <class>adjdeliverydate/observer</class>
+                        <method>processPaypalOrderSaved</method>
+                    </adjdeliverydate>
+                </observers>
+            </sales_order_save_after>
+
+            <controller_action_predispatch_paypal_express_placeOrder>
+                <observers>
+                    <adjdeliverydate>
+                        <type>singleton</type>
+                        <class>adjdeliverydate/observer</class>
+                        <method>allowPaypalOrderSaved</method>
+                    </adjdeliverydate>
+                </observers>
+            </controller_action_predispatch_paypal_express_placeOrder>
+            <controller_action_predispatch_paypal_express_updateOrder>
+                <observers>
+                    <adjdeliverydate>
+                        <type>singleton</type>
+                        <class>adjdeliverydate/observer</class>
+                        <method>controller_action_predispatch_adminhtml_sales_order_create_loadBlock</method>
+                    </adjdeliverydate>
+                </observers>
+            </controller_action_predispatch_paypal_express_updateOrder>
+        </events>
+
+        <fieldsets>
+            <sales_convert_quote_address>
+                <delivery_date>
+                    <to_order>*</to_order>
+                </delivery_date>
+                <delivery_comment>
+                    <to_order>*</to_order>
+                </delivery_comment>
+            </sales_convert_quote_address>
+        </fieldsets>
+        
+        <models>
+            <adjdeliverydate>
+                <class>AdjustWare_Deliverydate_Model</class>
+                <resourceModel>adjdeliverydate_mysql4</resourceModel>
+            </adjdeliverydate>
+            <adjdeliverydate_mysql4>
+                <class>AdjustWare_Deliverydate_Model_Mysql4</class>
+                <entities>
+                    <holiday>
+                        <table>adjholiday</table>
+                    </holiday>
+                </entities>
+            </adjdeliverydate_mysql4>
+            
+            <checkout>
+                <rewrite>
+                    <type_onepage>AdjustWare_Deliverydate_Model_Rewrite_FrontCheckoutTypeOnepage</type_onepage>
+                </rewrite>
+                <rewrite>
+                    <type_multishipping>AdjustWare_Deliverydate_Model_Rewrite_FrontCheckoutTypeMultishipping</type_multishipping>
+                </rewrite>
+            </checkout>
+
+            <adminhtml>
+                <rewrite>
+                    <sales_order_create>AdjustWare_Deliverydate_Model_Rewrite_AdminhtmlSalesOrderCreate</sales_order_create>
+                </rewrite>
+            </adminhtml>
+            
+            <sales>
+                <rewrite>
+                    <order>AdjustWare_Deliverydate_Model_Rewrite_FrontSalesOrder</order>
+                </rewrite>
+            </sales>
+            
+        </models>     
+    
+        <blocks>
+            <adjdeliverydate>
+                <class>AdjustWare_Deliverydate_Block</class>
+            </adjdeliverydate>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_grid>AdjustWare_Deliverydate_Block_Rewrite_AdminhtmlSalesOrderGrid</sales_order_grid>
+                </rewrite>
+            </adminhtml>
+            <sales>
+                <rewrite>
+                    <order_info>AdjustWare_Deliverydate_Block_Rewrite_SalesOrderInfo</order_info>
+                    <order_print>AdjustWare_Deliverydate_Block_Rewrite_SalesOrderPrint</order_print>
+                </rewrite>
+            </sales>
+        </blocks>
+        <helpers>
+            <adjdeliverydate>
+                <class>AdjustWare_Deliverydate_Helper</class>
+            </adjdeliverydate>
+        </helpers>
+        <resources>
+            <adjdeliverydate_setup>
+                <setup>
+                    <module>AdjustWare_Deliverydate</module>
+					<class>AdjustWare_Deliverydate_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </adjdeliverydate_setup>
+            <adjdeliverydate_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </adjdeliverydate_write>
+            <adjdeliverydate_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </adjdeliverydate_read>
+        </resources>
+    </global> 
+    <default>
+        <checkout>
+            <adjdeliverydate>
+                <enabled>1</enabled>
+                <multienabled>1</multienabled>
+                <weekend>0,6</weekend>
+                <sameday>16,00,00</sameday> 
+                <nextday>19,00,00</nextday> 
+                <min>0</min> 
+                <max>30</max>
+                <include_holidays>1</include_holidays> 
+                <format>MM/dd/yyyy</format>
+                <show_comment>0</show_comment>
+                <show_time>0</show_time>
+                <time_enable_from>0</time_enable_from>
+                <time_enable_to>24</time_enable_to>
+            </adjdeliverydate>  
+        </checkout>
+    </default> 
+
+</config>
+
+<!--
+/**
+ * Delivery Date
+ *
+ * @category:    AdjustWare
+ * @package:     AdjustWare_Deliverydate
+ * @version      10.1.5
+ * @license:     5WLwzjinYV1BwwOYUOiHBcz0D7SjutGH8xWy5nN0br
+ * @copyright:   Copyright (c) 2013 AITOC, Inc. (http://www.aitoc.com)
+ */
+-->

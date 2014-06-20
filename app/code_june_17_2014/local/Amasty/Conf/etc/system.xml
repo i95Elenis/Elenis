@@ -1,0 +1,457 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <amconf translate="label" module="amconf">
+            <label>Color Swatches Pro</label>
+            <tab>amasty</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>800</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <hide_dropdowns translate="label">
+                            <label>Hide Configuration Drop-Downs</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </hide_dropdowns>
+                        <reload_images translate="label comment">
+                            <label>Reload Product Images</label>
+                            <comment>If set to 'Yes', default product images will be replaced with images of the specific simple product, configured by customer</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </reload_images>
+			<use_simple_price translate="label comment">
+                            <label>Use price of simple products</label>
+                            <comment>When set to 'No', disables this feature for the whole site, regardless of what is selected for individual products.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                           
+                        </use_simple_price>
+                        <noimage_img translate="label comment">
+                            <label>Replacement Image If No Product Image Found</label>
+                            <comment>This image will be used if no product image uploaded for the current selection. Do not upload any image if you do not need this functionality.</comment>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>amconf/adminhtml_system_config_backend_image_noimg</backend_model>
+                            <base_url type="media" scope_info="1">amconf/noimg</base_url>
+                            <upload_dir>media/amconf/noimg</upload_dir>
+                            <sort_order>33</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </noimage_img>
+                        <reload_name translate="label comment">
+                            <label>Reload Product Name</label>
+                            <comment>If set to 'Yes', default configurable product name will be replaced with the name of the specific simple product</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </reload_name>
+                        <show_clear translate="label comment">
+                            <label>Show "Reset Configuration" option</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_clear>
+                        <oneselect_reload translate="label comment">
+                            <label>Reload Product Information When The First Attribute Selected</label>
+                            <comment>If set to 'Yes', product images and descriptions will get reloaded after the first attribute is selected (first values of the other attributes will be used).</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </oneselect_reload>
+                        <show_title_view translate="label comment">
+                            <label>Display Attribute Value Tooltip On Product View Page</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                   		
+						</show_title_view>
+						<show_attribute_title translate="label comment">
+                            <label>Display attribute titles under swatch images</label>
+							<comment>On the product view page</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                           
+                        </show_attribute_title>
+                        <auto_select_attribute translate="label comment">
+                            <label>Automatically select attributes that have one single value</label>
+                            <comment>On the product view page, automatically select configurable attributes that have only 1 value available in the drop-down.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </auto_select_attribute>
+ 					</fields>
+                </general>
+                <list>
+                    <label>Category Grid Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable_list translate="label">
+                            <label>Display color swatches on product list pages</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_list>
+                         <!-- <list_ajax translate="label">
+                            <label>Use Ajax on product list pages</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </list_ajax> -->
+                        <listimg_size translate="label comment">
+                            <label>Image size for product list, px</label>
+                            <comment>Images will be automatically resized to be displayed on the product list page</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                           
+                        </listimg_size>
+                        <show_title_list translate="label comment">
+                            <label>Display Attribute Value Tooltip On Product List Page</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                           
+                        </show_title_list>
+                    </fields>
+                </list>
+                <size>
+                    <label>Image Size Settings (System)</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <thumb translate="label comment">
+                            <label>Size of the thumbnail image (px)</label>
+                            <comment>56 pixels by default. Do not modify this value until you really need to.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </thumb>
+                        <preview_width translate="label comment">
+                            <label>Width of the preview image (px)</label>
+                            <comment>265 pixels by default. Do not modify this value until you really need to.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </preview_width>
+                        <preview_height translate="label comment">
+                            <label>Height of the preview image (px)</label>
+                            <comment>265 pixels by default. Do not modify this value until you really need to.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </preview_height>
+                    </fields>
+                </size>
+				<zoom translate="label">
+                    <label>Zoomer for main image</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable translate="label">
+                            <label>Enable "Zoom" feature</label>
+                            <comment>If set to 'No', default Magento zoom tool will be used</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable>
+                        <type translate="label">
+                            <label>Type of zoom</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>amconf/source_typeOfZoom</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </type>
+                        <change_main_img_with translate="label">
+                            <label>Action for main image change</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>amconf/source_changeMainImg</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </change_main_img_with>
+                        
+                        <!--zoom_activation translate="label">
+                            <label>Turn on Zoom</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>amzoom/source_zoomActivation</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </zoom_activation-->
+                    </fields>
+                </zoom>
+                <thumbnails>
+                    <label>Zoomer for thumbnails</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable translate="label">
+                            <label>Enable "Zoom" for thumbnails</label>
+                            <comment>Will be used only if option 'Action for main image change' is set to 'On Click'</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable>
+                    </fields>
+                </thumbnails>
+                <zoom_outside translate="label">
+                    <label>Settings for zoomer with type "Outside"</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>60</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <viewer_position translate="label">
+                            <label>Zoom Window position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>amconf/source_viewerPosition</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </viewer_position> 
+                        <viewer_margin translate="label">
+                            <label>Zoom Window margin, px</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </viewer_margin> 
+                        <viewer_width translate="label">
+                            <label>Zoom Window width, px</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </viewer_width>
+                        <viewer_height translate="label">
+                            <label>Zoom Window height, px</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </viewer_height>
+                        <show_product_name translate="label">
+                            <label>Show Product Name</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_product_name>  
+                        <use_tint_effect translate="label">
+                            <label>Use Tint Effect</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </use_tint_effect> 
+                    </fields>
+                </zoom_outside>
+                <lightbox translate="label">
+                    <label>Lightbox</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>80</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable translate="label">
+                            <label>Enable "Lightbox" feature</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable>
+                        <circular_lightbox translate="label">
+                            <label>Circular lightbox</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </circular_lightbox>
+                        <title_position translate="label">
+                            <label>Title position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>amconf/source_titlePosition</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </title_position>
+                        <effect translate="label">
+                            <label>Animation effect</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>amconf/source_lightboxEffects</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </effect>
+                        <thumbnail_helper translate="label">
+                            <label>Enable thumbnail helper</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </thumbnail_helper>
+                    </fields>
+                </lightbox>
+                <carousel translate="label">
+                    <label>Carousel feature for thumbnails</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>90</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable translate="label">
+                            <label>Enable "Carousel" feature</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable>
+                        <visible_items translate="label">
+                            <label>Count of visible items in carousel</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>amconf/source_countOfCarouselItems</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+			</visible_items>
+			<circular_carousel translate="label">
+			    <label>Circular carousel</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </circular_carousel>
+                        <carousel_direction>
+                            <label>Carousel position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>amconf/source_carouselDirection</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </carousel_direction>
+                    </fields>
+                </carousel>
+                <product_image_size>
+                    <label>Size of Attribute Image from Simple Product</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <thumb translate="label comment">
+                            <label>Size of the image (px)</label>
+                            <comment>56 pixels by default. Do not modify this value until you really need to.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </thumb>
+                    </fields>
+                </product_image_size>
+            </groups>
+        </amconf>
+    </sections>
+</config>

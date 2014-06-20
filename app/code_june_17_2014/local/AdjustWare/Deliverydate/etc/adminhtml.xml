@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config>
+		<menu>
+		    <sales>
+                <children>
+                    <adjdeliverydate translate="title" module="adjdeliverydate">
+                        <title>Delivery Date</title>
+                        <sort_order>220</sort_order>
+                        <action>adjdeliverydate/adminhtml_holiday</action>
+                    </adjdeliverydate>
+                </children>
+            </sales>
+		</menu>
+		
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+            		    <sales>
+                            <children>
+                                <adjdeliverydate translate="title" module="adjdeliverydate">
+                                    <title>Delivery Date</title>
+                                    <sort_order>220</sort_order>
+                                </adjdeliverydate>
+                            </children>
+                        </sales>
+                    </children>
+                </admin>
+            </resources>
+        </acl> 
+</config>
+
+<!--
+/**
+ * Delivery Date
+ *
+ * @category:    AdjustWare
+ * @package:     AdjustWare_Deliverydate
+ * @version      10.1.5
+ * @license:     5WLwzjinYV1BwwOYUOiHBcz0D7SjutGH8xWy5nN0br
+ * @copyright:   Copyright (c) 2013 AITOC, Inc. (http://www.aitoc.com)
+ */
+-->

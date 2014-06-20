@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Elenis_TopNavigation>
+      <version>0.1.0</version>
+    </Elenis_TopNavigation>
+  </modules>
+  <global>
+    <helpers>
+      <topnavigation>
+        <class>Elenis_TopNavigation_Helper</class>
+      </topnavigation>
+    </helpers>
+	<blocks>
+	  <topnavigation>
+		<class>Elenis_TopNavigation_Block</class>
+	  </topnavigation>
+			<page>
+				<rewrite>
+					<html_topmenu>Elenis_TopNavigation_Block_Page_Html_Topmenu</html_topmenu>
+				</rewrite>
+			</page>
+	</blocks>
+  </global>
+</config> 

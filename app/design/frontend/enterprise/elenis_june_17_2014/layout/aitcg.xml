@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <aitcg_index_sharedimage>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference> 
+        <reference name="head">
+            <block type="aitcg/sharedimage_head" name="aitcg.sharediamge.head" as="aitcg_sharedimage_head" template="aitcg/sharedimage/head.phtml" /> 
+        </reference>
+        <reference name="content">
+            <block type="aitcg/sharedimage_content" name="aitcg.sharediamge.content" as="aitcg_sharedimage_content" template="aitcg/sharedimage/content.phtml" /> 
+        </reference>
+    </aitcg_index_sharedimage>
+    <catalog_product_view>
+        <reference name="product.info.options">
+            <action method="addOptionRenderer">
+                <type>cgfile</type>
+                <block>catalog/product_view_options_type_file</block>
+                <template>aitcg/view/options/type/cgfile.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addJs"><script>aitoc/aitcg/aim.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/colorset.js</script></action>
+            <action method="addCss"><stylesheet>aitoc/aitcg/css/colorset.css</stylesheet></action>
+            <action method="addItem"><type>js_css</type><name>aitoc/aitcg/aitcg.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="aitcg/catalog_product_view_socialbuttons" name="aitcg.socialbuttons" as="aitcg_socialbuttons" template="aitcg/view/social_networks_buttons.phtml" before="-" /> 
+        </reference>
+    </catalog_product_view>
+    <cms_index_index>
+        <reference name="top.menu">
+            <block type="cms/block" name="aitcg-homepage-promo-block" before="-">
+                <action method="setBlockId" ifconfig="catalog/aitcg/aitcg_enable_homepage_promo"><block_id>aitcg-homepage-promo-block</block_id></action>
+            </block>
+        </reference>
+    </cms_index_index>
+    <checkout_cart_index>
+        <reference name="head">
+            <action method="addJs"><script>aitoc/aitcg/aim.js</script></action>
+        </reference>  
+        <!--<reference name="content">
+            <block type="aitcg/catalog_product_view_socialbuttons" name="aitcg.socialbuttons" as="aitcg_socialbuttons" template="aitcg/view/social_networks_buttons.phtml" before="-" /> 
+        </reference>       -->
+    </checkout_cart_index>
+    <checkout_onepage_review>
+        <reference name="checkout.onepage.review.info.items.before">
+            <block type="aitcg/catalog_product_view_socialbuttons" name="aitcg.socialbuttons" as="aitcg_socialbuttons" template="aitcg/view/social_networks_buttons.phtml" before="-" /> 
+        </reference>
+    </checkout_onepage_review>
+    <sales_order_view>
+        <reference name="my.account.wrapper">
+            <block type="aitcg/catalog_product_view_socialbuttons" name="aitcg.socialbuttons" as="aitcg_socialbuttons" template="aitcg/view/social_networks_buttons.phtml" before="-" /> 
+        </reference>
+    </sales_order_view>
+    <sales_order_invoice>
+        <reference name="my.account.wrapper">
+            <block type="aitcg/catalog_product_view_socialbuttons" name="aitcg.socialbuttons" as="aitcg_socialbuttons" template="aitcg/view/social_networks_buttons.phtml" before="-" /> 
+        </reference>
+    </sales_order_invoice>
+    <sales_order_shipment>
+        <reference name="my.account.wrapper">
+            <block type="aitcg/catalog_product_view_socialbuttons" name="aitcg.socialbuttons" as="aitcg_socialbuttons" template="aitcg/view/social_networks_buttons.phtml" before="-" /> 
+        </reference>
+    </sales_order_shipment>
+    <sales_order_creditmemo>
+        <reference name="my.account.wrapper">
+            <block type="aitcg/catalog_product_view_socialbuttons" name="aitcg.socialbuttons" as="aitcg_socialbuttons" template="aitcg/view/social_networks_buttons.phtml" before="-" /> 
+        </reference>
+    </sales_order_creditmemo>
+    <sales_order_print>
+        <reference name="head">
+            <action method="addItem"><type>js_css</type><name>aitoc/aitcg/aitcg.css</name></action>
+        </reference>        
+    </sales_order_print>
+    <sales_order_printinvoice>
+        <reference name="head">
+            <action method="addItem"><type>js_css</type><name>aitoc/aitcg/aitcg.css</name></action>
+        </reference>        
+    </sales_order_printinvoice>
+    <sales_order_printshipment>
+        <reference name="head">
+            <action method="addItem"><type>js_css</type><name>aitoc/aitcg/aitcg.css</name></action>
+        </reference>        
+    </sales_order_printshipment>
+    <sales_order_printcreditmemo>
+        <reference name="head">
+            <action method="addItem"><type>js_css</type><name>aitoc/aitcg/aitcg.css</name></action>
+        </reference>        
+    </sales_order_printcreditmemo>
+    <default>
+        <reference name="head">
+            <!--action method="addJs"><script>aitoc/aitcg/aitcg/ext-3.4.0/adapter/ext/ext-base.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/aitcg/ext-3.4.0/ext-all.js</script></action-->
+            <action method="addJs"><script>aitoc/aitcg/tooltip.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/aitcg/aitcg.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/aitcg/raph.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/aitcg/uploader.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/aitcg/main.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/aitcg/main_social_widgets.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/aitcg/popup.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/aitcg/editor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/aitcg/area_editor.js</script></action>
+            <action method="addItem"><type>js_css</type><name>aitoc/aitcg/aitcg.css</name></action>
+            <action method="addJs"><script>aitoc/aitcg/raphael.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/jscolor/jscolor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/editor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/shape.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/tracker.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/rgbcolor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/canvg.js</script></action>
+                
+        </reference>             
+        
+    </default>
+
+</layout> 
+<!--
+/**
+ * Custom Product Preview
+ *
+ * @category:    Aitoc
+ * @package:     Aitoc_Aitcg
+ * @version      11.2.2
+ * @license:     AJifvLXz2Jhov40GDpSzkNqfs4dkmEPJtRhHJxJI2y
+ * @copyright:   Copyright (c) 2013 AITOC, Inc. (http://www.aitoc.com)
+ */
+-->

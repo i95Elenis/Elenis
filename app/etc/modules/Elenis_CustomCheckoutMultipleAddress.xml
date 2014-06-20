@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ *
+ * @category       
+ * @package        Elenis_CustomCategoryAttribute
+ * @Description    
+ * @author         
+ * @copyright      
+ * @license        
+ */
+-->
+<config>
+    <modules>
+        <Elenis_CustomCheckoutMultipleAddress>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Elenis_CustomCheckoutMultipleAddress>
+    </modules>
+</config>

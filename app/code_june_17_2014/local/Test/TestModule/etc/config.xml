@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Test_TestModule>
+      <version>0.1.0</version>
+    </Test_TestModule>
+  </modules>
+  <global>
+    <helpers>
+      <testmodule>
+        <class>Test_TestModule_Helper</class>
+      </testmodule>
+    </helpers>
+	<models>
+	  <testmodule>
+		<class>Test_TestModule_Model</class>
+		<resourceModel>testmodule_mysql4</resourceModel>
+	  </testmodule>
+	</models>
+  </global>    
+    <crontab>
+        <jobs>            
+			<testmodule_setcronhandler>
+                <schedule><cron_expr>*/5 * * * *</cron_expr></schedule>
+                <run><model>testmodule/cron::setCronHandler</model></run>
+            </testmodule_setcronhandler>
+        </jobs>
+    </crontab>
+</config> 

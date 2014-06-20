@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ *
+ * @category       
+ * @package        Elenis_CustomCategoryAttribute
+ * @Description    
+ * @author         
+ * @copyright      
+ * @license        
+ */
+-->
+<config>
+    <modules>
+        <Elenis_CustomCategoryAttribute>
+            <version>0.0.2</version>
+        </Elenis_CustomCategoryAttribute>
+    </modules>
+ 
+    <global>
+        <models>
+            <Elenis_CustomCategoryAttribute>
+                <class>Elenis_CustomCategoryAttribute_Model</class>
+            </Elenis_CustomCategoryAttribute>
+        </models>
+        <resources>
+            <add_category_attribute>
+                <setup>
+                    <module>Elenis_CustomCategoryAttribute</module>
+                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </add_category_attribute>
+            <add_category_attribute_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </add_category_attribute_write>
+            <add_category_attribute_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </add_category_attribute_read>
+        </resources>
+        <helpers>
+            <Elenis_CustomCategoryAttribute>
+                <class>Elenis_CustomCategoryAttribute_Helper</class>
+            </Elenis_CustomCategoryAttribute>
+        </helpers>
+    </global>
+</config>

@@ -1,0 +1,14 @@
+<!-- 
+/**
+ * @category   I95Dev
+ * @package    I95dev_Minimumqty
+ */
+ -->
+<config>
+    <modules>
+        <I95dev_Minimumqty>
+            <active>true</active>
+            <codePool>local</codePool>
+        </I95dev_Minimumqty>
+    </modules>
+</config> 

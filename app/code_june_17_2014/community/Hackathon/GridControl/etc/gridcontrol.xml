@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<gridcontrol>
+    <grids>
+        <sales_order_grid>
+            <dispatch_date>
+                <add>
+                    <header>Dispatch Date</header>
+                    <join table="sales/order" condition="main_table.entity_id={{table}}.entity_id" field="dispatch_date"/>
+                    <index>dispatch_date</index>
+                </add>
+                <after>status</after>
+            </dispatch_date>
+            <expected_delivery>
+                <add>
+                    <header>Expected Delivery</header>
+                    <join table="sales/order" condition="main_table.entity_id={{table}}.entity_id" field="expected_delivery"/>
+                    <index>expected_delivery</index>
+                </add>
+                <after>dispatch_date</after>
+            </expected_delivery>
+        </sales_order_grid>
+    </grids>
+</gridcontrol>

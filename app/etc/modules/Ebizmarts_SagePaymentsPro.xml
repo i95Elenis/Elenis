@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Ebizmarts_SagePaymentsPro>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Ebizmarts_SagePaymentsPro>
+    </modules>
+</config>

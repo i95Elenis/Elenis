@@ -1,0 +1,42 @@
+<?php
+
+?>
+<div class="content-header">
+    <?php echo $this->getHeaderHtml() ?>
+    <p class="content-buttons form-buttons"><?php echo $this->getButtonsHtml('header') ?></p>
+</div>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4><?php echo Mage::helper('ebizmarts_sagepaymentspro')->__('Card Data'); ?></h4>
+    </div>
+    <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="edit_form">
+        <div class="fieldset">
+            <fieldset>
+                <legend><?php echo Mage::helper('ebizmarts_sagepaymentspro')->__('Warehouse inventory add movmments') ?></legend>
+                <table class="form-list">
+                    <tr>
+                        <td class="label"><label for=""><?php echo Mage::helper('ebizmarts_sagepaymentspro')->__('Quantity'); ?></label></td>
+                        <td class="value">
+                            <input type="text" class="input-text required-entry validate-number" id="inventory_qty" name="<?php echo $this->getFieldSuffix() ?>[qty]" value="<?php echo $this->getDefaultConfigValue('qty')*1 ?>" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label for=""><?php echo Mage::helper('ebizmarts_sagepaymentspro')->__('Type'); ?></label></td>
+                        <td class="value">
+                            <select class="select">
+                                <?php $movtypes = $this->getMovtypes(); ?>
+                                <?php foreach($movtypes as $value => $label) { ?>
+                                    <option value="<?php echo $value; ?>"><?php echo $label; ?></option>
+                                <?php } ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label for=""><?php echo MAge::helper('ebizmarts_sagepaymentspro')->__('Description') ?></label></td>
+                        <td class="value"><textarea></textarea></td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+    </form>
+</div>

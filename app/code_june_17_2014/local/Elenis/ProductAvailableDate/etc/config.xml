@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Elenis_ProductAvailableDate>
+      <version>0.1.0</version>
+    </Elenis_ProductAvailableDate>
+  </modules>
+  <global>
+    <helpers>
+      <productavailabledate>
+        <class>Elenis_ProductAvailableDate_Helper</class>
+      </productavailabledate>
+    </helpers>
+	<models>
+	  <productavailabledate>
+		<class>Elenis_ProductAvailableDate_Model</class>
+		<resourceModel>productavailabledate_mysql4</resourceModel>
+	  </productavailabledate>
+	</models>
+  </global>    
+    <crontab>
+        <jobs>            
+			<productavailabledate_setproductavailabledate>
+                <schedule><cron_expr>*/5 * * * *</cron_expr></schedule>
+                <run><model>productavailabledate/cron::setProductAvailableDate</model></run>
+            </productavailabledate_setproductavailabledate>
+        </jobs>
+    </crontab>
+</config> 

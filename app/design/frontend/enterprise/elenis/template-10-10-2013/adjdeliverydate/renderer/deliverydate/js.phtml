@@ -1,0 +1,63 @@
+<?php
+/**
+ * Delivery Date
+ *
+ * @category:    AdjustWare
+ * @package:     AdjustWare_Deliverydate
+ * @version      10.1.4
+ * @license:     5WLwzjinYV1BwwOYUOiHBcz0D7SjutGH8xWy5nN0br
+ * @copyright:   Copyright (c) 2013 AITOC, Inc. (http://www.aitoc.com)
+ */
+?>
+<script type="text/javascript">
+    
+    var aitDeliverydateInitialization = Class.create(
+    {
+        initialize: function() 
+        {
+            this.validatorUrl = '<?php echo $this->getValidationUrl(); ?>';
+            this.fields = <?php echo Mage::helper('core')->jsonEncode($this->getFormIds()); ?>;
+            this.initFields();
+        },
+        
+        initFields: function()
+        {
+            var fields = $A(this.fields);
+            fields.each(this.setFieldObserver.bind(this));
+            
+        },
+        
+        setFieldObserver: function(fieldName)
+        {
+            var aitDdValidator = new aitDeliverydateValidator(this.validatorUrl , fieldName);
+            $(fieldName).observe('change', aitDdValidator.validate.bind(aitDdValidator));
+
+            /** Checking if we need to use ajax for comment/times and applying observers */
+            var form = $('shipping_method_dd');
+            if(form) {
+                var comment = form.select('#delivery_comment')[0];
+                if(comment) {
+                    Event.observe(comment, 'change', aitDdValidator.validate.bind(aitDdValidator))
+                }
+                var selects = form.select('select.select');
+                if(selects.length>0) {
+                    selects.each(function(el, idx){
+                        Event.observe(el, 'change', aitDdValidator.validate.bind(aitDdValidator))
+                    });
+                }
+            }
+        }
+
+    });
+    
+    new aitDeliverydateInitialization();
+
+    <?php if(Mage::getStoreConfig('checkout/adjdeliverydate/show_calendar_by_click_on_date_field')): ?>
+    <?php foreach($this->getFormIds() as $formId): ?>
+	Event.observe($('<?php echo $formId; ?>'), 'click', 
+		function () { $('<?php echo $formId; ?>_trig').simulate('click'); return false; }
+	);
+	<?php endforeach; ?>
+    <?php endif; ?>
+    
+</script>

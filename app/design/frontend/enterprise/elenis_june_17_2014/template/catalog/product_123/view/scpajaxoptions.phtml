@@ -1,0 +1,443 @@
+<?php
+//SCP: This is part of the Custom Option AJAX response - it shows custom options for 'associated' products.
+//opConfig is forced into global scope even if pulled in via ajax (by using window.)
+//and also ensure correct form encoding
+$productId = (int) $this->getRequest()->getParam('id');
+$parentId = (int) $this->getRequest()->getParam('pid');
+?>
+
+
+
+<script type="text/javascript">
+    //<![CDATA[
+
+    var size="<?php echo Mage::getStoreConfig("lightboxes/option/mainimage_size"); ?>";
+    var temp=size.split(",");
+    //$$('div.more-views').each(function(el) {el.show()});
+    //alert( temp[0]);
+
+    /*if(!jQuery("div[id^='preview_container']").attr("id")){
+        jQuery("p.product-image a img").attr("width",temp[0]+"px");
+        jQuery("p.product-image a img").attr("height",temp[1]+"px");
+    }*/
+    
+    //jQuery('#customOptions div').html('');
+    jQuery('#customOptions').html('');    
+    try{window.opConfig = new Product.Options(<?php echo $this->getJsonConfig() ?>);}catch(e){}
+    $('product_addtocart_form').encoding = 'multipart/form-data';
+    //]]>
+</script>
+
+
+
+
+
+
+<dl >
+    <?php $_options = Mage::helper('core')->decorateArray($this->getOptions()) ?>
+    <?php
+    $newArr = array();
+    $type = '';
+    if ($_options) {
+        foreach ($_options as $_option) {
+
+
+            if ($_option->getType() == 'field'):
+                $newArr[] = $_option->getType();
+    ?>
+
+                <div id="otherproduct-customoptions" style="display:none" class="customOptionChild">
+        <?php
+                echo $this->getOptionHtml($_option);
+        ?>
+            </div>
+
+    <?php
+                else:
+                    $type = $_option->getType();
+    ?>
+
+
+<?php
+                    echo $this->getOptionHtml($_option);
+
+                endif;
+?>
+
+            </dl>
+
+
+<?php
+                if ($_option->getType() == 'aitcustomer_image') { 
+                    /*$product = Mage::getModel('catalog/product')->load($productId);
+
+
+                    $helper = Mage::helper('lightboxes');
+                    $mainImageSize = $helper->getMainImageSize();
+                    $popUpImageSize = $helper->getPopupImageSize();
+                    $class = $helper->getLightboxClass($helper->getConfig('lightbox_type'));
+                    $thumbnailSize = $helper->getThumbnailImageSize();
+                    $rel = $helper->getLightboxRel($helper->getConfig('lightbox_type'));
+                    $imageClass = new OrganicInternet_SimpleConfigurableProducts_Catalog_Block_Product_View_Media();
+                    $simpleProductImageUrl = Mage::helper('catalog/image')->init($product, 'image')->resize($mainImageSize[0], $mainImageSize[1]);
+?>
+
+
+                    <div class="product-img-box">
+                     
+    <?php $parentProduct = Mage::getModel('catalog/product')->load($parentId);
+                    if (count($parentProduct->getMediaGalleryImages()) > 0) {
+ ?>
+
+                        <div class="more-views" id="more-views-div">
+                            <h2><?php echo $helper->getConfig('more_views_label') ?></h2>
+                            <ul>
+<?php
+                        $galleryData = $parentProduct->getMediaGallery();
+                        $totalNumberOfImages = 0;
+                        foreach ($galleryData ['images'] as $_image) {
+                            if ($_image['disabled_default'] != 1) {
+                                $totalNumberOfImages+=1;
+                            }
+                        }
+                        $i = 0;
+                        foreach ($galleryData ['images'] as $_image) :
+                            if ($_image['disabled_default'] == 0) {
+                                if (empty($popUpImageSize[0]) || empty($popUpImageSize[0])):
+                                    $popUpImage = $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image['file']);
+                                else:
+                                    $popUpImage = $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image['file'])->resize($popUpImageSize[0], $popUpImageSize[1]);
+                                endif;
+                                if ($i < 3) {
+                                    if ($totalNumberOfImages > 3) {
+                                        $totalNumberOfImages = 3;
+                                    }
+
+                                    if (($totalNumberOfImages - 1) == $i) {
+ ?>
+                                        <li id="<?php echo $i; ?>" class="last">
+                                            <a href="<?php echo $popUpImage; ?>" rel="<?php echo $rel; ?>" class="<?php echo $class; ?>" title="<?php echo $this->htmlEscape($label) ?>"><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image['file'])->resize($thumbnailSize[0], $thumbnailSize[1]); ?>" alt="<?php echo $this->htmlEscape($label) ?>" /></a>
+                                        </li>
+            <?php
+                                    } else {
+            ?>
+                                        <li id="<?php echo $i; ?>">
+                                            <a href="<?php echo $popUpImage; ?>" rel="<?php echo $rel; ?>" class="<?php echo $class; ?>" title="<?php echo $this->htmlEscape($label) ?>"><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image['file'])->resize($thumbnailSize[0], $thumbnailSize[1]); ?>" alt="<?php echo $this->htmlEscape($label) ?>" /></a>
+                                        </li>
+            <?php } ?>
+
+<?php $i++;
+                                }
+                            } endforeach; ?>
+                    </ul>
+                </div>
+            <?php } ?>
+        </div>*/ ?>
+        <script type="text/javascript">
+
+            if(jQuery(".aitcg_image_div"))
+            {
+                jQuery(".product-view .product-img-box .more-views").css({"margin-top":"30px","padding":"0px"});
+            }
+            $$('#product-options-wrapper dl').each(function(label) {
+                label.removeClassName('last');
+            });
+            $$('#SCPcustomOptionsDiv dl').each(function(label) {
+                label.addClassName('last');
+            });
+            jQuery("#SCPcustomOptionsDiv dl dd div:first").addClass("custom_upload_image_block");
+            // jQuery("#SCPcustomOptionsDiv").css({"left":"0px","position": "absolute","top": "10px"});
+
+
+            var type="<?php echo $_option->getType(); ?>";
+                    //var data=jQuery("div.aitcg_image_div").attr("id");
+                    //alert(data);
+<?php /* alert("preview_container<?php echo $_option->getId();?>"); */ ?>
+
+
+                        if(type=="aitcustomer_image"  )
+                        {
+                              var divh = jQuery("#SCPcustomOptionsDiv").height();
+                            jQuery("a#main-image").css("display","none");
+                            jQuery(".product-view .product-img-box .product-image").css({"height": parseInt(divh)+"px","overflow": "hidden",
+                                "position": "relative","width": "490px","z-index":"-1"});
+                            jQuery(".product-view .product-img-box .more-views").css({"margin-top":"30px","padding":"0px"});
+
+                            //jQuery("div.product-img-box-share").css({ "clear": "both","float":"left","margin": "0 0 15px !important","position": "absolute","top":  "470px","z-index": "999"});
+
+                          
+                            //alert(divh);
+                            jQuery('.product_left').css({"margin-top":"138px"});
+                            // jQuery('.product_left').css({"position":"absolute", "top":parseInt(divh+76)+'px'});
+                            jQuery("div.product-img-box-share").css({ "clear": "both","float":"left","margin": "0 0 15px !important","position": "absolute","top":parseInt(divh)+"px","z-index": "999"});
+                        }
+
+                        jQuery("img").click(function(){
+
+                            jQuery("a[rel=fancybox],a[rel=fancybox-main]").fancybox({
+                                'padding' : 10,
+                                'margin' : 40,
+                                'opacity' : 1,
+                                'scrolling' : 'auto',
+                                'autoScale' : 1,
+                                'hideOnOverlayClick' : 1,
+                                'overlayShow' : 1,
+                                'overlayOpacity' : 0.7,
+                                'overlayColor' : '#777',
+                                'titleShow' : 1,
+                                'transitionIn' : 'elastic',
+                                'transitionOut' : 'elastic',
+                                'speedIn' : 500,
+                                'speedOut' : 500,
+                                'changeFade' : 'fast',
+                                'easingIn' : 'swing',
+                                'easingOut' : 'swing',
+                                'showCloseButton' : 1,
+                                'showNavArrows' : 1,
+                                'enableEscapeButton' : 1
+                            });
+
+                        });
+                        jQuery('#my-buttonadd').bind('click', function(e) {
+                            if (jQuery('#customOptions').is(':empty')) {
+                                span=jQuery("div#otherproduct-customoptions").clone();
+                                jQuery("div#SCPcustomOptionsDiv dl div#otherproduct-customoptions").remove();
+                                //jQuery("div#customOptions").append(jQuery("div#otherproduct-customoptions"));
+                                jQuery("div#customOptions").append(span);
+                                jQuery("div#customOptions div#otherproduct-customoptions").css("display","block");
+                            }
+
+
+                        });
+
+
+
+                </script>
+<?php } ?>
+<?php
+                if ($_option->getType() != 'aitcustomer_image') {
+
+                    $product = Mage::getModel('catalog/product')->load($productId);
+
+
+                    $helper = Mage::helper('lightboxes');
+                    $mainImageSize = $helper->getMainImageSize();
+                    $popUpImageSize = $helper->getPopupImageSize();
+                    $rel = $helper->getLightboxRel($helper->getConfig('lightbox_type'));
+                    $class = $helper->getLightboxClass($helper->getConfig('lightbox_type'));
+                    $thumbnailSize = $helper->getThumbnailImageSize();
+                    $imageClass = new OrganicInternet_SimpleConfigurableProducts_Catalog_Block_Product_View_Media();
+                    $simpleProductImageUrl = Mage::helper('catalog/image')->init($product, 'image')->resize($mainImageSize[0], $mainImageSize[1]);
+                    $parentProduct = Mage::getModel('catalog/product')->load($parentId);
+?>
+
+                    <div style="padding-left:0px"><a href="<?php echo $simpleProductImageUrl; ?>" rel="<?php echo $rel; ?>" class="<?php echo $class; ?>" title="<?php echo $this->htmlEscape($product->getName()) ?>"><img src="<?php echo $simpleProductImageUrl ?>" title="<?php echo $product->getName(); ?>" width="<?php echo $mainImageSize[0]; ?>" height="<?php echo $mainImageSize[1]; ?>"/></a></div>
+                    <div class="product-img-box">
+
+<?php if (count($parentProduct->getMediaGalleryImages()) > 0) {
+ ?>
+
+                            <div class="more-views" id="more-views-div">
+                                <h2><?php echo $helper->getConfig('more_views_label') ?></h2>
+                                <ul>
+<?php
+                        $galleryData = $parentProduct->getMediaGallery();
+                        $totalNumberOfImages = 0;
+                        foreach ($galleryData ['images'] as $_image) {
+                            if ($_image['disabled_default'] != 1) {
+                                $totalNumberOfImages+=1;
+                            }
+                        }
+                        $i = 0;
+                        foreach ($galleryData ['images'] as $_image) :
+                            if ($_image['disabled_default'] == 0) {
+                                if (empty($popUpImageSize[0]) || empty($popUpImageSize[0])):
+                                    $popUpImage = $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image['file']);
+                                else:
+                                    $popUpImage = $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image['file'])->resize($popUpImageSize[0], $popUpImageSize[1]);
+                                endif;
+                                if ($i < 3) {
+                                    if ($totalNumberOfImages > 3) {
+                                        $totalNumberOfImages = 3;
+                                    }
+
+                                    if (($totalNumberOfImages - 1) == $i) {
+ ?>
+                                        <li id="<?php echo $i; ?>" class="last">
+                                            <a href="<?php echo $popUpImage; ?>" rel="<?php echo $rel; ?>" class="<?php echo $class; ?>" title="<?php echo $this->htmlEscape($label) ?>"><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image['file'])->resize($thumbnailSize[0], $thumbnailSize[1]); ?>" alt="<?php echo $this->htmlEscape($label) ?>" /></a>
+                                        </li>
+            <?php
+                                    } else {
+            ?>
+                                        <li id="<?php echo $i; ?>">
+                                            <a href="<?php echo $popUpImage; ?>" rel="<?php echo $rel; ?>" class="<?php echo $class; ?>" title="<?php echo $this->htmlEscape($label) ?>"><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image['file'])->resize($thumbnailSize[0], $thumbnailSize[1]); ?>" alt="<?php echo $this->htmlEscape($label) ?>" /></a>
+                                        </li>
+            <?php } ?>
+
+<?php $i++;
+                                }
+                            } endforeach; ?>
+                    </ul>
+                </div>
+            <?php } ?>
+        </div>
+
+        <script type="text/javascript">
+            var type="<?php echo $_option->getType(); ?>";
+
+                    if(type!="aitcustomer_image")
+                    {
+                        //jQuery("a#main-image").css("display","block");
+                        //  jQuery(".product-view .product-img-box .more-views").css({"margin-top":"80px","padding":"0px"});
+                        //jQuery("div.product-img-box-share").css({"top":"480px"});
+                        jQuery(".product-view .product-img-box .product-image").css({"height": "320px","overflow": "hidden",
+                            "position": "relative","width": "490px","z-index":"-1"});
+                        var divh = jQuery("#SCPcustomOptionsDiv").height();
+                        
+                        //jQuery('.product_left').css({"position":"absolute", "top":divh+'px'});
+                        jQuery("div.product-img-box-share").css({ "clear": "both","float":"left","margin": "0 0 15px !important","position": "absolute","top":parseInt(divh+5)+"px","z-index": "999"});
+                        jQuery("img").click(function(){
+
+                            jQuery("a[rel=fancybox],a[rel=fancybox-main]").fancybox({
+                                'padding' : 10,
+                                'margin' : 40,
+                                'opacity' : 1,
+                                'scrolling' : 'auto',
+                                'autoScale' : 1,
+                                'hideOnOverlayClick' : 1,
+                                'overlayShow' : 1,
+                                'overlayOpacity' : 0.7,
+                                'overlayColor' : '#777',
+                                'titleShow' : 1,
+                                'transitionIn' : 'elastic',
+                                'transitionOut' : 'elastic',
+                                'speedIn' : 500,
+                                'speedOut' : 500,
+                                'changeFade' : 'fast',
+                                'easingIn' : 'swing',
+                                'easingOut' : 'swing',
+                                'showCloseButton' : 1,
+                                'showNavArrows' : 1,
+                                'enableEscapeButton' : 1
+                            });
+
+                        });
+                    }
+                </script>
+
+<?php
+                }
+            }
+        }
+        if (!$_options) {
+
+            $product = Mage::getModel('catalog/product')->load($productId);
+
+
+            $helper = Mage::helper('lightboxes');
+            $mainImageSize = $helper->getMainImageSize();
+            $popUpImageSize = $helper->getPopupImageSize();
+            $rel = $helper->getLightboxRel($helper->getConfig('lightbox_type'));
+            $class = $helper->getLightboxClass($helper->getConfig('lightbox_type'));
+            $thumbnailSize = $helper->getThumbnailImageSize();
+            $imageClass = new OrganicInternet_SimpleConfigurableProducts_Catalog_Block_Product_View_Media();
+            $simpleProductImageUrl = Mage::helper('catalog/image')->init($product, 'image')->resize($mainImageSize[0], $mainImageSize[1]);
+            $parentProduct = Mage::getModel('catalog/product')->load($parentId);
+?>
+
+            <div style="padding-left:0px"><a href="<?php echo $simpleProductImageUrl; ?>" rel="<?php echo $rel; ?>" class="<?php echo $class; ?>" title="<?php echo $this->htmlEscape($product->getName()) ?>"><img src="<?php echo $simpleProductImageUrl ?>" title="<?php echo $product->getName(); ?>" width="<?php echo $mainImageSize[0]; ?>" height="<?php echo $mainImageSize[1]; ?>"/></a></div>
+            <div class="product-img-box">
+
+<?php if (count($parentProduct->getMediaGalleryImages()) > 0) { ?>
+
+                    <div class="more-views" id="more-views-div">
+                        <h2><?php echo $helper->getConfig('more_views_label') ?></h2>
+                    <ul>
+<?php
+                $galleryData = $parentProduct->getMediaGallery();
+                $totalNumberOfImages = 0;
+                foreach ($galleryData ['images'] as $_image) {
+                    if ($_image['disabled_default'] != 1) {
+                        $totalNumberOfImages+=1;
+                    }
+                }
+                $i = 0;
+                foreach ($galleryData ['images'] as $_image) :
+                    if ($_image['disabled_default'] == 0) {
+                        if (empty($popUpImageSize[0]) || empty($popUpImageSize[0])):
+                            $popUpImage = $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image['file']);
+                        else:
+                            $popUpImage = $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image['file'])->resize($popUpImageSize[0], $popUpImageSize[1]);
+                        endif;
+                        if ($i < 3) {
+                            if ($totalNumberOfImages > 3) {
+                                $totalNumberOfImages = 3;
+                            }
+
+                            if (($totalNumberOfImages - 1) == $i) {
+ ?>
+                                <li id="<?php echo $i; ?>" class="last">
+                                    <a href="<?php echo $popUpImage; ?>" rel="<?php echo $rel; ?>" class="<?php echo $class; ?>" title="<?php echo $this->htmlEscape($label) ?>"><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image['file'])->resize($thumbnailSize[0], $thumbnailSize[1]); ?>" alt="<?php echo $this->htmlEscape($label) ?>" /></a>
+                                </li>
+<?php
+                            } else {
+?>
+                                <li id="<?php echo $i; ?>">
+                                    <a href="<?php echo $popUpImage; ?>" rel="<?php echo $rel; ?>" class="<?php echo $class; ?>" title="<?php echo $this->htmlEscape($label) ?>"><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image['file'])->resize($thumbnailSize[0], $thumbnailSize[1]); ?>" alt="<?php echo $this->htmlEscape($label) ?>" /></a>
+                                </li>
+<?php } ?>
+
+            <?php $i++;
+                        }
+                    } endforeach; ?>
+            </ul>
+        </div>
+<?php } ?>
+</div>
+
+<script type="text/javascript">
+    //jQuery("a#main-image").css("display","block");
+    //  jQuery(".product-view .product-img-box .more-views").css({"margin-top":"80px","padding":"0px"});
+    //jQuery("div.product-img-box-share").css({"top":"480px"});
+    jQuery(".product-view .product-img-box .product-image").css({"height": "320px","overflow": "hidden",
+        "position": "relative","width": "490px","z-index":"-1"});
+    var divh = jQuery("#SCPcustomOptionsDiv").height();
+
+    jQuery('.product_left').css({ "position":"absolute","top":parseInt(divh+50)+'px'});
+    jQuery("div.product-img-box-share").css({ "clear": "both","float":"left","margin": "0 0 15px !important","position": "absolute","top":parseInt(divh+5)+"px","z-index": "999"});
+    jQuery("img").click(function(){
+
+        jQuery("a[rel=fancybox],a[rel=fancybox-main]").fancybox({
+            'padding' : 10,
+            'margin' : 40,
+            'opacity' : 1,
+            'scrolling' : 'auto',
+            'autoScale' : 1,
+            'hideOnOverlayClick' : 1,
+            'overlayShow' : 1,
+            'overlayOpacity' : 0.7,
+            'overlayColor' : '#777',
+            'titleShow' : 1,
+            'transitionIn' : 'elastic',
+            'transitionOut' : 'elastic',
+            'speedIn' : 500,
+            'speedOut' : 500,
+            'changeFade' : 'fast',
+            'easingIn' : 'swing',
+            'easingOut' : 'swing',
+            'showCloseButton' : 1,
+            'showNavArrows' : 1,
+            'enableEscapeButton' : 1
+        });
+
+    });
+
+</script>
+
+<?php
+        }
+?>
+
+
+
+

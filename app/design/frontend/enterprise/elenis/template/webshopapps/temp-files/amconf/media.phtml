@@ -1,0 +1,332 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg">
+<?php
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2010-2013 Amasty (http://www.amasty.com)
+* @package Amasty_Zoom
+*/
+?>
+
+<?php
+    $_product = $this->getProduct();
+    $_helper  = $this->helper('catalog/output');
+    $_preloadText    = $this->__('Loading');
+    $_thumbSize      = Mage::getStoreConfig('amconf/size/thumb');
+    $_previewWidth   = intval(Mage::getStoreConfig('amconf/size/preview_width'));
+    $_previewHeight  = intval(Mage::getStoreConfig('amconf/size/preview_height'));
+    $_zoomerEnable   = Mage::getStoreConfig('amconf/zoom/enable')   && 'true' != (string)Mage::getConfig()->getNode('modules/Amasty_Zoom/active');
+    $_lightboxEnable = Mage::getStoreConfig('amconf/lightbox/enable')   && 'true' != (string)Mage::getConfig()->getNode('modules/Amasty_Zoom/active');
+    $_carouselEnable = Mage::getStoreConfig('amconf/carousel/enable')  && 'true' != (string)Mage::getConfig()->getNode('modules/Amasty_Zoom/active');
+   
+    $_carouselDirection = Mage::getStoreConfig('amconf/carousel/carousel_direction');
+    $_carouselCountOfItems = intval(Mage::getStoreConfig('amconf/carousel/visible_items'));
+    
+    $_carouselWidth  = $_thumbSize * $_carouselCountOfItems + 4 * 5 + 20;
+    $_carouselHeight = 75 + ($_carouselCountOfItems - 1) * 65;
+    if ($_carouselWidth > intval(Mage::getStoreConfig('amconf/size/preview_width'))) {
+        $_thumbSize = 56;
+        $_carouselWidth = 215;
+    }
+?>
+
+<script>
+    AmZoomerOptions = Object.extend({
+        // Zoomer for main image
+        zoomEnable:        <?php echo intval($_zoomerEnable)?> ,
+        zoomType:          '<?php echo Mage::getStoreConfig('amconf/zoom/type')?>',
+        changeMainImgWith: '<?php echo Mage::getStoreConfig('amconf/zoom/change_main_img_with')?>',
+        zoomArea:          '<?php echo Mage::getBaseUrl('js') . 'amasty/amconf/images/mask.jpg'?>',
+        // Zoomer for thumbnails
+        zoomForThumbnailsEnable: '<?php echo intval(Mage::getStoreConfig('amconf/thumbnails/enable'))?>',
+        // Zoomer with type Outside
+        viewerPosition:  '<?php echo Mage::getStoreConfig('amconf/zoom_outside/viewer_position')?>',
+        viewerMargin:    '<?php echo Mage::getStoreConfig('amconf/zoom_outside/viewer_margin')?>',
+        viewerWidth:     '<?php echo intval(Mage::getStoreConfig('amconf/zoom_outside/viewer_width'))?>',
+        viewerHeight:    '<?php echo intval(Mage::getStoreConfig('amconf/zoom_outside/viewer_height'))?>',
+        showProductName: <?php echo intval(Mage::getStoreConfig('amconf/zoom_outside/show_product_name'))?>,                                     
+        useTintEffect:   '<?php echo intval(Mage::getStoreConfig('amconf/zoom_outside/use_tint_effect'))?>',
+        // Lightbox feature
+        lightboxEnable:    <?php echo intval($_lightboxEnable) ?>,
+        lightboxCircular: '<?php echo intval(Mage::getStoreConfig('amconf/lightbox/circular_lightbox'))?>',
+        lightboxTitle:    '<?php echo Mage::getStoreConfig('amconf/lightbox/title_position')?>',
+        lightboxEffect:   '<?php echo Mage::getStoreConfig('amconf/lightbox/effect')?>',
+        lightboxThumbnailHelper: <?php echo Mage::getStoreConfig('amconf/lightbox/thumbnail_helper')?>,          
+        // Carousel feature
+        carouselEnable:        <?php echo intval($_carouselEnable) ?>,
+        carouselCountOfItems: '<?php echo intval(Mage::getStoreConfig('amconf/carousel/visible_items'))?>',
+        carouselCircular:     '<?php echo intval(Mage::getStoreConfig('amconf/carousel/circular_carousel'))?>',
+        carouselDirection:    '<?php echo Mage::getStoreConfig('amconf/carousel/carousel_direction') ?>',
+        // Image size Settings (System)
+        mainImWidth:   '<?php echo intval(Mage::getStoreConfig('amconf/size/preview_width'))?>',
+        mainImgHeight: '<?php echo intval(Mage::getStoreConfig('amconf/size/preview_height'))?>',
+        thumbnailSize: '<?php echo $_thumbSize ?>',
+        // Zoomer will be used on category grid
+        categoryGrid: false
+    }, window.AmZoomerOptions || {});
+    
+    function loadAllImages()
+    {
+        AmZoomerOptions.images = 
+            $$('a[rel^=lightbox]').
+            collect(function(anchor){ 
+                return [anchor.href, anchor.title]; 
+            }).
+            uniq()
+        ;
+
+        if (AmZoomerOptions.lightboxEnable) {
+            if (AmZoomerOptions.lightboxThumbnailHelper) {
+                jQuery('.fancybox').fancybox({
+                    loop: Boolean(parseInt(AmZoomerOptions.lightboxCircular, 10)),
+                    prevEffect : AmZoomerOptions.lightboxEffect,
+                    nextEffect : AmZoomerOptions.lightboxEffect,
+                    closeBtn  : false,
+                    helpers : {
+                        title : {
+                            type : AmZoomerOptions.lightboxTitle
+                        },
+                        thumbs : {
+                            width  : 50,
+                            height : 50
+                        }
+                    }
+                });
+            } else {
+                jQuery('.fancybox').fancybox({
+                    loop: Boolean(parseInt(AmZoomerOptions.lightboxCircular, 10)),
+                    prevEffect : AmZoomerOptions.lightboxEffect,
+                    nextEffect : AmZoomerOptions.lightboxEffect,
+                    
+                    helpers : {
+                        title : {
+                            type : AmZoomerOptions.lightboxTitle
+                        }
+                    }
+                });
+            }
+        }
+        
+        if(Boolean(AmZoomerOptions.carouselEnable) && Boolean(AmZoomerOptions.lightboxEnable)) {
+            var carouselItems = 3;
+            var direction = 'right';
+            var width = <?php echo $_carouselWidth ?>;
+            var height = 'auto';
+            if (AmZoomerOptions.carouselDirection == 'left') {
+                direction = 'down';
+                width = 'auto';
+                height = <?php echo $_carouselHeight ?>;
+                
+                if (Boolean(AmZoomerOptions.zoomEnable)) {
+                    var mainImg = $('mainImage'); 
+                    mainImg.up(3).style.width = 353 + 'px';
+                    mainImg.up(5).style.paddingLeft = 0;
+                    mainImg.up(5).style.paddingRight = 0;
+                }
+            }
+            
+            var countParam = parseInt(AmZoomerOptions.carouselCountOfItems, 10);
+            if (countParam < 4 && countParam) { carouselItems = countParam; } 
+            
+            jQuery( function() {
+                jQuery('#carouselGallery').carouFredSel({
+                    width:  width,
+                    height: height,
+                    items: {
+                        visible: {
+                            max: carouselItems
+                        }
+                    },
+                    direction: direction,
+                    prev: '#prevGallery',
+                    next: '#nextGallery',
+                    auto: false,
+                    circular: Boolean(parseInt(AmZoomerOptions.carouselCircular, 10)),
+                    infinite: false
+                });
+            });
+        }
+    } 
+    
+    document.observe('dom:loaded', function (event){
+        loadAllImages();
+    });
+
+</script>
+
+<?php if ($_product->getImage() != 'no_selection' && $_product->getImage()): ?>
+    <?php if ($_zoomerEnable): ?>
+    <div style="position: relative;">
+            <?php if ('true' == (string) Mage::getConfig()->getNode('modules/Amasty_Label/active')): ?>
+                <div class="amlabel-div">
+                <?php echo Mage::helper('amlabel')->getLabels($_product, 'product') ?>
+            <?php endif; ?>
+            <p class="product-image">
+                <?php
+                    $_img = '';
+                    if (count($this->getGalleryImages()) > 0 && $_carouselDirection == 'left' && $_carouselEnable) {
+                        $_img .= '<div id="gallery" style="position: relative; top:0px; left:0px; float: left;">'.
+                                    '<div style="position: relative;">';
+
+                                    if ($_carouselEnable){
+                                        $_img .= '<div id="prevGallery" style="position: absolute; clear: both; float: none; top: -10px; left: 24px;" class="MagicScrollArrowsUpDown MagicScrollArrowUp"></div>';
+                                        $_img .= '<div class="list_carousel" style="padding-top:'. ($_previewHeight - $_carouselHeight)/2 .'px">';
+                                        $_img .= '<ul id="carouselGallery">';
+                                    } else {
+                                        $_img .= '<div><ul>';
+                                    }
+
+                                    foreach ($this->getGalleryImages() as $_image){
+                                        if ($_zoomerEnable){
+                                            if ($_carouselEnable){
+                                                $_img .= '<li style="margin:0">';
+                                            } else {
+                                                $_img .= '<li>';
+                                            }
+
+                                            $_img .= '<a class="fancybox" onclick="return false;" href="'.$this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()) . '" rel="lightbox['.$_product->getId() .']" title="'.$this->htmlEscape($_image->getLabel()) .'" style="width: '.$_thumbSize.'px; height: '.$_thumbSize.'px; border: 1px solid #DDDDDD;">'.
+                                                        '<img src="'.$this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_thumbSize).'" width="'.$_thumbSize.'" height="'.$_thumbSize.'" alt="'.$this->htmlEscape($_image->getLabel()).'"/>'.
+                                                        '<img style="display: none; z-index: 100; position: absolute; margin-left:' . (-$_thumbSize/2 - 15).'px; margin-top: '.($_thumbSize/2 - 14).'px; width: 30px; height: 28px" src="'.Mage::getBaseUrl('js') . 'amasty/amconf/images/preloaderSmall.gif'.'" alt="Preloader"/>'.
+                                                    '</a>'.
+                                                '</li>';
+                                        } else {
+                                            $_img .= '<li>'.
+                                                        '<a href="#" onclick="popWin(\''.$this->getGalleryUrl($_image).'\', \'gallery\', \'width=300,height=300,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes\'); return false;"><img src="' . $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_thumbSize) . '" width="' .$_thumbSize . '" height="' . $_thumbSize.'" alt="' . $this->htmlEscape($_image->getLabel()) . '" /></a>'.
+                                                    '</li>';
+                                        }
+                                    }
+
+                                    $_img .= '</ul>'.
+                                        '</div>';
+
+                                    if ($_carouselEnable){
+                                        $_img .= '<div id="nextGallery" style="position:absolute; clear: both; float: none; top:'. (intval(Mage::getStoreConfig('amconf/size/preview_height')) - 13) .'px; left: 24px" class="MagicScrollArrowsUpDown"></div>';
+                                    }
+
+                        $_img .=   '</div>'.
+                                '</div>';
+                    }
+                    
+                    $_preloaderMargin = ($_previewWidth - 110)/2 + 5;
+                    if (Mage::getStoreConfig('amconf/carousel/carousel_direction') == 'left' && $_carouselEnable) {
+                        $_preloaderMargin = ($_previewWidth + $_thumbSize + 10 - 110/2)/2 + 5;
+                    }
+                    $_img .= '
+                        <div id="wrapper" style="position: relative; float: left; min-width: '.($_previewWidth+2).'px; min-height: ' . ($_previewHeight + 2) . 'px; width: '.($_previewWidth+2).'px; height: ' . ($_previewHeight + 2) . 'px;">
+                            <a class="fancybox" href="'.$this->helper('catalog/image')->init($_product, 'image').'" rel="zoomer" onclick="return false;" style="display: block; background-color: white; position: relative;">
+                                <img id="mainImage" style="border: 1px solid #fff; z-index: 100; opacity: 1; filter: alpha(opacity = 100); max-width: '.$_previewWidth.'px; max-height: ' . $_previewHeight . 'px" src="'.$this->helper('catalog/image')->init($_product, 'image')->resize($_previewWidth, $_previewHeight) . '" alt="' . $this->htmlEscape($_product->getName()) . '" title="'.$this->htmlEscape($this->getImageLabel()).'"/>
+                            </a>
+                        </div>
+                        <div id="preloader" style="display: none; position: absolute; top: ' . ($_previewHeight/2 - 45/2) . 'px; left:' . $_preloaderMargin . 'px; background: white; width: 110px; opacity: 0.7; filter: alpha(opacity = 70);">
+                            <div style="float:left;"><img style="" src="' . Mage::getBaseUrl('js') . 'amasty/amconf/images/preloader.gif" alt="Preloader"/></div>
+                            <div style="position: absolute; left: 50px; margin-right: 2px; margin-top: 12px; font-weight: bold"> ' . $_preloadText . '... </div> 
+                        </div>
+                    ';
+                    echo $_helper->productAttribute($_product, $_img, 'image');
+                ?>
+            </p>
+            <?php if ('true' == (string)Mage::getConfig()->getNode('modules/Amasty_Label/active')): ?>
+                </div>
+            <?php endif; ?>
+    </div>
+    <?php else: ?>
+        <?php if ('true' == (string)Mage::getConfig()->getNode('modules/Amasty_Label/active')): ?>
+            <div class="amlabel-div">
+                <?php echo Mage::helper('amlabel')->getLabels($_product, 'product') ?>
+        <?php endif; ?>
+        <p class="product-image product-image-zoom">
+            <?php
+             $_img = '<img id="image" src="'.$this->helper('catalog/image')->init($_product, 'image').'" alt="'.$this->htmlEscape($this->getImageLabel()).'" title="'.$this->htmlEscape($this->getImageLabel()).'" />';
+             echo $_helper->productAttribute($_product, $_img, 'image');
+            ?>
+        </p>
+        <?php if('true' == (string)Mage::getConfig()->getNode('modules/Amasty_Label/active')): ?>
+            </div>
+        <?php endif; ?>
+    <?php endif; ?>
+    <?php if (!$_zoomerEnable): ?>
+        <p class="zoom-notice" id="track_hint"><?php echo $this->__('Double click on above image to view full picture') ?></p>
+        <div class="zoom">
+            <img id="zoom_out" src="<?php echo $this->getSkinUrl('images/slider_btn_zoom_out.gif') ?>" alt="<?php echo $this->__('Zoom Out') ?>" class="btn-zoom-out" />
+            <div id="track">
+                <div id="handle"></div>
+            </div>
+            <img id="zoom_in" src="<?php echo $this->getSkinUrl('images/slider_btn_zoom_in.gif') ?>" alt="<?php echo $this->__('Zoom In') ?>" class="btn-zoom-in" />
+        </div>
+        <script>
+        //<![CDATA[
+            <?php if (!Mage::app()->getRequest()->isAjax()): ?>
+            Event.observe(window, 'load', function() {
+                product_zoom = new Product.Zoom('image', 'track', 'handle', 'zoom_in', 'zoom_out', 'track_hint');
+            });
+            <?php else: ?>
+            setTimeout("product_zoom = new Product.Zoom('image', 'track', 'handle', 'zoom_in', 'zoom_out', 'track_hint');", 1000);
+            <?php endif; ?>
+        //]]>
+        </script>
+    <?php endif; ?>
+<?php else: ?>
+    <p class="product-image">
+        <?php
+           // if base image wasn't selected
+           $_img = '<div style="position: relative;">
+                        <div id="wrapper" style="position: relative; float: left; min-width: '.($_previewWidth+2).'px; min-height: ' . ($_previewHeight + 2) . 'px; width: '.($_previewWidth+2).'px; height: ' . ($_previewHeight + 2) . 'px;">
+                            <a class="fancybox" href="'.$this->helper('catalog/image')->init($_product, 'image').'" rel="zoomer" onclick="return false;" style="display: block; background-color: white; position: relative;">
+                                <img id="mainImage" style="border: 1px solid #fff; z-index: 100; opacity: 1; filter: alpha(opacity = 100); max-width: '.$_previewWidth.'px; max-height: ' . $_previewHeight . 'px" src="'.$this->helper('catalog/image')->init($_product, 'image')->resize($_previewWidth, $_previewHeight) . '" alt="' . $this->htmlEscape($_product->getName()) . '" title="'.$this->htmlEscape($this->getImageLabel()).'"/>
+                            </a>
+                        </div>
+                        <div id="preloader" style="display: none; position: absolute; top: ' . ($_previewHeight/2 - 45/2) . 'px; left:' . $_preloaderMargin . 'px; background: white; width: 110px; opacity: 0.7; filter: alpha(opacity = 70);">
+                            <div style="float:left;"><img style="" src="' . Mage::getBaseUrl('js') . 'amasty/amconf/images/preloader.gif" alt="Preloader"/></div>
+                            <div style="position: absolute; left: 50px; margin-right: 2px; margin-top: 12px; font-weight: bold"> ' . $_preloadText . '... </div> 
+                        </div>
+                    </div>
+                    ';
+            echo $_helper->productAttribute($_product, $_img, 'image');
+        ?>
+    </p>
+<?php endif; ?>
+        
+<script>
+    <?php if ($_zoomerEnable): ?>
+        <?php if (!Mage::app()->getRequest()->isAjax()): ?>
+            Event.observe(window, 'load', function(){
+        <?php endif; ?>
+
+        new AmZoomer();
+        
+        <?php if (!Mage::app()->getRequest()->isAjax()): ?>
+            });
+        <?php endif; ?>
+    <?php endif; ?>
+</script>
+
+<?php if (count($this->getGalleryImages()) > 0 && ($_carouselDirection != 'left' || !$_carouselEnable)): ?>
+    <div class="more-views">
+        <h2><?php echo $this->__('More Views') ?></h2>
+        <div style="position: relative;">
+            <?php if ($_carouselEnable): ?>
+            <div id="prevGallery" style="position: absolute; clear: both; float: none; top: 20px; left: -10px;" class="MagicScrollArrows MagicScrollArrowPrev"></div>
+            <?php endif; ?>
+            <div class="<?php echo ($_carouselEnable)? 'list_carousel' : '' ?>" style="<?php echo ($_carouselEnable)? 'padding-left: '. ((intval(Mage::getStoreConfig('amconf/size/preview_width')) - ($_carouselWidth - 5*2))/2 + 5) .'px;' : ''?>">
+                <ul <?php echo ($_carouselEnable)? 'id = "carouselGallery"' : '' ?>>
+                    <?php foreach ($this->getGalleryImages() as $_image): ?>
+                        <?php if ($_lightboxEnable): ?>
+                            <li <?php echo ($_carouselEnable)? 'style="margin:0"' : '' ?>>
+                                <a class="fancybox" onclick="return false;" href="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>" rel="lightbox[<?php echo $_product->getId(); ?>]" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>" style="width: <?php echo $_thumbSize; ?>px; height: <?php echo $_thumbSize; ?>px;">
+                                    <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_thumbSize); ?>" width="<?php echo $_thumbSize; ?>" height="<?php echo $_thumbSize; ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" />                                    
+                                    <img style="display: none; z-index: 100; position: absolute; margin-left:<?php echo (-$_thumbSize/2 - 15)?>px; margin-top: <?php echo ($_thumbSize/2 - 14)?>px" src="<?php echo Mage::getBaseUrl('js') . 'amasty/amconf/images/preloaderSmall.gif' ?>" alt="Preloader"/>
+                                </a>
+                            </li>
+                        <?php else: ?>
+                            <li>
+                                <a href="#" onclick="popWin('<?php echo $this->getGalleryUrl($_image) ?>', 'gallery', 'width=300,height=300,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes'); return false;"><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_thumbSize); ?>" width="<?php echo $_thumbSize; ?>" height="<?php echo $_thumbSize; ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" /></a>
+                            </li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <?php if ($_carouselEnable): ?>
+            <div id="nextGallery" style="position:absolute; top:20px; left: <?php echo (intval(Mage::getStoreConfig('amconf/size/preview_width')) - 11) . 'px'?>" class="MagicScrollArrows"></div>
+            <?php endif; ?>
+        </div>
+    </div>
+ <?php endif; ?>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<bgsetting_adminhtml_bgsetting_index>
+        <reference name="content">
+            <block type="bgsetting/adminhtml_bgsetting" name="bgsetting" />
+        </reference>
+	</bgsetting_adminhtml_bgsetting_index>
+    <bgsetting_adminhtml_bgsetting_edit>
+        <reference name="head">
+				<action method="addJs"><script>colorpicker/js/protoculous-1.1.js</script></action>
+				<action method="addJs"><script>colorpicker/js/prototype_colorpicker.js</script></action>
+		</reference>
+        <reference name="content">
+				<block type="core/template" name="jscss" template="bgsetting/js.phtml" />
+            <!--<block type="bgsetting/adminhtml_bgsetting" name="bgsetting" />-->
+        </reference>
+    </bgsetting_adminhtml_bgsetting_edit>
+</layout>

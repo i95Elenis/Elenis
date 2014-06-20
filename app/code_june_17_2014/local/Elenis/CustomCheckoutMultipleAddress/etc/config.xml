@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ *
+ * @category       
+ * @package        Elenis_CustomCategoryAttribute
+ * @Description    
+ * @author         
+ * @copyright      
+ * @license        
+ */
+-->
+<config>
+    <modules>
+        <Elenis_CustomCheckoutMultipleAddress>
+            <version>1.0.1</version>
+        </Elenis_CustomCheckoutMultipleAddress>
+    </modules>
+    
+    <global>
+        <models>
+            <customcheckoutmultipleaddress>
+                <class>Elenis_CustomCheckoutMultipleAddress_Model</class>
+                <resourceModel>multishipcheckout_resource</resourceModel>
+            </customcheckoutmultipleaddress>
+            <multishipcheckout_resource>
+                <class>Elenis_CustomCheckoutMultipleAddress_Model_Resource</class>
+                <entities>
+                    <multiship>
+                        <table>elenis_multiship</table>
+                    </multiship>
+                </entities>
+            </multishipcheckout_resource>
+            <checkout>
+                <rewrite>
+                    <type_multishipping>Elenis_CustomCheckoutMultipleAddress_Model_Type_Multishipping</type_multishipping>
+                </rewrite>
+            </checkout>
+        </models>
+        <resources>
+            <customcheckoutmultipleaddress_setup>
+                <setup>
+                    <module>Elenis_CustomCheckoutMultipleAddress</module>
+					<class>Mage_Sales_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </customcheckoutmultipleaddress_setup>
+            <customcheckoutmultipleaddress_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </customcheckoutmultipleaddress_write>
+            <customcheckoutmultipleaddress_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </customcheckoutmultipleaddress_read>
+        </resources>
+        <blocks>
+            <customcheckoutmultipleaddress>
+                <class>Elenis_CustomCheckoutMultipleAddress_Block</class>
+            </customcheckoutmultipleaddress>
+            <checkout>
+                <rewrite>
+                    <multishipping_addresses>Elenis_CustomCheckoutMultipleAddress_Block_Checkout_Multishipping_Addresses</multishipping_addresses>
+                </rewrite>
+            </checkout>
+            <calendarbase>
+				<rewrite>
+					<checkout_multishipping_shipping>Elenis_CustomCheckoutMultipleAddress_Block_Calendarbase_Checkout_Multishipping_Shipping</checkout_multishipping_shipping>
+				</rewrite>
+			</calendarbase>
+        </blocks>
+        <helpers>
+            <Elenis_CustomCheckoutMultipleAddress>
+                <class>Elenis_CustomCheckoutMultipleAddress_Helper</class>
+            </Elenis_CustomCheckoutMultipleAddress>
+        </helpers>
+    </global>
+    <frontend>
+        <routers>
+            <elecheckout>
+                <use>standard</use>
+                <args>
+                    <module>Elenis_CustomCheckoutMultipleAddress</module>
+                    <frontName>elecheckout</frontName>
+                </args>
+            </elecheckout>
+            
+            <!--<checkout>
+                  <args>
+                    <modules>
+                          <Elenis_CustomCheckoutMultipleAddress before="Mage_Checkout">Elenis_CustomCheckoutMultipleAddress_Checkout</Elenis_CustomCheckoutMultipleAddress>
+                    </modules>
+                  </args>
+              </checkout>-->
+            
+        </routers>
+        <layout>
+            <updates>
+                <customcheckoutmultipleaddress>
+                    <file>elenis_customcheckoutmultipleaddress.xml</file>
+                </customcheckoutmultipleaddress>
+            </updates>
+        </layout>
+    </frontend>
+
+</config>

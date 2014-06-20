@@ -1,0 +1,52 @@
+.amconf-image
+{
+    padding: 3px;
+    margin-right: 5px; 
+}
+
+.swatch-title{
+	font-weight: 600;
+	position: absolute;
+	padding-left: 3px;
+}
+
+.amconf-image-selected
+{
+    padding: 0px;
+    border: 3px solid #eaff00;
+}
+
+.amconf-image-outofstock
+{
+    padding: 0px;
+    border: 3px solid #303030;
+    opacity:0.6;
+    filter:alpha(opacity=60);
+}
+
+.amconf-images-container
+{
+    width: 100%;
+    clear: both;
+}
+
+.amconf-image-container
+{
+    float:left;
+    position:relative;
+    text-align: center;
+}
+
+.amconf-image-title
+{
+    margin-bottom:5px;
+}
+
+#amconf_price_clone_container 
+{
+    float: left;
+}
+#amconf_price_clone_container ul
+{
+    clear: both;
+}

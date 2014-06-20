@@ -1,0 +1,43 @@
+<config>
+    <modules>
+        <Inchoo_EmptyCart>
+            <version>0.1.0</version>
+        </Inchoo_EmptyCart>
+    </modules>
+    <global>
+        <models>
+            <emptycart>
+                <class>Inchoo_EmptyCart_Model</class>
+            </emptycart>
+        </models>
+        <blocks>
+            <emptycart>
+                <class>Inchoo_EmptyCart_Block</class>
+            </emptycart>
+        </blocks>
+    </global>
+
+    <frontend>
+        <routers>
+            <emptycart>
+                <use>standard</use>
+                <args>
+                    <module>Inchoo_EmptyCart</module>
+                    <frontName>emptyCart</frontName>
+                </args>
+            </emptycart>
+        </routers>
+        <events>
+            <core_block_abstract_to_html_after>
+                <observers>
+                    <inchoo_emptycart_init>
+                        <type>singleton</type>
+                        <class>Inchoo_EmptyCart_Model_Observer</class>
+                        <method>injectLinkEmptyCart</method>
+                    </inchoo_emptycart_init>
+                </observers>
+            </core_block_abstract_to_html_after>
+        </events>
+    </frontend>
+
+</config>

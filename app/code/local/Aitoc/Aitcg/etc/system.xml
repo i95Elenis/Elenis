@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+   <sections>
+        <catalog>
+            <groups>
+                <aitcg translate="label" module="aitcg">
+                    <label>Custom Product Preview</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>99</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <image_settings_label translate="label">
+                            <label>Images settings</label> 
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model> 
+                            <sort_order>10</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store> 
+                        </image_settings_label>                        
+                    
+                        <aitcg_image_extensions translate="label">
+                            <label>Allowed Files for Preview Images</label>
+                            <comment>Default: jpg, jpeg, png, gif. Allowed Files for Preview Images uploaded by customers</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_image_extensions>
+                        
+                        <!--allowed_formats_for_save translate="label">
+                            <label>Allowed Formats for Save</label>
+                            <comment>Image formats that are available for preview to be saved as</comment>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>aitcg/config_formats</source_model> 
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                        </allowed_formats_for_save-->
+                        
+                        <show_background_images translate="label">
+                            <label>Show background images in saved file</label>
+                            <comment>Display background images for preview to be saved; works only for png and svg.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                        </show_background_images>
+                        
+                        <aitcg_use_imagemagick translate="label">
+                            <label>Try to convert any non-standart user uploaded file</label>
+                            <comment>Note: requires ImageMagick to be installed at your host and allowed php exec command;  check http://www.imagemagick.org/script/formats.php for possible format conversions</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model> 
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_use_imagemagick>
+                        <aitcg_enable_svg_to_pdf translate="label">
+                            <label>Enable Saving Svg Images As Pdf </label>
+                            <comment>Note: requires ImageMagick to be installed at your host and allowed php exec command;  check http://www.imagemagick.org/script/formats.php for possible format conversions</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model> 
+                            <sort_order>40</sort_order>
+                            <backend_model>aitcg/system_config_backend_enableSvgToPdf</backend_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_enable_svg_to_pdf>                          
+                        <text_settings_label translate="label">
+                            <label>Text Settings</label> 
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model> 
+                            <sort_order>50</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store> 
+                        </text_settings_label> 
+                        
+                        <aitcg_allow_text_distortion>
+                            <label>Allow Distortion of Text Objects</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_allow_text_distortion>
+                         <aitcg_font_resolution_predefine>
+                            <label>Custom Text Resolution (Px.)</label>
+                            <comment>Default: 200.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <validate>validate-not-negative-number</validate>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_font_resolution_predefine>  
+                        <aitcg_font_color_predefine>
+                            <label>Allow Only Predefined Colors for Fonts and Text Outline</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_font_color_predefine>
+                        <aitcg_font_outline>
+                            <label>Enable Text Outline</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>66</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_font_outline>
+                        <aitcg_font_shadow>
+                            <label>Enable Text Shadow</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>67</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_font_shadow>
+
+                        <seotools_settings_label translate="label">
+                            <label>SEO tools settings</label> 
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model> 
+                            <sort_order>100</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store> 
+                        </seotools_settings_label> 
+                        
+                        <aitcg_enable_homepage_promo translate="label">
+                            <label>Enable homepage promo block</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model> 
+                            <sort_order>105</sort_order>
+                            <backend_model>aitcg/system_config_backend_enablehomepagepromo</backend_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_enable_homepage_promo>
+                        <aitcg_use_social_networks_sharing translate="label">
+                            <label>Use social networks sharing functionality</label>
+                            <comment>Add social networks share buttons to customized images</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model> 
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_use_social_networks_sharing>
+                        <aitcg_social_networks_sharing_max_img_width translate="label">
+                            <label>Maximum width of social networks shared image </label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>115</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_social_networks_sharing_max_img_width>
+                        <aitcg_social_networks_sharing_max_img_height translate="label">
+                            <label>Maximum height of social networks shared image </label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>120</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_social_networks_sharing_max_img_height>
+                        <aitcg_share_img_template translate="label">
+                            <label>Email template for sending shared images</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>125</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_share_img_template>                                
+
+                        <cron_settings_label translate="label">
+                            <label>Cron settings</label> 
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model> 
+                            <sort_order>150</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store> 
+                        </cron_settings_label> 
+
+                        <aitcg_cron_temp translate="label comment">
+                            <label>Cron setting for Temporary Images (Days)</label>
+                            <comment>Affect all images that were uploaded by clients -> Default: 15. Automatically delete all images uploaded by customers</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>155</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </aitcg_cron_temp>
+                        <aitcg_cron_order translate="label comment">
+                            <label>Cron setting for Completed Orders Images (Days)</label>
+                            <comment>Affect Images for Completed orders-> Default: 150. Automatically delete all images from the orders with status: completed, close or canceled</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>160</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </aitcg_cron_order>
+
+                        <userconf_settings_label translate="label">
+                            <label>User Confirmation Settings</label> 
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model> 
+                            <sort_order>200</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store> 
+                        </userconf_settings_label> 
+                        
+                        <aitcg_confirm_checkbox translate="label">
+                            <label>Display Image Quality confirmation check box</label>
+                            <comment>Display Image Quality confirmation check box during image file upload; Recommended</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model> 
+                            <sort_order>205</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_confirm_checkbox>
+                        <aitcg_confirm_text translate="label">
+                            <label>Short Confirmation text near Image Quality confirmation check box</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>210</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_confirm_text>  
+                        <aitcg_confirm_fullcheckbox translate="label">
+                            <label>Enable confirmation popup with the extended text</label>
+                            <comment>Note: popup can be used if confirmation checkbox is enabled only; Recommended</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model> 
+                            <sort_order>215</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_confirm_fullcheckbox>
+                        <aitcg_confirm_fulltext translate="label">
+                            <label>Extended confirmation text for the popup</label>
+                            <comment>Here admin can place Full Image Quality Requirements for the uploaded graphic file to be compliant for print</comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>220</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_confirm_fulltext>                        
+
+				
+                    </fields>
+                </aitcg>
+            </groups>
+        </catalog>
+    </sections>
+</config>
+<!--
+/**
+ * Custom Product Preview
+ *
+ * @category:    Aitoc
+ * @package:     Aitoc_Aitcg
+ * @version      11.2.2
+ * @license:     AJifvLXz2Jhov40GDpSzkNqfs4dkmEPJtRhHJxJI2y
+ * @copyright:   Copyright (c) 2013 AITOC, Inc. (http://www.aitoc.com)
+ */
+-->

@@ -1,0 +1,27 @@
+
+*FirePHP*
+https://addons.mozilla.org/en-US/firefox/addon/6149
+http://www.firephp.org/
+
+*Configuration*
+System->Configuration->Developer->Debug->FirePHP => Yes
+Developer Client Restrictions (IPs) are respected
+
+*Usage*
+@param  mixed   $var    The variable to log.
+@param  string  $label  OPTIONAL Label to prepend to the log event
+@param  string  $style  OPTIONAL Style of the log event
+
+Mage::helper('firephp')->send($var, $label='', $style ='LOG');
+Mage::helper('firephp')->debug($var, $label='', $style ='LOG');
+
+debug checks for Varien_Object and performs Varien_Object->debug() on it
+
+*Examples*
+Mage::helper('firephp')->send('Lorem ipsum sit amet ..');
+Mage::helper('firephp')->debug(Mage::getModel('catalog/product')->load(54));
+
+*Changelog*
+0.0.3 - license change, Magento Connect release
+0.0.2 - fixed compatibility problem in 1.3.2.x versions
+0.0.1 - initial release

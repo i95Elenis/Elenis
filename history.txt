@@ -1,0 +1,510 @@
+    1  mkdir /home/i95dev
+    2  cd ~
+    3  ls
+    4  cd ..
+    5  ls
+    6  cd /home
+    7  ls
+    8  cd i95dev/
+    9  ls -la
+   10  nano /etc/bash.bashrc 
+   11  exit
+   12  passwd
+   13  useradd i95dev
+   14  passwd i95dev
+   15  cd /home
+   16  ls
+   17  cd ..
+   18  usermod -a -G sudo i95dev
+   19  exit
+   20  ls
+   21  cd ..
+   22  cat /var/log/dmesg
+   23  cat /var/log/faillog 
+   24  cat /var/log/auth.log 
+   25  apt-get install lamp-server^
+   26  apt-get update
+   27  apt-get upgrade 
+   28  apt-get install lamp-server^
+   29  apt-get install php5-gd
+   30  apt-get install php5-dom
+   31  apt-get install php5-iconv
+   32  apt-cache search iconv
+   33  apt-get install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python
+   34  nano /etc/apt/sources.list
+   35  apt-get update
+   36  cd ~
+   37  wget http://www.webmin.com/jcameron-key.asc
+   38  apt-key add jcameron-key.asc
+   39  apt-get update
+   40  apt-get upgrade
+   41  apt-get install webmin
+   42  php -m
+   43  apt-cache search mcrypt
+   44  apt-get install php5-mcrypt
+   45  php -m
+   46  apt-get install php5-curl
+   47  apt-get install php5-soap
+   48  apt-cache search php soap
+   49  apt-get install php-soap
+   50  apt-get install postfix
+   51  apt-get install phpmyadmin
+   52  nano /etc/apache2/apache2.conf
+   53  service apache2 restart
+   54  nano /etc/phpmyadmin/apache.conf
+   55  nano /etc/apache2/apache2.conf
+   56  service apache2 restart
+   57  nano /etc/phpmyadmin/apache.conf
+   58  nano /etc/apache2/apache2.conf
+   59  nano /etc/phpmyadmin/apache.conf
+   60  nano /usr/share/phpmyadmin/.htaccess
+   61  a2enmod ssl
+   62  service apache2 restart
+   63  nano /usr/share/phpmyadmin/.htaccess
+   64  htpasswd -c /etc/phpmyadmin/.htpasswd i95dev
+   65  service apache2 restart
+   66  exit
+   67  ls
+   68  df -h
+   69  cd /home/
+   70  ls
+   71  cd /var/www/
+   72  ls
+   73  cd ../
+   74  ls
+   75  ifconfig 
+   76  mysql -udbadmin1 -p
+   77  php -v
+   78  free -m
+   79  cd /etc/apache2/sites-available/
+   80  ls
+   81  ls -lah
+   82  cd ../sites-enabled/
+   83  ls -lah
+   84  vi 000-default 
+   85  ls
+   86  df -h
+   87  php -v
+   88  ifconfig 
+   89  ls
+   90  wget http://dev.i95dev.com/elenis_main_21092013.tgz
+   91  ls
+   92  rm -rf elenis_main_21092013.tgz 
+   93  nohup wget http://dev.i95dev.com/elenis_main_21092013.tgz &
+   94  ls
+   95  du -sh elenis_main_21092013.tgz 
+   96  cd /var/www/
+   97  ls
+   98  vi index.php
+   99  history
+  100  apt-get install php5-xmlrpc
+  101  apache2ctl restart
+  102  vi /etc/phpmyadmin/apache.conf 
+  103  cd 
+  104  ls
+  105  du -sh elenis_main_21092013.tgz 
+  106  ls
+  107  tar -xvzf elenis_main_21092013.tgz 
+  108  ls
+  109  mv elenis_main elenidev2.vanwestmedia.com
+  110  mv elenidev2.vanwestmedia.com /var/www/
+  111  ls
+  112  cd /var/www/
+  113  ls
+  114  cd elenidev2.vanwestmedia.com
+  115  ls
+  116  cd app/etc/
+  117  cp local.xml local.xml_bak
+  118  vi local
+  119  vi local.xml
+  120  ls
+  121  cd ../
+  122  cd var/cache/
+  123  ls
+  124  rm -rf *
+  125  cd ../full_page_cache/
+  126  ls
+  127  rm -rf *
+  128  cd ../
+  129  ls
+  130  mysql -udbadmin1 -p895e3f!
+  131  mysql -udbadmin1 -p895e3f! elenidev2_vanwestmedia_com < elenis_main_21092013.sql 
+  132  mysql -udbadmin1 -p895e3f!
+  133  cd /etc/apache2/sites-available/
+  134  ls
+  135  mysql -udbadmin1 -p895e3f!
+  136  ls
+  137  cp default elenidev2.vanwestmedia.com
+  138  ls
+  139  vi elenidev2.vanwestmedia.com 
+  140  ls -lah
+  141  ln -s /etc/apache2/sites-available/elenidev2.vanwestmedia.com /etc/apache2/sites-enabled/elenidev2.vanwestmedia.com
+  142  cd ../sites-enabled/
+  143  ls
+  144  ls -lah
+  145  apache2ctl restart
+  146  ls
+  147  cd ../
+  148  cd /var/www/
+  149  ls
+  150  rm -rf index.html index.php 
+  151  ls
+  152  cd ../
+  153  ls
+  154  ls -lah
+  155  mv www www-old
+  156  cd ../
+  157  cd /var/www-old/
+  158  ls
+  159  mv elenidev2.vanwestmedia.com www
+  160  ls
+  161  mv www ../
+  162  ls
+  163  cd ../
+  164  ls -lah
+  165  chown -R root:root www
+  166  ls -lah
+  167  chmod -R 755 www
+  168  cd www
+  169  chmod -R 777 app/etc media var/
+  170  ls -lah
+  171  cd ../
+  172  cd /etc/apache2/sites-available/
+  173  ls
+  174  ls -lah
+  175  cd ../sites-enabled/
+  176  ls
+  177  rm -rf elenidev2.vanwestmedia.com 
+  178  ls
+  179  cd ../
+  180  cd sites-available/
+  181  ls
+  182  rm -rf elenidev2.vanwestmedia.com 
+  183  ls
+  184  cd /var/www/
+  185  ls
+  186  cd /var/www
+  187  vi robots.txt 
+  188  vi robots.txt
+  189  cd
+  190  cd /var/
+  191  ls
+  192  ls -lah
+  193  vi .htaccess
+  194  cd www
+  195  vi .htaccess
+  196  htpasswd -c /opt/.htpasswd
+  197  htpasswd -c /opt/.htpasswd elenidev2
+  198  vi .htaccess
+  199  apache2ctl restart
+  200  vi /etc/apache2/sites-available/default
+  201  cd /etc/apache2/sites-available/
+  202  cp default default_bak
+  203  vi default
+  204  apache2ctl restart
+  205  vi default
+  206  apache2ctl restart
+  207  vi default
+  208  apache2ctl restart
+  209  ls
+  210  pwd
+  211  cd /home/
+  212  ls
+  213  cd i95dev/
+  214  ls
+  215  ls -lah
+  216  cd ../
+  217  ls -lah
+  218  chown -R i95dev:i95dev i95dev/
+  219  vi /etc/passwd
+  220  cd i95dev/
+  221  ls
+  222  tar -xvzf elenis_main_07102013.sql.tgz 
+  223  ls
+  224  history|grep mysql
+  225  mysql -udbadmin1 -p895e3f!
+  226  mysql -udbadmin1 -p895e3f! elenidev2_vanwestmedia_com_07102013 < elenis_main_07102013.sql
+  227  passwd
+  228  exit
+  229  df -h
+  230  ls
+  231  watch ls -lah
+  232  watch ls -lah | grep images
+  233  watch ls -lah | grep image
+  234  watch ls -lah images
+  235  watch ls -lah
+  236  ls
+  237  ls -lah
+  238  wget http://elenis.com/site_media/elenisdbbackupgavin.sql.tar.gz
+  239  ls -lah
+  240  dig johnapel.com NS
+  241  dig johnapel.com A
+  242  dig www.johnapel.com A
+  243  exit
+  244  mysql -udbadmin1 -p895e3f!
+  245  pwd
+  246  cd /home/i95dev/
+  247  mysql -udbadmin1 -p895e3f! elenidev2_vanwestmedia_com_10_08_13 < elenis_main_08_10_13.sql 
+  248  tar -xvzf elenis_main_100813.sql.tgz
+  249  mysql -udbadmin1 -p895e3f! elenidev2_vanwestmedia_com_10_08_13 < elenis_main_100813.sql
+  250  cd /var/www/
+  251  ls
+  252  cd ../
+  253  cd /home/i95dev/
+  254  ls
+  255  cd /var/www/
+  256  ls
+  257  mkdir new
+  258  cd ../
+  259  cd /home/i95dev/
+  260  mv elenis_main_oct0713.zip /var/www/new/
+  261  cd /var/www
+  262  ls
+  263  mkdir backup
+  264  rm backup/
+  265  rm -r backup/
+  266  cd ../
+  267  mkdir www-100813
+  268  cd www
+  269  mv *.* ../www-100813/
+  270  ls
+  271  mv * ../www-100813/
+  272  ls
+  273  cd ../
+  274  ls
+  275  cd www-100813/
+  276  ls
+  277  cd new/
+  278  mv elenis_main_oct0713.zip ../../www/
+  279  cd ../../
+  280  cd www
+  281  ls
+  282  unzip elenis_main_oct0713.zip
+  283  apt-get install unzip
+  284  unzip elenis_main_oct0713.zip
+  285  ls
+  286  cd elenis_main/
+  287  mv * ../
+  288  ls
+  289  ls -ltrh
+  290  cd ../
+  291  mysql -udbadmin1 -p895e3f!
+  292  chmod 0777 -r var/ app/etc/ media/
+  293  chmod 0777 -R var/ app/etc/ media/
+  294  exit
+  295  ls
+  296  cd /var/www/
+  297  ls
+  298  cd /home/
+  299  ls
+  300  cd i95dev/
+  301  ls
+  302  cd \
+  303  ls
+  304  mv images.tar.gz /var/www/
+  305  ls
+  306  cd /var/www/
+  307  ls
+  308  exit
+  309  w
+  310  exit
+  311  cd /var/www
+  312  ls -la
+  313  more .htaccess
+  314  cat /opt/.htpasswd
+  315  htpasswd /opt/.htpasswd geeks
+  316  vim .htaccess
+  317  cd /var/www/
+  318  ls
+  319  pwd
+  320  ls
+  321  grep -r -n --color=auto "compliant" *
+  322  grep -r -n --color=auto "aitcg_error" *
+  323  grep -r -n --color=auto "aitcg_error" *
+  324  grep -r -n --color=auto "aitcg_image_div" *
+  325  clear
+  326  grep -r -n --color=auto "aitcg_image_div" *
+  327  clear
+  328  grep -r -n --color=auto "message-popup-window" *
+  329  ls
+  330  cd ../
+  331  zip -r www/
+  332  tar -xvzf www/
+  333  tar -zcvf www-18-oct.tar.gz www/
+  334  ls
+  335  rm -rf www-18-oct.tar.gz 
+  336  cd /var/www
+  337  pwd
+  338  ll
+  339  tar -cvzf elenis_clientserver.tgz . --exclude "/var/www/images.tar.gz"
+  340  tar -pcvzf elenis_clientserver.tgz . --exclude="/var/www/images.tar.gz"
+  341  tar -pczf elenis_clientserver.tgz . --exclude "/var/www/images.tar.gz"
+  342  tar -cvzf elenis_clientserver.tgz  --exclude="images.tar.gz" .
+  343  cd /var/www
+  344  cd /var
+  345  ll
+  346  ls
+  347  cd ..
+  348  pwd
+  349  cd /var/www
+  350  pwd
+  351  ls
+  352  pwd
+  353  cd var/
+  354  ls
+  355  rm -rf full_page_cache/ cache/
+  356  exit
+  357  ls
+  358  cd /var/www/
+  359  ls
+  360  cd var/
+  361  ls
+  362  rm -rf full_page_cache/
+  363  rm -rf cache/
+  364  rm -rf full_page_cache/
+  365  rm -rf cache/
+  366  pwd
+  367  rm -rf cache/
+  368  rm -rf full_page_cache/
+  369  rm -rf cache/
+  370  rm -rf full_page_cache/
+  371  rm -rf full_page_cache/ cache/
+  372  exit
+  373  mysql -u root -p
+  374  mysql -u dbadmin1 -p
+  375  mysql -u root -p
+  376  history
+  377  mysql -dump udbadmin1 -p895e3f! elenidev2_vanwestmedia_com_10_08_13 > elenis_main_211013.sql
+  378  mysqldump -udbadmin1 -p895e3f! elenidev2_vanwestmedia_com_10_08_13 > elenis_main_211013.sql
+  379  tar -zcvf elenis_main_211013.tgz 
+  380  tar -zcvf elenis_main_211013.tgz elenis_main_211013.sql 
+  381  ls
+  382  ls -ktrh
+  383  ls -ltrh
+  384  history
+  385  history mysql | grep
+  386  history mysql
+  387  history
+  388  mysql -udbadmin1 -p895e3f!
+  389  mysqldump  -udbadmin1 -p895e3f! elenidev2_vanwestmedia_com_10_08_13 mage_core_resource > mage_core_resource.sql
+  390  pwd
+  391  cd /var/www
+  392  pwd
+  393  mysqldump  -udbadmin1 -p895e3f! elenidev2_vanwestmedia_com_10_08_13 mage_core_resource > mage_core_resource.sql
+  394  mysql -udbadmin1 -p895e3f!
+  395  history tar
+  396  history
+  397  pwd
+  398  cd /var/www
+  399  pwd
+  400  ls
+  401  history
+  402  tar -cvzf elenis_clientserver-22_10_2013.tgz  --exclude="images.tar.gz" .
+  403  exit
+  404  tar -cvzf elenis_clientserver-22_10_2013.tgz  --exclude="images.tar.gz" .
+  405  cd /var/www
+  406  pwd
+  407  tar -cvzf elenis_clientserver-22_10_2013.tgz  --exclude="images.tar.gz,elenis_main_21092013.sql" .
+  408  tar -cvzf elenis_clientserver-22_10_2013.tgz  --exclude="images.tar.gz" --exclude="elenis_main_21092013.sql" .
+  409  exit
+  410  history
+  411  cd /var/www
+  412  pwd
+  413  exit
+  414  history
+  415  cd /var/www
+  416  mysqldump  -udbadmin1 -p895e3f! elenidev2_vanwestmedia_com_10_08_13 > elenisdev2_vanwestmedia_com_23102013.sql
+  417  mysql -udbadmin1 -p
+  418  exit
+  419  cd /var/www/app/locale/en_US/template/email/
+  420  ls
+  421  ls -lah
+  422  cd sales/
+  423  ls
+  424  ls -lah
+  425  cd ../enterprise/
+  426  ls
+  427  mysql -udbadmin1 -p
+  428  exit
+  429  apt-get install postfix
+  430  cd /var/www/
+  431  chmod 0777 -R var/ 
+  432  chmod -R 0777 var/ 
+  433  cd var/
+  434  ls
+  435  ls -lthr
+  436  chown -R 0777 *
+  437  ls -lthr
+  438  cd ../
+  439  chown -R root var/
+  440  cd var/
+  441  ls
+  442  ls -lthr
+  443  chown root -R var/
+  444  chown -R root var/
+  445  chown -R root:root var/
+  446  cd ../
+  447  chown -R root:root var/
+  448  chown -R root var/
+  449  chown -R root:root var/
+  450  cd
+  451  ps ax
+  452  ps ax|grep sendmail
+  453  ps ax|grep postfix
+  454  history
+  455  vi mailtest.php
+  456  php -f mailtest.php 
+  457  /etc/init.d/postfix status
+  458  ps ax|grep postfix
+  459  vi mailtest.php 
+  460  php -f mailtest.php 
+  461  cd /var/www
+  462  /etc/init.d/postfix status
+  463  ps ax|grep postfix
+  464  time
+  465  date
+  466  ps ax|grep sendmail
+  467  history | grep mysqldump
+  468  pwd
+  469  cd /var/www
+  470  ls
+  471  history | grep mysqldump
+  472  mysql -udbadmin1 -p895e3f! 
+  473  exit
+  474  history | grep
+  475  history grep
+  476  history | grep grep
+  477  cd /var/www
+  478  exit
+  479  cd /var/www
+  480  cd app/design/frontend/
+  481  grep -r -n --color=auto "Delivery Date" *
+  482  grep -r -n --color=auto "Delivery Time" *
+  483  grep -r -n --color=auto "delivery_date_" *
+  484  grep -r -n --color=auto "delivery_date" *
+  485  grep -r -n --color=auto "v-middle" *
+  486  exit
+  487  cd /var/www
+  488  cd skin/frontend/enterprise/
+  489  ls
+  490  rm -rf elenis-09-10-2013/ elenis-11server/ elenis-sep19/ elenis-10-10-2013/ 
+  491  ls
+  492  rm -rf elenis-oldone/
+  493  rm -rf elenis-skin.zip
+  494  ls
+  495  zip -r elenis-nov07.zip elenis/
+  496  apt-get install zip
+  497  zip -r elenis-nov07.zip elenis/
+  498  ls
+  499  cd ../../../
+  500  ls
+  501  cd app/design/frontend/enterprise/
+  502  ls
+  503  ls -ltrh
+  504  rm -rf elenis-09-10-2013/ elenis-template.zip elenis-10-10-2013/
+  505  ls
+  506  zip -r elenis-nov07.zip elenis/
+  507  ls
+  508  cd ../../
+  509  cd ../
+  510  history > history.txt

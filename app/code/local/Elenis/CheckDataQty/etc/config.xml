@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Elenis_CheckDataQty>
+      <version>0.1.0</version>
+    </Elenis_CheckDataQty>
+  </modules>
+  <global>
+    <helpers>
+      <checkdataqty>
+        <class>Elenis_CheckDataQty_Helper</class>
+      </checkdataqty>
+    </helpers>
+	<models>
+	  <checkdataqty>
+		<class>Elenis_CheckDataQty_Model</class>
+		<resourceModel>checkdataqty_mysql4</resourceModel>
+	  </checkdataqty>
+	</models>
+    <events>
+	  <controller_action_postdispatch_checkout_multishipping_addressesPost> <!-- identifier of the event we want to catch -->
+        <observers>
+          <checkout_cart_add_product_complete_handler> <!-- identifier of the event handler -->
+            <type>model</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>checkdataqty/observer</class> <!-- observers class alias -->
+            <method>setQuoteItemQtyAfter</method>  <!-- observer's method to be called -->
+            <args></args> <!-- additional arguments passed to observer -->
+          </checkout_cart_add_product_complete_handler>
+        </observers>
+      </controller_action_postdispatch_checkout_multishipping_addressesPost>
+    </events>
+  </global>
+</config> 

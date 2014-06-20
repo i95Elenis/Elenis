@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<layout>
+    <default>
+        <reference name="notifications">
+            <block type="aitsys/rewriter_notifications" name="aitsys_rewriter_notifications" template="aitsys/rewriter/notifications.phtml" />
+        </reference>
+    </default>
+    
+    <aitsys_license_manage>
+        <reference name="head">
+            <action method="addCss"><name>aitoc/aitsys.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="aitsys/manage_widget" name="aitsys.manage.widget" template="aitsys/manage/widget.phtml" />
+        </reference>
+    </aitsys_license_manage>
+    
+    <aitsys_license_install>
+        <update handle="aitsys_license_manage" />
+    </aitsys_license_install>
+    
+    <aitsys_license_reinstall>
+        <update handle="aitsys_license_manage" />
+    </aitsys_license_reinstall>
+
+    <aitsys_license_manualinstall>
+        <reference name="head">
+            <action method="addCss"><name>aitoc/aitsys.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="aitsys/manualInstall_widget" name="aitsys.manualinstall.widget" template="aitsys/manualInstall/widget.phtml" />
+        </reference>
+    </aitsys_license_manualinstall>
+    
+    <aitsys_index_index>
+        <reference name="head">
+            <action method="addCss"><name>aitoc/aitsys.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="aitsys/edit" name="aitsys.edit" template="aitsys/edit.phtml">
+                <block type="aitsys/notification" name="aitsys.notification" template="aitsys/notification.phtml" />
+            </block>
+        </reference>
+    </aitsys_index_index>
+    
+    <aitsys_patch_index>
+        <reference name="head">
+            <action method="addCss"><name>aitoc/aitsys.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="aitsys/patch_view" name="aitsys.patch.view" template="aitsys/patch/view.phtml" />
+        </reference>
+    </aitsys_patch_index>
+    
+    <aitsys_patch_instruction>
+        <reference name="head">
+            <action method="addCss"><name>aitoc/aitsys.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="aitsys/patch_instruction" name="aitsys.patch.instruction" template="aitsys/patch/instruction.phtml">
+                <block type="aitsys/patch_instruction_one" name="aitsys.patch.instruction.one" template="aitsys/patch/instruction/one.phtml" />
+            </block>
+        </reference>
+    </aitsys_patch_instruction>
+    
+    <aitsys_rewriter_index>
+        <reference name="head">
+            <action method="addCss"><name>aitoc/aitsys.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="aitsys/rewriter_list" name="aitsys.rewriter.list" template="aitsys/rewriter/list.phtml" />
+        </reference>
+    </aitsys_rewriter_index>
+</layout>

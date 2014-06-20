@@ -1,0 +1,26 @@
+<?php
+/**
+ * Delivery Date
+ *
+ * @category:    AdjustWare
+ * @package:     AdjustWare_Deliverydate
+ * @version      10.1.5
+ * @license:     5WLwzjinYV1BwwOYUOiHBcz0D7SjutGH8xWy5nN0br
+ * @copyright:   Copyright (c) 2013 AITOC, Inc. (http://www.aitoc.com)
+ */
+
+echo $this->getChildHtml('availablecopy') ?>
+
+<ul>
+<?php foreach($this->getFields() as $field): ?>
+    <li>
+        <div class="input-box">
+		<?php echo $field->getHtml() ?>
+		<div>
+	</li>
+<?php endforeach?>
+</ul> 
+
+<style type="text/css">
+.disabled:after { display:none !important; }
+</style>

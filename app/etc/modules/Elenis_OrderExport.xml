@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Elenis_OrderExport>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Elenis_OrderExport>
+    </modules>
+</config>

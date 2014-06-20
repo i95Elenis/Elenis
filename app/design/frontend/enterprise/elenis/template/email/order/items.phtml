@@ -1,0 +1,183 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+
+<?php $_order = $this->getOrder(); ?>
+<?php
+if ($_order) {
+
+    $shippingAddress = $_order->getShippingAddress();
+    $address_line1 = "";
+    if (strpos($shippingAddress->getData("street"), "\n")) {
+        $tmp = explode("\n", $shippingAddress->getData("street"));
+        $address_line1 = $tmp[0];
+    }
+    if ($address_line1 == "") {
+        $address_line1 = $shippingAddress->getData("street");
+    }
+    $billingAddress = $_order->getBillingAddress();
+    $address_line3 = "";
+    if (strpos($billingAddress->getData("street"), "\n")) {
+        $tmp = explode("\n", $billingAddress->getData("street"));
+        $address_line3 = $tmp[0];
+    }
+    if ($address_line3 == "") {
+        $address_line3 = $billingAddress->getData("street");
+    }
+    $payarry = $_order->getPayment()->getData();
+    $cc_last4 = $payarry['cc_last4'] ? $payarry['cc_last4'] : '';
+    $cc_type = $payarry['cc_type'] ? $payarry['cc_type'] : '';
+    $cc_exp_month = $payarry['cc_exp_month'] ? $payarry['cc_exp_month'] : '';
+    $cc_exp_year = $payarry['cc_exp_year'] ? $payarry['cc_exp_year'] : '';
+    $ccExp = $cc_exp_month . '/' . $cc_exp_year;
+    if ($ccExp != '') {
+        $expiryDdate = (string) ($ccExp);
+    }
+    if ($cc_type == 'VI') {
+        $cc_type = 'VISA';
+    }
+    if ($cc_type == 'MC') {
+        $cc_type = 'MC';
+    }
+    if ($cc_type == 'AE') {
+        $cc_type = 'AMEX';
+    }
+    if ($cc_type == 'DI') {
+        $cc_type = 'DISC';
+    }
+  //  $symbol = Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol();
+?>
+<?php
+    foreach ($_order->getAllItems() as $_item):
+        $productModel = Mage::getModel('catalog/product')->load($_item->getProductId());
+    
+?>
+
+        <table width="454" border="0" cellspacing="0" cellpadding="8" align="center" style="border-top:2px solid #d84381;">
+            <tr>
+                <td valign="top"><img src="<?php echo $productModel->getThumbnailUrl(); ?>" alt="<?php echo $_item->getName(); ?>" width="83" height="55" /></td>
+                <td valign="top">
+                    <p style="font-family:Arial, Helvetica, sans-serif; padding:0 0 15px 0; font-size:10px; margin:0;  line-height: 15px; color:#e73785; text-transform:uppercase;"><?php echo $_item->getName(); ?></p>
+                     <br/>
+                    <p style="font-family:Arial, Helvetica, sans-serif; font-size:10px; margin:0; color:#421f1d;  line-height: 15px;"><strong> QUANTITY:</strong> <span style="color:#e73785;"><strong><?php echo $_item->getQtyOrdered(); ?></strong></span></p>
+                </td>
+                <td valign="top">
+                    <p style="font-family:Arial, Helvetica, sans-serif; padding:0; font-size:9px; margin:0; color:#421f1d;  line-height: 15px;"><strong> RECIPIENT </strong></p>
+                    <p style="font-family:Arial, Helvetica, sans-serif; padding:0 0 15px 0; font-size:10px; margin:0; color:#e73785;  line-height: 15px;"><?php echo $shippingAddress->getName(); ?><br />
+<?php echo $address_line1; ?><br />
+<?php echo $shippingAddress->getData("city") . " " . $shippingAddress->getRegionCode() . "," . $shippingAddress->getData("postcode"); ?><br/>
+                <?php echo $shippingAddress->getCountry(); ?></p>
+        </td>
+        <td valign="top">
+            <p style="font-family:Arial, Helvetica, sans-serif; padding:0; font-size:9px; margin:0; color:#421f1d;  line-height: 15px;"><strong>SHIPPING METHOD</strong></p>
+            <p style="font-family:Arial, Helvetica, sans-serif; padding:0 0 15px 0; font-size:10px; margin:0; color:#e73785;  line-height: 15px;"><?php echo $_order->getShippingDescription(); ?> </p>
+             <br/>
+            <p style="font-family:Arial, Helvetica, sans-serif; padding:0; font-size:9px; margin:0; color:#421f1d;  line-height: 15px;"><strong>TOTAL COST &amp; SHIPPING</strong></p>
+            <p style="font-family:Arial, Helvetica, sans-serif; padding:0 0 15px 0; font-size:10px; margin:0; color:#e73785;  line-height: 15px;"><?php echo  Mage::helper('core')->currency($_item->getRowTotal(),true,false); ?><br />
+                +  <?php echo  Mage::helper('core')->currency( $_order->getShippingAmount(),true,false); ?> shipping</p>
+        </td>
+    </tr>
+</table>
+<?php endforeach; ?>
+
+<?php if ($this->helper('giftmessage/message')->isMessagesAvailable('order', $_order, $_order->getStore()) && $_order->getGiftMessageId()) {
+ ?>
+<?php $_giftMessage = $this->helper('giftmessage/message')->getGiftMessage($_order->getGiftMessageId()); ?>
+<?php if ($_giftMessage) {
+ ?>
+                        <br />
+                        <table width="454" border="0" cellspacing="8" cellpadding="0" align="center">
+                            <tr>
+                                <td><p style="font-family:Arial, Helvetica, sans-serif; padding:0; font-size:9px; margin:0; color:#421f1d;  line-height: 15px;"><strong>GIFT MESSAGE:</strong></p></td>
+                            </tr>
+                            <tr>
+                                <td><p style="font-family:Arial, Helvetica, sans-serif; padding:0 0 15px 0; font-size:10px; margin:0; color:#e73785;  line-height: 15px;"> <?php echo $this->htmlEscape($_giftMessage->getMessage()) ?></p></td>
+                            </tr>
+                        </table>
+
+<?php } ?>
+<?php } ?>
+
+
+<?php
+                $address = $_order->getCustomer()->getPrimaryBillingAddress();
+                $address_line2 = "";
+
+					
+                if (strpos($address->getData("street"), "\n")) {
+                    $tmp = explode("\n", $address->getData("street"));
+                    $address_line2 = $tmp[0];
+                }
+				else{
+				$address_line2=	$address->getData("street");
+				}
+                if ($address_line2 == "") {
+                    $address_line2 = $address->getData("street");
+                }
+?>
+
+                <table width="454" border="0" cellspacing="0" cellpadding="8" align="center" style="border-top:2px solid #d84381; border-bottom:2px solid #d84381;  line-height: 15px;">
+                    <tr>
+                        <td valign="top"><p style="font-family:Arial, Helvetica, sans-serif; padding:0; font-size:9px; margin:0; color:#421f1d;  line-height: 15px; text-transform:uppercase;"><strong>customer information</strong></p>
+                            <p style="font-family:Arial, Helvetica, sans-serif; padding:0 0 15px 0; font-size:10px; margin:0; color:#e73785;  line-height: 15px;">
+                <?php echo $address->getName(); ?><br />
+                <?php echo $address_line2; ?><br />
+                <?php echo $address->getData("city") . " " . $address->getRegionCode() . "," . $address->getData("postcode"); ?><br/>
+                <?php echo $address->getCountry(); ?></p>
+
+            <p style="font-family:Arial, Helvetica, sans-serif; padding:0 0 15px 0; font-size:10px; margin:0; color:#e73785;  line-height: 15px;"><a href="mailto:caitlin@elenis.com" style="color:#e73785; text-decoration:none;">caitlin@elenis.com</a><br />
+                860-878-2309
+            </p>
+
+        </td>
+        <td valign="top"><p style="font-family:Arial, Helvetica, sans-serif; padding:0; font-size:9px; margin:0; color:#421f1d;  line-height: 15px; text-transform:uppercase;"><strong>BILLING INFORMATION</strong></p>
+            <p style="font-family:Arial, Helvetica, sans-serif; padding:0 0 15px 0; font-size:10px; margin:0; color:#e73785;  line-height: 15px;">
+                <?php echo $billingAddress->getName(); ?><br />
+                <?php echo $address_line3; ?><br />
+                <?php echo $billingAddress->getData("city") . " " . $billingAddress->getRegionCode() . "," . $billingAddress->getData("postcode"); ?><br/>
+                <?php echo $billingAddress->getCountry(); ?>
+            </p>
+        </td>
+        <td valign="top"><p style="font-family:Arial, Helvetica, sans-serif; padding:0; font-size:9px; margin:0; color:#421f1d;  line-height: 15px; text-transform:uppercase;"><strong>PAYMENT INFORMATION</strong></p>
+            <p style="font-family:Arial, Helvetica, sans-serif; padding:0 0 15px 0; font-size:10px; margin:0; color:#e73785;  line-height: 15px;"> <?php echo $cc_type; ?>**** **** **** <?php echo $cc_last4; ?><br/>
+                <?php echo $expiryDdate; ?><br/></p>
+        </td>
+        <td valign="top"><p style="font-family:Arial, Helvetica, sans-serif; padding:0; font-size:9px; margin:0; color:#421f1d;  line-height: 15px;text-transform:uppercase;"><strong>SUBTOTAL</strong></p>
+            <br />
+            <p style="font-family:Arial, Helvetica, sans-serif; padding:0 0 15px 0; font-size:10px; margin:0; color:#e73785;  line-height: 15px;"><?php echo  Mage::helper('core')->currency($_order->getSubtotal(),true,false); ?></p>
+        </td>
+        <td valign="top"><p style="font-family:Arial, Helvetica, sans-serif; padding:0; font-size:9px; margin:0; color:#421f1d; line-height: 15px; text-transform:uppercase;"><strong>SHIPPING</strong></p>
+            <br />
+            <p style="font-family:Arial, Helvetica, sans-serif; padding:0 0 15px 0; font-size:10px; margin:0; color:#e73785;  line-height: 15px;">+ <?php echo  Mage::helper('core')->currency($_order->getShippingAmount(),true,false); ?></p>
+        </td>
+        <td valign="top"><p style="font-family:Arial, Helvetica, sans-serif; padding:0; font-size:9px; margin:0; color:#421f1d; text-transform:uppercase;  line-height: 15px;"><strong>TOTAL</strong></p>
+            <br />
+            <p style="font-family:Arial, Helvetica, sans-serif; padding:0 0 15px 0; font-size:10px; margin:0; color:#e73785;  line-height: 15px;"><?php echo  Mage::helper('core')->currency($_order->getGrandTotal(),true,false); ?></p>
+        </td>
+    </tr>
+</table>
+
+<?php } ?>

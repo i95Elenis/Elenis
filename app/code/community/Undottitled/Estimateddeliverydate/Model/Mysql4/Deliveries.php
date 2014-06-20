@@ -1,0 +1,4 @@
+<?php
+class Undottitled_Estimateddeliverydate_Model_Mysql4_Deliveries extends Undottitled_Estimateddeliverydate_Model_Resource_Message
+{
+}

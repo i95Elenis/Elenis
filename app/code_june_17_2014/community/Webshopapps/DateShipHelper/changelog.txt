@@ -1,0 +1,10 @@
+1.0 - MD-30 - Implementation of available dispatch slot logic. 
+2.0  - Formal Release on new Custom Shipping Calendar
+2.1 - UPS MatrixDays - Added max transit time per product
+2.2 - Improved install scripts
+2.3 - Enabled column sorting for added columns
+2.4 - Added max transit logic
+2.5 -
+2.6 -
+2.7 -
+2.8 - MD-74 - Added support for OneStepCheckout

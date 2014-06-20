@@ -1,0 +1,136 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+?>
+<?php $_helper = $this->helper('igallery'); ?>
+<?php $_gallery = $this->getGallery(); ?>
+<?php if ($this->getShowTitle()) : ?>
+    <div class="page-title igallery-title">
+        <h1><?php echo $this->stripTags($_gallery->getName(), null, true) ?></h1>
+    </div>
+<?php endif; ?>
+<?php if ($this->getShowDescription()) : ?>
+    <?php if ($_description = $_gallery->getDescription()): ?>
+        <div class="igallery-description std">
+            <?php echo $_description; ?>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+<?php $_imageCollection = $this->_getCollection(); ?>
+<?php
+
+if (Mage::app()->getRequest()->getParam('limit') == 'all') {
+    $_collectionSize = $_imageCollection->count();
+}
+$limits=explode(",",Mage::getStoreConfig('igallery/general/allowed_limit_values'));
+if(Mage::app()->getRequest()->getParam('limit')=="")
+{
+    $_collectionSize = Mage::getStoreConfig('igallery/general/image_limit');
+}
+if (in_array(Mage::app()->getRequest()->getParam('limit'), $limits)) {
+    //$_collectionSize = Mage::getStoreConfig('igallery/general/image_limit');
+    $_collectionSize =Mage::app()->getRequest()->getParam('limit');
+} 
+?>
+
+<?php if ($this->getCollection()->getSize()): ?>
+    <div class="toolbar">
+        <div class="pager">
+            <p class="amount">
+                <?php if ($this->getLastPageNum() > 1): ?>
+                
+                    <?php echo $this->__('%s-%s of %s Items', $this->getFirstNum(), $this->getLastNum(), $this->getTotalNum()) ?>
+                <?php else: ?>
+                    <?php echo $this->__('%s-%s of %s Items', $this->getFirstNum(), $this->getLastNum(), $this->getTotalNum()) ?>
+                <?php endif; ?>
+            </p>
+
+            <div class="limiter">
+                <label><?php echo $this->__('SHOW PER PAGE') ?></label>
+
+                <?php foreach ($this->getAvailableLimit() as $_key => $_limit): ?>
+                    <a href="<?php echo $this->getLimitUrl($_key) ?>"><?php if ($this->isLimitCurrent($_key)): ?> <span class="active"><?php endif ?>
+                            <?php echo $_limit ?></span></a>
+
+                <?php endforeach; ?>
+
+            </div>
+           <?php /*<div class="sort-by">
+
+                <select onchange="setLocation(this.value)">
+                    <option value="" selected="selected"><label><?php echo $this->__('Sort By') ?></label></option>
+
+                    <?php foreach ($this->getAvailableOrders() as $_key => $_order): ?>
+                        <option value="<?php echo $this->getOrderUrl($_key, 'asc') ?>"<?php if ($this->isOrderCurrent($_key)): ?> selected="selected"<?php endif; ?>>
+                            <?php echo $this->__($_order) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <?php if ($this->getCurrentDirection() == 'desc'): ?>
+                    <a href="<?php echo $this->getOrderUrl(null, 'asc') ?>"><img src="<?php echo $this->getSkinUrl('images/sort_desc_arrow.gif') ?>" alt="<?php echo $this->__('Set Ascending Direction') ?>" class="v-middle" /></a>
+                <?php else: ?>
+                    <a href="<?php echo $this->getOrderUrl(null, 'desc') ?>"><img src="<?php echo $this->getSkinUrl('images/sort_asc_arrow.gif') ?>" alt="<?php echo $this->__('Set Descending Direction') ?>" class="v-middle" /></a>
+                <?php endif; ?>
+            </div> */ ?>
+
+            <?php //echo $this->getPagerHtml()  ?>
+
+        </div> 
+
+        <?php if (!$_imageCollection->count()): ?>
+            <p class="note-msg"><?php echo $this->__('There are no image matching the selection.') ?></p>
+        <?php else: ?>
+            <div class="category-products igallery-images">
+
+
+                <?php $_columnCount = Mage::getStoreConfig('igallery/general/column_count');
+                //echo $_collectionSize.$_columnCount;exit;
+                ?>
+                <?php $i = 0; ?>
+                <ul class="my-igallery-grid">
+                    <?php foreach ($_imageCollection as $_image): ?>
+                        <?php if ($i < $_collectionSize): ?>
+                            <li class="item<?php if ($i % $_columnCount == 0): ?> first<?php elseif (($i+1) % $_columnCount == 0): ?> last<?php endif; ?>">
+                                <a title="<?php echo $this->stripTags($_image->getLabel(), null, true) ?>" class="igallery-image" href="<?php echo $this->helper('igallery')->getImageUrl($_image->getFile()); ?>" rel="prettyPhoto[gallery][<?php echo $_gallery->getId() ?>]"><img src="<?php echo $this->helper('igallery/image')->init($_image->getFile())->resize(271); ?>" width="271" height="226" alt="<?php echo $this->stripTags($_image->getLabel(), null, true) ?>" /></a>
+                            </li>
+                            <?php $i++; ?>
+                        <?php endif; ?>
+
+
+                    <?php endforeach ?>
+                </ul>
+                <script type="text/javascript">decorateGeneric($$('ul.my-igallery-grid'), ['odd','even','first','last'])</script>
+            </div>
+        <?php endif; ?>
+    </div>
+<?php endif ?>
+

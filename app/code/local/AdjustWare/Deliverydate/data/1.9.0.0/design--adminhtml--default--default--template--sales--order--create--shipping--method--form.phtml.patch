@@ -1,0 +1,71 @@
+diff -aurBb /home/httpd/htdocs/users/chirkov/magdd1/var/ait_patch_orig/compare46912652949254b6ade4dee2d3 /home/httpd/htdocs/users/chirkov/magdd1/var/ait_patch_modif/compare46912652949254b6ade4dee2d3
+--- /home/httpd/htdocs/users/chirkov/magdd1/var/ait_patch_orig/compare46912652949254b6ade4dee2d3	2010-02-04 16:48:45 +0200
++++ /home/httpd/htdocs/users/chirkov/magdd1/var/ait_patch_modif/compare46912652949254b6ade4dee2d3	2010-02-04 16:48:45 +0200
+@@ -60,6 +60,19 @@
+             </ul>
+         </dd>
+     <?php endforeach; ?>
++        <dd>
++
++<?php 
++$deliveryDateBlock = Mage::app()->getLayout()
++    ->createBlock('adjdeliverydate/container')
++    ->setArea('frontend')
++    ->setTemplate('adjdeliverydate/container.phtml');
++    $deliveryDateBlock->setInAdminOrderStore($this->getStoreId());
++                    
++echo $deliveryDateBlock->toHtml();
++?>
++
++        </dd>
+     </dl>
+     </div>
+     <?php if ($_rate = $this->getActiveMethodRate()): ?>
+@@ -77,8 +90,26 @@
+             </strong>
+             <!--input type="text" class="input-text" style="width:70px"/-->
+             <br/>
++
++                <?php if ($adj = Mage::getSingleton('adjdeliverydate/session')->getShippingMethod()): ?>
++                <br/>
++                <strong><?php echo $this->helper('adjdeliverydate')->__('Preferred Delivery Date')?></strong>:
++                &nbsp;
++                <?php echo $this->helper('adjdeliverydate')->formatDate($adj['delivery_date'], 'medium');?>
++                <br/>
++                <?php endif; ?>
++                <?php if ($adj['delivery_comment']): ?>
++                <strong><?php echo $this->helper('adjdeliverydate')->__('Comment')?></strong>:
++                &nbsp;
++                <?php echo $this->htmlEscape($adj['delivery_comment']); ?>
++                <br/>
++                <?php endif; ?>
++                <br/>
+             <a href="#" onclick="$('order-shipping-method-info').hide();$('order-shipping-method-choose').show();return false">
++            <?php /* ?>
+                 <?php echo Mage::helper('sales')->__('Click to change shipping method') ?>
++            <?php */ ?>
++                <?php echo Mage::helper('sales')->__('Click to change shipping method and delivery date') ?>
+             </a>
+         </div>
+     <?php else: ?>
+@@ -94,6 +125,20 @@
+     </div>
+ <?php endif; ?>
+ <div style="display:none;" id="shipping-method-overlay" class="overlay"><span><?php echo $this->__('Shipping method selection is not applicable') ?></span></div>
++
++<script type="text/javascript">
++order.setShippingMethod = function (method) {
++    var data = {};
++    data['order[shipping_method]'] = method;if($('delivery_date')){
++    data['adj[delivery_date]'] = $('delivery_date').value;}
++    if($('delivery_comment')) {
++        data['adj[delivery_comment]'] = $('delivery_comment').value;
++    }
++    this.loadArea(['shipping_method', 'totals', 'billing_method', 'message'], true, data);
++}
++</script>
++
++
+ <script type="text/javascript">
+ order.overlay('shipping-method-overlay', <?php if ($this->getQuote()->isVirtual()): ?>false<?php else: ?>true<?php endif; ?>);
+ order.overlay('address-shipping-overlay', <?php if ($this->getQuote()->isVirtual()): ?>false<?php else: ?>true<?php endif; ?>);

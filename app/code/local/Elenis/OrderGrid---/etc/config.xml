@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Elenis_OrderGrid>
+      <version>0.1.0</version>
+    </Elenis_OrderGrid>
+  </modules>
+  <global>
+    <helpers>
+      <ordergrid>
+        <class>Elenis_OrderGrid_Helper</class>
+      </ordergrid>
+    </helpers>
+	<blocks>
+	  <ordergrid>
+		<class>Elenis_OrderGrid_Block</class>
+	  </ordergrid>
+			<adminhtml>
+				<rewrite>
+					<sales_order_grid>Elenis_OrderGrid_Block_Adminhtml_Sales_Order_Grid</sales_order_grid>
+				</rewrite>
+			</adminhtml>
+	</blocks>
+  </global>
+</config> 

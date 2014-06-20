@@ -1,0 +1,6 @@
+app/etc/local.xml
+downloader
+lib/Zend/Cache/Backend/File.php
+lib/Zend/Cache/Backend/tmp
+var/*
+media/*

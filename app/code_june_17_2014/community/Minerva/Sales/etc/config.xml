@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <modules>
+    <Minerva_Sales>
+      <version>0.9.38</version>
+    </Minerva_Sales>
+  </modules>
+  <global>
+    <models>
+      <minimum_orderqty>
+        <class>Minerva_Sales_Model</class>
+      </minimum_orderqty>
+      <sales>
+        <rewrite>
+          <quote>Minerva_Sales_Model_Quote</quote>
+          <quote_address>Minerva_Sales_Model_Quote_Address</quote_address>
+        </rewrite>
+      </sales>
+    </models>
+  </global>
+</config>

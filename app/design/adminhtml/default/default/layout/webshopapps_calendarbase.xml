@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * WebShopApps Shipping Module
+ *
+ * @category    WebShopApps
+ * @package     WebShopApps_CalendarBase
+ * User         Karen Baker
+ * Date         2nd May 2013
+ * Time         3pm
+ * @copyright   Copyright (c) 2013 Zowta Ltd (http://www.WebShopApps.com)
+ *              Copyright, 2013, Zowta, LLC - US license
+ * @license     http://www.WebShopApps.com/license/license.txt - Commercial license
+ *
+ */
+
+-->
+<layout version="0.1.0">
+  <adminhtml_sales_order_create_index>
+     <reference name="shipping_method">
+      <reference name="form">
+          <action method="setTemplate">
+            <template>webshopapps/calendarbase/sales/order/create/shipping/method/form.phtml</template>
+          </action>
+      </reference>
+    </reference>
+  </adminhtml_sales_order_create_index>
+
+  <adminhtml_sales_order_view>
+    <reference name="order_tab_info">
+        <action method="setTemplate">
+          <template>webshopapps/calendarbase/sales/order/view/tab/info.phtml</template>
+        </action>
+    </reference>
+  </adminhtml_sales_order_view>
+
+  <adminhtml_sales_order_create_load_block_shipping_method>
+    <reference name="shipping_method">
+      <reference name="form">
+          <action method="setTemplate">
+            <template>webshopapps/calendarbase/sales/order/create/shipping/method/form.phtml</template>
+          </action>
+      </reference>
+    </reference>
+  </adminhtml_sales_order_create_load_block_shipping_method>
+</layout>

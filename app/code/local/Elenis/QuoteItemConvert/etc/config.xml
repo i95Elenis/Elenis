@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Elenis_QuoteItemConvert>
+            <version>0.1.0</version>
+        </Elenis_QuoteItemConvert>
+    </modules>
+    <global>
+        <helpers>
+            <quoteitemconvert>
+                <class>Elenis_QuoteItemConvert_Helper</class>
+            </quoteitemconvert>
+        </helpers>
+        <models>
+            <quoteitemconvert>
+                <class>Elenis_QuoteItemConvert_Model</class>
+                <resourceModel>quoteitemconvert_mysql4</resourceModel>
+            </quoteitemconvert>
+        </models>
+        <events>
+            <sales_convert_quote_to_order> <!-- identifier of the event we want to catch -->
+                <observers>
+                    <sales_convert_quote_to_order_handler> <!-- identifier of the event handler -->
+                        <type>model</type> <!-- class method call type; valid are model, object and singleton -->
+                        <class>quoteitemconvert/observer</class> <!-- observers class alias -->
+                        <method>quoteItemList</method>  <!-- observer's method to be called -->
+                        <args></args> <!-- additional arguments passed to observer -->
+                    </sales_convert_quote_to_order_handler>
+                </observers>
+            </sales_convert_quote_to_order>
+        </events>
+    </global>
+</config> 

@@ -1,0 +1,1059 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * WebShopApps Shipping Module
+ *
+ * @category    WebShopApps
+ * @package     WebShopApps_CalendarBase
+ * User         Karen Baker
+ * Date         2nd May 2013
+ * Time         3pm
+ * @copyright   Copyright (c) 2013 Zowta Ltd (http://www.WebShopApps.com)
+ *              Copyright, 2013, Zowta, LLC - US license
+ * @license     http://www.WebShopApps.com/license/license.txt - Commercial license
+ *
+ */
+
+?>
+<?php
+/**
+ * Multishipping checkout shipping template
+ *
+ * @see Mage_Checkout_Block_Multishipping_Shipping
+ */
+?>
+  <div id="hiddenresult"></div>
+<?php
+/**
+ * Multishipping checkout shipping template
+ *
+ * @see Mage_Checkout_Block_Multishipping_Shipping
+ */
+//echo "<pre>";print_r($_SESSION);
+//echo "<pre>";print_r(Mage::app()->getRequest()->getParams());
+//print_r(Mage::app()->getRequest()->getPost());
+//print_r($_SESSION);exit;
+$addresses=array();$info=array();$addressIds=array();$storePickup=array();
+$numberOfMethods=0;$isByHandEnabled=array();
+ $leadNext=Mage::getSingleton('core/session')->getMultiLeadTimeAndNextDate();
+
+
+ $currentDate = Mage::app()->getLocale()->date();
+  $d = (int) $currentDate->toString('d'); //date('j');
+        $m = (int) $currentDate->toString('M'); //date('n');
+        $y = (int) $currentDate->toString('Y'); //date('Y');
+       $timeNow = $currentDate->toString('HH');
+   $timeFrom=Mage::getStoreConfig('checkout/adjdeliverydate/time_enable_from');
+   //$totalLeadTime=array();
+       $timeTo=Mage::getStoreConfig('checkout/adjdeliverydate/time_enable_to');
+        $holiday = Mage::getSingleton('adjdeliverydate/holiday');
+ 
+ //echo "<pre>";print_r($leadNext);
+//echo "<pre>";print_r($_SESSION);exit;
+
+
+//echo "<pre>";print_r(Mage::helper('core')->urlDecode($data));
+
+if(Mage::app()->getRequest()->getParams())
+{
+
+    $info=Mage::app()->getRequest()->getParams();
+    
+
+    if(!Mage::app()->getRequest()->getParam("checkedstorepickup"))
+    {
+   
+
+        $addressIds=$this->getParameterValues($info);
+    }
+    if(Mage::app()->getRequest()->getParam("checkedstorepickup"))
+    {
+       // echo "here1";
+       $addresses=Mage::app()->getRequest()->getParam("checkedstorepickup");
+       $addressIds=explode(",",$addresses);
+
+    }
+    if(Mage::app()->getRequest()->getParam("storepickupVal"))
+    {
+        $storePickupValues=Mage::app()->getRequest()->getParam("storepickupVal");
+        $storePickup=explode(",",$storePickupValues);
+
+    }
+
+}
+
+
+Mage::getSingleton('core/session')->setAssignedShippingAddresses($addressIds);
+Mage::getSingleton('core/session')->setStorePickupValues($storePickup);
+if(!Mage::getSingleton('core/session')->getAssignedShippingAddresses())
+{
+    $addressIds=Mage::getSingleton('core/session')->getAssignedShippingAddresses();
+}
+if(!Mage::getSingleton('core/session')->getStorePickupValues())
+{
+    $storePickup=Mage::getSingleton('core/session')->getStorePickupValues();
+}
+//echo get_class($this);
+//echo "<pre>";print_r($storePickup);print_r($addressIds);
+
+sort($addressIds);
+$addressIds=array_unique($addressIds, SORT_REGULAR);
+sort($storePickup);
+$storePickup=array_unique($storePickup, SORT_REGULAR);
+//echo "<pre>";print_r($storePickup);print_r($addressIds);
+?>
+<div class="multiple-checkout">
+    <div class="page-title">
+        <h1><?php echo $this->__('Delivery Options') ?></h1>
+    </div>
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="shipping_method_form">
+        <input type="hidden" name="updated_flag" value="0" id="updated_flag" />
+        <?php  foreach ($this->getAddresses() as $_index => $_address):
+               // echo "kk=".$_address->getCustomerAddressId()."=".$_address->getId();
+             
+        if(in_array(trim($_address->getCustomerAddressId()),$addressIds))
+                {
+            //echo "kk1=".$_address->getCustomerAddressId()."=".$_address->getId();
+            //$regionName[]=$_address->getRegionCode();
+            ?>
+         <?php
+         
+         
+          
+         //  echo "<pre>";print_r($parentId);
+         foreach ($this->getAddressItems($_address) as $_item):
+                        //echo "<pre>test";print_r($_item->getParentItemId());
+                        
+
+                         
+                        $product = Mage::getModel('catalog/product')->load($_item->getProductId());
+                        $attributeValue = $product->getResource()->getAttribute('flag_leadtime_nextavaiabledate')->getFrontend()->getValue($product);
+
+                        if ($attributeValue == 'Lead Time') {
+                            $leadTime = $product->getResource()->getAttribute('lead_time')->getFrontend()->getValue($product);
+                           
+                            
+                        }
+
+                        if ($attributeValue == 'Next Available Date') {
+                             $attrValue = $product->getResource()->getAttribute('next_available_date')->getFrontend()->getValue($product);
+                            $nextDate= date("Y-m-d", strtotime($attrValue));
+                        }
+                        $isByHandEnabled[]=$product->getByHand();
+                        
+                       
+                      // echo "<pre>";print_r($isByHandEnabled);print_r($regionName);
+                       ?>
+            <div class="col2-set">
+                  <div class="select-recipent">
+                        <label><?php echo $this->__('SELECT RECIPIENT') ?></label>
+
+                 <select name="address-data" id="address-info">
+                                 <option id="<?php echo $_address->getId(); ?>" value="<?php echo $_address->getId(); ?>"><?php echo $_address->getFirstname()." ".$_address->getLastname();?></option>
+                             </select>
+                       </div>
+                <div class="col-2 col-wide">
+
+                    <?php echo $this->helper('giftmessage/message')->getInline('multishipping_adress_checkbox', $_address); ?>
+
+                    <script type="text/javascript">decorateTable('shipping-table-<?php echo $_address->getId() ?>')</script>
+                    <?php echo $this->helper('giftmessage/message')->getInline('multishipping_adress', $_address); ?>
+                </div>
+
+
+                 <div class="box-title delivery-options">
+                            <label><?php echo $this->__('Select A Delivery Method') ?></label>
+                <div class="col-1 col-narrow">
+                    <div class="box">
+                        
+                    </div>
+                    <div class="box box-sp-methods">
+                        <div class="pointer"></div>
+                        
+                        <div class="box-content">
+                            <?php if (!($_shippingRateGroups = $this->getShippingRates($_address))): ?>
+                                <p><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></p>
+                            <?php else: ?>
+                                <dl class="sp-methods">
+                                    <?php $this->setCurrentAddress($_address); ?>
+                                    <?php $shippingCodePrice = array(); ?>
+                                    <?php $_initialRates = $this->getInitialRates($_address); ?>
+                                    <?php $_useUPSRates = Mage::helper('calendarbase')->useUPSRates(); ?>
+                                    <?php $_sole = count($_shippingRateGroups) == 1;
+                                    
+                                    foreach ($_shippingRateGroups as $code => $_rates):
+                                      
+                                      
+                                       // echo "tset".$code.$sole;
+                                        //echo "<pre>";print_r($storePickup);
+                                     if($_sole)
+                                      {?>
+                                         <span class="ny-cupcake-error"><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></span>
+                                      <?php  } 
+                                     
+                                     if( in_array($_address->getCustomerAddressId(),$storePickup) && $code=='storepickupmodule'  )
+                                    {
+                                          $numberOfMethods++;?>
+                                         
+                                       
+                                          
+                                        <dt><?php echo $this->escapeHtml($this->getCarrierName($code)) ?></dt>
+                                        <dd>
+                                            <?php if (($_useUPSRates && $code=='ups') || $code=='customcalendar'): ?>
+                                                <div class="overlay-container">
+                                                    <div class="overlay-bg" id="retrieving-rates<?php echo $_address->getId()?>"></div>
+                                                </div>
+                                                <div id="modal_dialog<?php echo $_address->getId() ?>"></div>
+                                                <br />
+                                                <p id="date_chosen<?php echo $_address->getId() ?>">Date Chosen: <?php echo $_initialRates[0]['expected_delivery']; ?></p>
+                                                <div id="ship_options<?php echo $_address->getId() ?>">
+                                                    <div id="radio_choices<?php echo $_address->getId() ?>">
+                                                        <ul>
+                                                            <?php if($_initialRates[0]['code'] == 'customcalendar_error'): ?>
+                                                                <ul class="messages"><li class="error-msg"><ul><li><?php echo Mage::getStoreConfig('carriers/customcalendar/specificerrmsg'); ?></li></ul></li></ul>
+                                                            <?php else: ?>
+                                                                <?php foreach ($_initialRates as $_rate): ?>
+                                                                    <li>
+                                                                        <input name="shipping_method[<?php echo $_address->getId() ?>]" type="radio" value="<?php echo $_rate['code']?>" id="s_method_<?php echo $_address->getId()?>_<?php echo $_rate['code']?>" <?php if($_rate['checked']) echo 'checked="checked"' ?> class="radio" />
+                                                                        <label for="s_method_<?php echo $_address->getId()?>_<?php echo $_rate['code']?>"><?php echo $this->escapeHtml($_rate['method_description']) ?>
+                                                                            <?php echo $_rate['price']; ?>
+                                                                        </label>
+                                                                    </li>
+                                                                <?php endforeach?>
+                                                            <?php endif;?>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <?php if (Mage::helper('calendarbase')->showCustomText()): ?>
+                                                    <div id="onepage-checkout-webshopapps-calendarbase">
+                                                        <div class="content">
+                                                            <p><?php echo Mage::helper('calendarbase')->getCustomText1($_address) ?></p>
+                                                            <p><?php echo Mage::helper('calendarbase')->getCustomText2($_address) ?></p>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php else: ?>
+                                                <ul>
+                                                    <?php $_sole = $_sole && count($_rates) == 1; foreach ($_rates as $_rate): ?>
+                                                        <li<?php if ($_rate->getErrorMessage()) echo ' class="error-msg"' ?>>
+                                                            <?php if ($_rate->getErrorMessage()): ?>
+                                                                <?php echo $this->escapeHtml($_rate->getCarrierTitle()) ?>: <?php echo $this->escapeHtml($_rate->getErrorMessage()) ?>
+                                                            <?php else: ?>
+                                                                <?php if ($_sole) : ?>
+                                                                    <span class="no-display"><input type="radio" name="shipping_method[<?php echo $_address->getId() ?>]" value="<?php echo $this->htmlEscape($_rate->getCode()) ?>" id="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>" checked="checked"/></span>
+                                                                <?php else: ?>
+                                                                    <input type="radio" name="shipping_method[<?php echo $_address->getId() ?>]" value="<?php echo $this->htmlEscape($_rate->getCode()) ?>" id="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()==="storepickupmodule_pickup") echo ' checked="checked"' ?> class="radio" />
+                                                                <?php endif; ?>
+                                                                <label for="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>"><?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
+                                                                    <?php $_excl = $this->getShippingPrice($_address, $_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                                                                    <?php $_incl = $this->getShippingPrice($_address, $_rate->getPrice(), true); ?>
+                                                                    <?php echo $_excl; ?>
+                                                                    <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                                                                        (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                                                                    <?php endif; ?>
+                                                                </label>
+                                                                   
+                                                                   <?php  endif ?>
+                                                        </li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                                <?php if(in_array($_address->getCustomerAddressId(),$storePickup) && !$_sole) {
+                                                                     Mage::getModel('core/session')->setData('shipping_code',$code);
+                                                                     Mage::log('Shipping code from: '.$code,'1','$time.log');
+                                                                     ?>
+                                                                      <div class="deliverydateblock">
+                                                                      <?php
+                                                                        $oBlock = $this->getLayout()->createBlock('adjdeliverydate/container');
+                                                                        echo $oBlock->getForms($_address->getId());
+
+                                                                         Mage::getModel('core/session')->setData('shipping_code','');
+                                                                        ?>
+                                                                        </div>
+                                                                        <?php
+                                                                   }
+                                                  endif; ?>
+                                        </dd>
+                                        <script type="text/javascript">
+                                            <?php /*alert("<?php echo $code; ?>");*/
+                                                    //$storePickupDays=Mage::getStoreConfig("elenissec/elenisgrp/storepickup_delivery_days");
+                                                  //  $storePickupDate=Mage::getSingleton('adjdeliverydate/holiday')->getFirstMulitiplevailableDate('m-d-Y',$storePickupDays);?>
+                                                // jQuery("#delivery_date<?php echo $_address->getId(); ?>").val("<?php echo $storePickupDate;?>");
+                                                 //alert( jQuery("div.deliverydateblock ul li:nth-child(2)"));
+                                                    jQuery(".deliverydateblock ul li").children().eq(1).css("display","block");
+                                            </script>
+                                    <?php } 
+                                   //  if($code!='ups'  && $code!='storepickupmodule' && !in_array($_address->getCustomerAddressId(),$storePickup)){
+                                     //    echo "javed1".$product->getByHand().$_address->getRegionCode();
+                                 //        if(!in_array($_address->getCustomerAddressId(),$storePickup) && $code!='ups')
+
+                                   // {
+
+                                    
+                                   //  echo "<pre>";print_r($isByHandEnabled);print_r($_address->getRegionCode());
+                                     //echo $product->getByHand().$_address->getRegionCode();
+                                     
+                                 //   }
+                                     
+                                     if($code=='matrixrate' && !in_array($_address->getCustomerAddressId(),$storePickup)) {
+                                         
+                                         if($product->getByHand()!=1 && $_address->getRegionCode()!="NY" )
+                                        {?>
+                                            <span class="ny-cupcake-error">*** Cannot ship cupcakes outside of New York City</span>
+                                        <?php  }
+                                        if($_address->getRegionCode()=="NY")
+                                        {
+
+                                        $numberOfMethods++;
+                                        ?>
+
+                                     <dt><?php echo $this->escapeHtml($this->getCarrierName($code)) ?></dt>
+                                        <dd <?php echo $numberOfMethods; ?> <?php if($numberOfMethods==1) { ?> style="border-bottom:1px solid #D53679; margin-bottom:20px;"<?php } ?>>
+                                            <?php if (($_useUPSRates && $code=='ups') || $code=='customcalendar'): ?>
+                                                <div class="overlay-container">
+                                                    <div class="overlay-bg" id="retrieving-rates<?php echo $_address->getId()?>"></div>
+                                                </div>
+                                                <div id="modal_dialog<?php echo $_address->getId() ?>"></div>
+                                                <br />
+                                                <p id="date_chosen<?php echo $_address->getId() ?>">Date Chosen: <?php echo $_initialRates[0]['expected_delivery']; ?></p>
+                                                <div id="ship_options<?php echo $_address->getId() ?>">
+                                                    <div id="radio_choices<?php echo $_address->getId() ?>">
+                                                        <ul>
+                                                            <?php if($_initialRates[0]['code'] == 'customcalendar_error'): ?>
+                                                                <ul class="messages"><li class="error-msg"><ul><li><?php echo Mage::getStoreConfig('carriers/customcalendar/specificerrmsg'); ?></li></ul></li></ul>
+                                                            <?php else: ?>
+                                                                <?php foreach ($_initialRates as $_rate): ?>
+                                                                    <li>
+                                                                                                                                           
+                                                                         
+                                                                        <input name="shipping_method[<?php echo $_address->getId() ?>]" type="radio" value="<?php echo $_rate['code']?>" id="s_method_<?php echo $_address->getId()?>_<?php echo $_rate['code']?>" <?php if($_rate['checked']) echo 'checked="checked"' ?> class="radio"/>
+                                                                        <label for="s_method_<?php echo $_address->getId()?>_<?php echo $_rate['code']?>"><?php echo $this->escapeHtml($_rate['method_description']) ?>
+                                                                            <?php echo $_rate['price']; ?>
+                                                                        </label>
+                                                                        
+                                                                    </li>
+                                                                <?php endforeach?>
+                                                            <?php endif;?>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <?php if (Mage::helper('calendarbase')->showCustomText()): ?>
+                                                    <div id="onepage-checkout-webshopapps-calendarbase">
+                                                        <div class="content">
+                                                            <p><?php echo Mage::helper('calendarbase')->getCustomText1($_address) ?></p>
+                                                            <p><?php echo Mage::helper('calendarbase')->getCustomText2($_address) ?></p>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php else: ?>
+                                                <ul>
+                                                    <?php $_sole = $_sole && count($_rates) == 1; foreach ($_rates as $_rate): ?>
+                                                        <li<?php if ($_rate->getErrorMessage()) echo ' class="error-msg"' ?>>
+                                                            <?php if ($_rate->getErrorMessage()): ?>
+                                                                <?php echo $this->escapeHtml($_rate->getCarrierTitle()) ?>: <?php echo $this->escapeHtml($_rate->getErrorMessage()) ?>
+                                                            <?php else: ?>
+                                                                <?php if ($_sole) : ?>
+                                                                    <span class="no-display"><input type="radio" name="shipping_method[<?php echo $_address->getId() ?>]" value="<?php echo $this->htmlEscape($_rate->getCode()) ?>" id="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>" checked="checked"/></span>
+                                                                <?php else: ?>
+                                                                    <?php //echo "jjh123".$holiday->isDayoff($d,$m,$y);
+                                                                    //echo "<br/>jhjj".$holiday->isHoliday($currentDate);
+                                                                    $flagConfiguration=$product->getResource()->getAttribute('flag_leadtime_nextavaiabledate')->getFrontend()->getValue($product);
+                                                                    //if (strpos($this->escapeHtml($_rate->getMethodTitle()), "Same Day Delivery") !== false &&   $timeNow>=$timeFrom && $timeNow<=$timeTo && $holiday->isHoliday($currentDate)!=1 ){
+                                                                    if (strpos($this->escapeHtml($_rate->getMethodTitle()), "Same Day Delivery") !== false &&   $timeNow>=$timeFrom && $timeNow<=$timeTo && $flagConfiguration!="Lead Time" &&  $flagConfiguration!="Next Available Date"){
+                                                                    
+     ?>
+<input type="radio" name="shipping_method[<?php echo $_address->getId() ?>]" value="<?php echo $this->htmlEscape($_rate->getCode()) ?>" id="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod($_address)) echo ' checked="checked"' ?> class="radio" />
+
+                                                                <label for="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>"><?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
+                                                                    <?php $_excl = $this->getShippingPrice($_address, $_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                                                                    <?php $_incl = $this->getShippingPrice($_address, $_rate->getPrice(), true); ?>
+                                                                    <?php echo $_excl; ?>
+                                                                    <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                                                                        (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                                                                    <?php endif; ?>
+                                                                </label>
+								<?php } ?>
+								<?php if (strpos($this->escapeHtml($_rate->getMethodTitle()), "Next Day Delivery") !== false  ){
+     ?>
+<input type="radio" name="shipping_method[<?php echo $_address->getId() ?>]" value="<?php echo $this->htmlEscape($_rate->getCode()) ?>" id="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod($_address)) echo ' checked="checked"' ?> class="radio" />
+
+                                                                <label for="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>"><?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
+                                                                    <?php $_excl = $this->getShippingPrice($_address, $_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                                                                    <?php $_incl = $this->getShippingPrice($_address, $_rate->getPrice(), true); ?>
+                                                                    <?php echo $_excl; ?>
+                                                                    <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                                                                        (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                                                                    <?php endif; ?>
+                                                                </label>
+								<?php } ?>
+                                                                   <?php endif;
+                                                                      endif ?>
+                                                        </li>
+
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                                 <?php if($code=='matrixrate' && !$_sole) {
+                                                                     Mage::getModel('core/session')->setData('shipping_code',$code);
+                                                                     Mage::log('Shipping code from: '.$code,'1','$time.log');
+                                                                     ?>
+                                                                      <div class="deliverydateblock">
+                                                                      <?php
+                                                                        $oBlock = $this->getLayout()->createBlock('adjdeliverydate/container');
+                                                                        echo $oBlock->getForms($_address->getId());
+
+                                                                         Mage::getModel('core/session')->setData('shipping_code','');
+                                                                        ?>
+                                                                        </div>
+                                                                        <?php
+                                                                   }
+                                                 endif; ?>
+                                        </dd>
+                                     <?php  } ?>
+                                        <span id="deliverydate-please-wait" style="display:none;" class="please-wait">
+<img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" class="v-middle" title="Loading Delivery Days..." alt="Loading Delivery Days..." /> &nbsp; <?php echo $this->__('Loading Delivery Days...') ?> &nbsp;
+</span>
+                                         <script type="text/javascript">
+                                         
+                            totallength=jQuery("li input[id*='_matrixrate_matrixrate_']").length;
+                           // jQuery("div.deliverydateblock ul li:nth-child(2)" ).css('display','none');
+                            
+                              <?php  /*$attributeValue = $product->getResource()->getAttribute('flag_leadtime_nextavaiabledate')->getFrontend()->getValue($product);?>
+                              
+                                  <?php
+                              if($attributeValue=="Lead Time"){
+                               $leadDays = $product->getResource()->getAttribute('lead_time')->getFrontend()->getValue($product);
+                              
+                                 
+                                if (ctype_digit($leadDays)) {
+                                    $days = $leadDays;
+                               }else{
+                                    $days=0;
+                                 }
+                                 ?>
+                                     var dateFormat="<?php echo Mage::getSingleton('adjdeliverydate/holiday')->getFirstMulitiplevailableDate('Y-m-d',$days);?>";
+
+                             jQuery("#delivery_date<?php echo $_address->getId(); ?>").val(dateFormat);
+                                 <?php
+                              }
+                             
+                               
+                                  
+                                                                 
+                              if ($attributeValue == 'Next Available Date') {
+                               /*   $value=$product->getResource()->getAttribute('next_available_date')->getFrontend()->getValue($product);
+                                  $holidays=Mage::getSingleton('adjdeliverydate/holiday');
+                                  $currentDate = Mage::app()->getLocale()->date();
+                                   $d = (int) $currentDate->toString('d'); //date('j');
+        $m = (int) $currentDate->toString('M'); //date('n');
+        $y = (int) $currentDate->toString('Y'); //date('Y');
+
+       /* $day1=$holiday->isDayoff($d,$m,$y);
+              $day2=          $holiday->isHoliday($currentDate);
+                                 $days=date("m/d/Y", strtotime($value));
+                                 $nextDay=date("m/d/Y", strtotime($value. ' + 1 day'));
+                                    if(!$day1 && $day2){
+                                       $nextDay=date("m/d/Y", strtotime($nextDay. ' + 1 day'));
+                                    }*/
+                                    //$holiday->getFirstMulitiplevailableDate('m-d-Y', $noOfDaysForList);
+                                   ?>
+                                       <?php /* jQuery("#delivery_date<?php echo $_address->getId(); ?>").val("<?php echo $nextDay; ?>");
+                                       <?php
+                                       $checkVal=date("Y-m-d",$days);
+                                    $firstDate=date("d-m-Y", strtotime($nextDay));
+        $convertDate = explode("-", $firstDate);
+        $startDate = mktime(12, 0, 0, $convertDate[1], $convertDate[0]+1 , $convertDate[2]);
+        $secondDate = date("d-m-Y");
+        $convertDate = explode("-", $secondDate);
+        $endDate = mktime(12, 0, 0, $convertDate[1], $convertDate[0], $convertDate[2]);
+        if ($startDate > $endDate) {
+            $offset = $startDate - $endDate;
+        }
+        $actualDate = floor($offset / (60 * 60 * 24))-1;
+        if($actualDate>0)
+        {
+            $days=$actualDate;
+        }
+
+                              }*/
+                              ?>
+
+
+                            
+                              <?php
+                              if($attributeValue=="None")
+                              {
+                                  //$days=Mage::getStoreConfig('elenissec/elenisgrp/messenger_nextday_delivery');
+                                  $days=0;
+                              }
+                               if($attributeValue=="No")
+                              {
+                                  //$days=Mage::getStoreConfig('elenissec/elenisgrp/messenger_nextday_delivery');
+                                  $days=(int)Mage::getStoreConfig('elenissec/elenisgrp/messenger_nextday_delivery');
+                              }
+                                    ?>
+                             <?php /*var dateFormat="<?php echo Mage::getSingleton('adjdeliverydate/holiday')->getFirstMulitiplevailableDate('m/d/Y',$days);?>";*/?>
+                             //alert(dateFormat);
+                            <?php /*jQuery("#delivery_date<?php echo $_address->getId(); ?>").val(dateFormat);*/ ?>
+                             <?php /*if($attributeValue=="Lead Time"){?>
+                             
+                            
+                             <?php }
+                             if ($attributeValue == 'Next Available Date') {   ?>
+                                 
+                                 
+                                 <?php } */?>
+                            
+                              
+                            jQuery("li input[id*='_matrixrate_matrixrate_']").each(function(i) {
+                                var count=i+1;
+                                
+                                if(jQuery("li label[for^="+this.id+"]").text().substring(0, 17) == "Same Day Delivery")
+                                    {
+
+                                        jQuery("#"+this.id).attr('checked','checked');
+                                        //jQuery(" dl.sp-methods dd ul li:nth-child("+count+") input[class='radio']").attr('checked','checked');
+                                       // jQuery("div.deliverydateblock ul li:nth-child(2)" ).css('display','none');
+                                        
+                                    }
+                                  if(jQuery("li label[for^="+this.id+"]").text().substring(0, 17) == "Next Day Delivery" )
+                                      {
+                                          jQuery("#"+this.id).attr('checked','checked');
+                                        // jQuery(" dl.sp-methods dd ul li:nth-child(1) input[class='radio']").attr('checked','checked');
+                                         //jQuery("div.deliverydateblock ul li:nth-child(2)" ).css('display','block');
+                                        
+                                      }
+                                      
+                            
+    
+                
+                                if(count==1)
+                                {
+                                                                 //jQuery("div#checkout-shipping-method-load dl.sp-methods dd ul li:nth-child("+count+") input[class='radio']").attr('checked','checked');
+                                  //   jQuery("div.deliverydateblock ul li:nth-child(2)" ).css('display','block');
+
+
+                                    jQuery("div#checkout-shipping-method-load dl.sp-methods dd ul li:nth-child("+count+") input[id='"+this.id+"']").click(function() {
+                                     jQuery("div.deliverydateblock ul li:nth-child(2)" ).css('display','block');
+                                    });
+
+                                } if(count!=1)
+                                {
+                                    jQuery("div#checkout-shipping-method-load dl.sp-methods dd ul li:nth-child("+count+") input[id='"+this.id+"']").click(function() {
+                                        jQuery("div.deliverydateblock ul li:nth-child(2)" ).css('display','none');
+                                    });
+                                }
+
+                            });
+                            if(jQuery("li label[for^="+this.id+"]").text().substring(0, 44) == "Next Day Delivery - Residential Non-Doorman" ){
+                                     jQuery("div.deliverydateblock ul li:nth-child(2)" ).css('display','block');
+                                   }
+                                   <?php $customNDays=$product->getResource()->getAttribute('lead_time')->getFrontend()->getValue($product)+Mage::getStoreConfig('elenissec/elenisgrp/messenger_nextday_delivery');
+                                               $customDate=$holiday->getFirstMulitiplevailableDate('m/d/Y',(int) $customNDays);?>
+                                                               
+                                               jQuery("#delivery_date<?php echo $_address->getId(); ?>").val("<?php echo $customDate; ?>");
+                           var dataValues="";
+                            jQuery("li input[id*='_matrixrate_matrixrate_']").click(function() {
+                                var index = jQuery("li input[id*='_matrixrate_matrixrate_']").index( this );
+                               // alert(this.id);
+                               // alert(this.id);
+                               //alert(jQuery("li label[for^="+this.id+"]").text());
+                               if(jQuery("li label[for^="+this.id+"]").text().substring(0, 44) == "Next Day Delivery - Residential Non-Doorman" ){
+                                     jQuery("div.deliverydateblock ul li:nth-child(2)" ).css('display','block');
+                                   }
+                                    
+                                if(jQuery("li label[for^="+this.id+"]").text().substring(0, 17) == "Same Day Delivery")
+                                    {
+                                        var s=parseInt("<?php echo Mage::getStoreConfig('elenissec/elenisgrp/messenger_sameday_delivery'); ?>");
+                                        var countedDays=s+parseInt("<?php echo $days; ?>");
+                                          var flag_config="<?php echo $product->getResource()->getAttribute('flag_leadtime_nextavaiabledate')->getFrontend()->getValue($product);?>";
+                                            if(flag_config=="None")
+                                              {
+                                                  dataValues='days='+"<?php echo Mage::getStoreConfig('elenissec/elenisgrp/messenger_sameday_delivery'); ?>";
+                                              }
+                                              
+                                        //alert(countedDays);
+                                         jQuery("#deliverydate-please-wait").show();
+                                         jQuery.ajax({
+                        type: 'GET',
+                       // dataType: 'json',
+                        url: '<?php echo $this->getUrl("adjdeliverydate/ajax/datevalidate", array("_secure" => true)) ?>',
+                        data: dataValues,
+
+                        complete: function(data) {
+                        //console.log(data.responseText);
+                          //$j.each( data.responseText.responseText, function(  val ) {
+                       //  alert(val);
+                        // });
+                        var date=data.responseText;
+                         //alert(date);
+                         
+                         jQuery("#deliverydate-please-wait").hide();
+                         jQuery("#delivery_date<?php echo $_address->getId(); ?>").val(date);
+                          //jQuery("#delivery_date").val(date);
+                        }
+                    });
+                                    }
+                                  if(jQuery("li label[for^="+this.id+"]").text().substring(0, 17) == "Next Day Delivery")
+                                      {
+                                      var s=parseInt("<?php echo Mage::getStoreConfig('elenissec/elenisgrp/messenger_nextday_delivery'); ?>");
+                                      
+                                      
+                                      var flag_config="<?php echo $product->getResource()->getAttribute('flag_leadtime_nextavaiabledate')->getFrontend()->getValue($product);?>";
+                                        <?php $date=date("d-m-Y", strtotime($product->getResource()->getAttribute('next_available_date')->getFrontend()->getValue($product))); ?>
+                                      if(flag_config=="Lead Time")
+                                          {
+                                              var leadDays=parseInt("<?php echo $product->getResource()->getAttribute('lead_time')->getFrontend()->getValue($product);?>");
+                                              leadDays=parseInt(s+leadDays);
+                                              dataValues='days='+leadDays+'&type=l&shipping=m';
+                                              
+                                       
+                                          }
+                                          if(flag_config=="Next Available Date")
+                                              {
+                                                  dataValues='days='+s+'&nextdate='+"<?php echo $date;?>"+'&type=n&shipping=m';
+                                              }
+                                              if(flag_config=="None")
+                                              {
+                                                  dataValues='days='+s;
+                                              }
+                                              if(flag_config=="No")
+                                              {
+                                                  dataValues='days='+s;
+                                              }
+                                      // alert(countedDays+""+dataValues+""+flag_config);
+                                       <?php /*alert("<?php echo $product->getResource()->getAttribute('flag_leadtime_nextavaiabledate')->getFrontend()->getValue($product);?>");*/ ?>
+                                      jQuery("#deliverydate-please-wait").show();
+                                    
+                                          jQuery.ajax({
+                        type: 'GET',
+                        //dataType: 'json',
+                        url: '<?php echo $this->getUrl("adjdeliverydate/ajax/datevalidate", array("_secure" => true)) ?>',
+                        
+                        data:dataValues,
+
+                        complete: function(data) {
+
+                            var date=data.responseText;
+                           // alert(date);
+                      jQuery("#deliverydate-please-wait").hide();
+
+                     //  jQuery("#delivery_date").val(date);
+                     jQuery("#delivery_date<?php echo $_address->getId(); ?>").val(date);
+
+
+                        }
+                    });
+                    }
+                    });
+                        
+                           
+                    </script>
+                                     <?php
+                                     }//unset($isByHandEnabled);
+
+                                    //}
+                                     if($product->getByHand()==1 && $_address->getRegionCode()!="NY" && $code=='ups' && !in_array($_address->getCustomerAddressId(),$storePickup) )
+                                        {?>
+                                            <span class="ny-cupcake-error">*** Cannot ship cupcakes outside of New York City</span>
+                                        <?php break; }
+
+                                      
+                                     if($code=='ups'   && !in_array($_address->getCustomerAddressId(),$storePickup) && $product->getByHand()!=1) {  $numberOfMethods++;    ?>
+                                        
+                                     
+                                     <dt><?php echo $this->escapeHtml($this->getCarrierName($code)) ?></dt>
+                                        <dd <?php echo $numberOfMethods; ?> <?php if($numberOfMethods==1) { ?> style="border-bottom:1px solid #D53679; margin-bottom:20px;"<?php } ?>>
+                                            <?php if (($_useUPSRates && $code=='ups') || $code=='customcalendar'): ?>
+                                                <div class="overlay-container">
+                                                    <div class="overlay-bg" id="retrieving-rates<?php echo $_address->getId()?>"></div>
+                                                </div>
+                                                <div id="modal_dialog<?php echo $_address->getId() ?>"></div>
+                                                <br />
+                                                <p id="date_chosen<?php echo $_address->getId() ?>">Date Chosen: <?php echo $_initialRates[0]['expected_delivery']; ?></p>
+                                                <div id="ship_options<?php echo $_address->getId() ?>">
+                                                    <div id="radio_choices<?php echo $_address->getId() ?>">
+                                                        <ul>
+                                                            <?php if($_initialRates[0]['code'] == 'customcalendar_error'): ?>
+                                                                <ul class="messages"><li class="error-msg"><ul><li><?php echo Mage::getStoreConfig('carriers/customcalendar/specificerrmsg'); ?></li></ul></li></ul>
+                                                            <?php else: ?>
+                                                                <?php foreach ($_initialRates as $_rate): ?>
+                                                                    <li>
+                                                                       <?php  if($_rate['code']=='ups_GND') { ?>
+
+                                                                        <input name="shipping_method[<?php echo $_address->getId() ?>]" type="radio" value="<?php echo $_rate['code']?>" id="s_method_<?php echo $_address->getId()?>_<?php echo $_rate['code']?>" <?php if($_rate['checked']) echo 'checked="checked"' ?> class="radio"/>
+                                                                        <label for="s_method_<?php echo $_address->getId()?>_<?php echo $_rate['code']?>"><?php echo $this->escapeHtml($_rate['method_description']) ?>
+                                                                            <?php echo $_rate['price']; ?>
+                                                                        </label><span style='font-size:11px;color:#E73785 !important' > (DELIVERY DATE NOT GUARANTEED)</span>
+                                                                        <?php } else { ?>
+                                                                             <input name="shipping_method[<?php echo $_address->getId() ?>]" type="radio" value="<?php echo $_rate['code']?>" id="s_method_<?php echo $_address->getId()?>_<?php echo $_rate['code']?>" <?php if($_rate['checked']) echo 'checked="checked"' ?> class="radio"/>
+                                                                        <label for="s_method_<?php echo $_address->getId()?>_<?php echo $_rate['code']?>"><?php echo $this->escapeHtml($_rate['method_description']) ?>
+                                                                            <?php echo $_rate['price']; ?>
+                                                                        </label>
+                                                                     <?php   } ?>
+                                                                        
+                                                                    </li>
+                                                                <?php endforeach?>
+                                                            <?php endif;?>
+                                                        </ul>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <?php if (Mage::helper('calendarbase')->showCustomText()): ?>
+                                                    <div id="onepage-checkout-webshopapps-calendarbase">
+                                                        <div class="content">
+                                                            <p><?php echo Mage::helper('calendarbase')->getCustomText1($_address) ?></p>
+                                                            <p><?php echo Mage::helper('calendarbase')->getCustomText2($_address) ?></p>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php else: ?>
+                                                <ul>
+                                                    <?php $_sole = $_sole && count($_rates) == 1; foreach ($_rates as $_rate): ?>
+                                                        <li<?php if ($_rate->getErrorMessage()) echo ' class="error-msg"' ?>>
+                                                            <?php if ($_rate->getErrorMessage()): ?>
+                                                                <?php echo $this->escapeHtml($_rate->getCarrierTitle()) ?>: <?php echo $this->escapeHtml($_rate->getErrorMessage()) ?>
+                                                            <?php else: ?>
+                                                                <?php if ($_sole) : ?>
+                                                                    <span class="no-display"><input type="radio" name="shipping_method[<?php echo $_address->getId() ?>]" value="<?php echo $this->htmlEscape($_rate->getCode()) ?>" id="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>" checked="checked"/></span>
+                                                                <?php else: ?>
+                                                                    <input type="radio" name="shipping_method[<?php echo $_address->getId() ?>]" value="<?php echo $this->htmlEscape($_rate->getCode()) ?>" id="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod($_address)) echo ' checked="checked"' ?> class="radio" />
+                                                                <?php endif; ?>
+                                                                <label for="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>"><?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
+                                                                    <?php $_excl = $this->getShippingPrice($_address, $_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                                                                    <?php $_incl = $this->getShippingPrice($_address, $_rate->getPrice(), true); ?>
+                                                                    <?php echo $_excl; ?>
+                                                                    <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                                                                        (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                                                                    <?php endif; ?>
+                                                                </label>
+
+                                                            <?php  endif ?>
+                                                        </li>
+
+                                                    <?php endforeach; ?>
+                                                      
+                                                </ul>
+                                                 
+                                                 <?php endif; ?>
+                                        </dd>
+
+
+
+                                 <?php   }    ?>
+
+                                         <?php  if($code=='matrixrate'   && !in_array($_address->getCustomerAddressId(),$storePickup) && $product->getByHand()==1 && $_address->getRegionCode()!="NY") {
+                                             $numberOfMethods++;    ?>
+
+
+                                     <dt><?php echo $this->escapeHtml($this->getCarrierName($code)) ?></dt>
+                                        <dd <?php echo $numberOfMethods; ?> <?php if($numberOfMethods==1) { ?> style="border-bottom:1px solid #D53679; margin-bottom:20px;"<?php } ?>>
+                                            <?php if (($_useUPSRates && $code=='ups') || $code=='customcalendar'): ?>
+                                                <div class="overlay-container">
+                                                    <div class="overlay-bg" id="retrieving-rates<?php echo $_address->getId()?>"></div>
+                                                </div>
+                                                <div id="modal_dialog<?php echo $_address->getId() ?>"></div>
+                                                <br />
+                                                <p id="date_chosen<?php echo $_address->getId() ?>">Date Chosen: <?php echo $_initialRates[0]['expected_delivery']; ?></p>
+                                                <div id="ship_options<?php echo $_address->getId() ?>">
+                                                    <div id="radio_choices<?php echo $_address->getId() ?>">
+                                                        <ul>
+                                                            <?php if($_initialRates[0]['code'] == 'customcalendar_error'): ?>
+                                                                <ul class="messages"><li class="error-msg"><ul><li><?php echo Mage::getStoreConfig('carriers/customcalendar/specificerrmsg'); ?></li></ul></li></ul>
+                                                            <?php else: ?>
+                                                                <?php foreach ($_initialRates as $_rate): ?>
+                                                                    <li>
+                                                                       <?php  if($_rate['code']=='ups_GND') { ?>
+
+                                                                        <input name="shipping_method[<?php echo $_address->getId() ?>]" type="radio" value="<?php echo $_rate['code']?>" id="s_method_<?php echo $_address->getId()?>_<?php echo $_rate['code']?>" <?php if($_rate['checked']) echo 'checked="checked"' ?> class="radio"/>
+                                                                        <label for="s_method_<?php echo $_address->getId()?>_<?php echo $_rate['code']?>"><?php echo $this->escapeHtml($_rate['method_description']) ?>
+                                                                            <?php echo $_rate['price']; ?>
+                                                                        </label><span style='font-size:11px;color:#E73785 !important' > (DELIVERY DATE NOT GUARANTEED)</span>
+                                                                        <?php } else { ?>
+                                                                             <input name="shipping_method[<?php echo $_address->getId() ?>]" type="radio" value="<?php echo $_rate['code']?>" id="s_method_<?php echo $_address->getId()?>_<?php echo $_rate['code']?>" <?php if($_rate['checked']) echo 'checked="checked"' ?> class="radio"/>
+                                                                        <label for="s_method_<?php echo $_address->getId()?>_<?php echo $_rate['code']?>"><?php echo $this->escapeHtml($_rate['method_description']) ?>
+                                                                            <?php echo $_rate['price']; ?>
+                                                                        </label>
+                                                                     <?php   } ?>
+
+                                                                    </li>
+                                                                <?php endforeach?>
+                                                            <?php endif;?>
+                                                        </ul>
+
+                                                    </div>
+                                                </div>
+                                                <?php if (Mage::helper('calendarbase')->showCustomText()): ?>
+                                                    <div id="onepage-checkout-webshopapps-calendarbase">
+                                                        <div class="content">
+                                                            <p><?php echo Mage::helper('calendarbase')->getCustomText1($_address) ?></p>
+                                                            <p><?php echo Mage::helper('calendarbase')->getCustomText2($_address) ?></p>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php else: ?>
+                                                <ul>
+                                                    <?php $_sole = $_sole && count($_rates) == 1; foreach ($_rates as $_rate): ?>
+                                                        <li<?php if ($_rate->getErrorMessage()) echo ' class="error-msg"' ?>>
+                                                            <?php if ($_rate->getErrorMessage()): ?>
+                                                                <?php echo $this->escapeHtml($_rate->getCarrierTitle()) ?>: <?php echo $this->escapeHtml($_rate->getErrorMessage()) ?>
+                                                            <?php else: ?>
+                                                                <?php if ($_sole) : ?>
+                                                                    <span class="no-display"><input type="radio" name="shipping_method[<?php echo $_address->getId() ?>]" value="<?php echo $this->htmlEscape($_rate->getCode()) ?>" id="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>" checked="checked"/></span>
+                                                                <?php else: ?>
+                                                                    <input type="radio" name="shipping_method[<?php echo $_address->getId() ?>]" value="<?php echo $this->htmlEscape($_rate->getCode()) ?>" id="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod($_address)) echo ' checked="checked"' ?> class="radio" />
+                                                                <?php endif; ?>
+                                                                <label for="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>"><?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
+                                                                    <?php $_excl = $this->getShippingPrice($_address, $_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                                                                    <?php $_incl = $this->getShippingPrice($_address, $_rate->getPrice(), true); ?>
+                                                                    <?php echo $_excl; ?>
+                                                                    <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                                                                        (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                                                                    <?php endif; ?>
+                                                                </label>
+
+                                                            <?php  endif ?>
+                                                        </li>
+
+                                                    <?php endforeach; ?>
+
+                                                </ul>
+
+                                                 <?php endif; ?>
+                                        </dd>
+                                        <?php }
+                                       ?>
+                                        
+                                    <?php 
+                                    endforeach; ?>
+                                </dl>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+                 </div>
+
+
+               
+            </div>
+
+        <?php  endforeach;
+               }
+        endforeach; ?>
+        <div class="buttons-set">
+
+        <div class="terms-conditions">
+            <label for="messege"><?php echo Mage::getStoreConfig('elenissec/elenisgrp/shippingterms'); ?></label>
+            </div>
+
+            <a href="<?php echo Mage::getBaseUrl().'customer-care/shipping-information.html';?>"><span class="click-here">
+                CLICK HERE FOR ELENI&#39;S COMPLETE SHIPPING POLICY
+            </span></a>
+            <div class="read-understand">
+            <input type="checkbox" id="terms-checkbox" name="checkbox"><label for="messege"><?php echo $this->__("I HAVE READ AND UNDERSTAND THE ELENI&#39;S SHIPPING POLICY"); ?></label>
+            </div>
+       </div>
+        <?php echo $this->getChildHtml('checkout_billing_items') ?>
+        <div class="buttons-set">
+            <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to Select Addresses') ?></a></p>
+            <button type="submit" onclick="return checkTerms();" title="<?php echo $this->__('Continue to Billing Information') ?>" class="button"><span><span><?php echo $this->__('Continue to Billing Information') ?></span></span></button>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    //<![CDATA[
+    
+    
+     
+   
+
+    <?php foreach($this->getAddresses() as $add):?>
+    $j(function() {
+
+        <?php $initAddressRates = $this->getInitialRates($add); ?>
+
+        <?php
+            if(!empty($initAddressRates) && isset($initAddressRates[0]['expected_delivery'])) {
+                $given_date = $initAddressRates[0]['expected_delivery'];
+            } else {
+                $given_date = date("m-d-Y");
+            }
+        ?>
+
+        var queryDate =  '<?php echo $given_date; ?>';  // '16-10-2012' or '10-16-2012;
+        var dateParts = queryDate.match(/(\d+)/g);
+        var realDate = '';
+
+        if ('<?php echo Mage::helper('webshopapps_dateshiphelper')->getDateFormatString() ?>'=='mm/dd/yy') {
+            realDate = new Date(dateParts[2], dateParts[0] - 1, dateParts[1]);
+        } else {
+            realDate = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
+        }
+
+        var modalLoc = '#modal_dialog<?php echo $add->getId()?>';
+        var addressId = <?php echo $add->getId()?>;
+
+        $j( modalLoc ).datepicker({
+            numberOfMonths: 1,
+            dateFormat: '<?php echo Mage::helper('webshopapps_dateshiphelper')->getDateFormatString() ?>',
+            beforeShowDay: nonWorkingDates,
+            minDate: '<?php echo $this->getMinDate($add) ?>',
+            maxDate: '+<?php echo Mage::helper('calendarbase')->getNumOfWeeks() ?>W',
+            altField: '.dialog',
+            altFormat: 'DD, d MM, yy',
+            showOn: 'button',
+            buttonImage: '$this->getSkinUrl("images/wsa/calendar.gif")',
+            onSelect: function(dateText, inst){
+
+                var id = <?php echo $add->getId()?>;
+
+                var retrievingrates = document.getElementById('retrieving-rates' + id);
+                var sStyleHeight = "height:" + document.getElementById('modal_dialog' + id).clientHeight + "px; ";
+                retrievingrates.setAttribute("style",sStyleHeight);
+
+                retrievingrates.innerHTML = "<div class='overlay-text'><img src='<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>'> Retrieving rates...</div>";
+                retrievingrates.style.visibility = "visible";
+
+                var radioButtons = document.getElementsByName('shipping_method['+id+']');
+                for ( var i = 0; i < radioButtons.length; i++ ) {
+                    radioButtons[i].disabled = true;
+                }
+                $('date_chosen'+id).innerHTML='Date Chosen: '+dateText;
+
+                $j.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: '<?php echo $this->getUrl("calendarbase/tablegrid/getDayRate", array("_secure"=>true)) ?>',
+                    data: 'date='+dateText+'&address_id=<?php echo $add->getId()?>',
+                    success: function(data) {
+                        changeShipOptions(addressId,data,dateText)
+                    },
+                    complete: function(data) {
+                        document.getElementById('retrieving-rates'+id).innerHTML = "";
+                        document.getElementById('retrieving-rates'+id).style.visibility = "hidden";
+                        var radioButtons = document.getElementsByName('shipping_method['+id+']');
+                        for ( var i = 0; i < radioButtons.length; i++ ) {
+                            radioButtons[i].disabled = false;
+                        }
+                    }
+                });
+            }
+        });
+        $j(modalLoc).datepicker('setDate',realDate);
+    });
+
+    <?php endforeach;?>
+    
+    function changeShipOptions(id,data,dateText) {
+        var shipOptionsLoc = 'ship_options'+id;
+        var radioLoc = 'radio_choices'+id;
+        var shipMethod = 'shipping_method['+id+']';
+
+        $(radioLoc).remove();
+        $('date_chosen'+id).innerHTML='Date Chosen: '+dateText;
+        var radOptions = new Element('rad',{id:radioLoc});
+        $(shipOptionsLoc).insert(radOptions);
+        if (data=='') {
+            $(radioLoc).innerHTML='<ul class="messages"><li class="error-msg"><ul><li><?php echo preg_replace("/\r\n/","",Mage::getStoreConfig('carriers/customcalendar/specificerrmsg')); ?></li></ul></li></ul>';
+        }else{
+            var radioText ='<ul>';
+            var checkedFlag = true;
+            for (code in data) {
+                element = data[code];
+                if (checkedFlag == true) {
+                    radioIndText= '<li><input name="'+shipMethod+'" type="radio" checked  value="'+code+'" id="s_method_'+id+'_'+code+'" class="radio"/>\
+    			    <label for="s_method_'+id+'_'+code+'">'+element.method_description+' '+element.price+'</label></li>';
+                    checkedFlag = false;
+                }	else {
+                    radioIndText= '<li><input name="'+shipMethod+'" type="radio" value="'+code+'" id="s_method_'+id+'_'+code+'" class="radio"/>\
+			    <label for="s_method_'+id+'_'+code+'">'+element.method_description+' '+element.price+'</label></li>';
+                }
+                radioText += radioIndText;
+            }
+            $(radioLoc).innerHTML=radioText+'</ul>';
+        }
+    }
+
+    function nonWorkingDates(date){
+        var day = date.getDay();
+        if (day==0) { day=7; }
+        var closedDatesArr = <?php echo $this->getBlackoutDeliveryDates(); ?>;
+        var closedDaysArr 	= <?php echo $this->getBlackoutDeliveryDays(); ?>;
+
+        for (var i = 0; i < closedDaysArr.length; i++) {
+            if (day == closedDaysArr[i]) {
+                return [false];
+            }
+        }
+
+        var month=date.getMonth();
+        var year=date.getFullYear();
+        day=date.getDate();
+        var format = '<?php echo Mage::helper('webshopapps_dateshiphelper')->getDateFormatString() ?>';
+
+        if(format == 'dd-mm-yy'){
+            for (i = 0; i < closedDatesArr.length; i++) {
+                if (month == closedDatesArr[i][0][1] - 1 &&
+                    day == closedDatesArr[i][0][0] &&
+                    year == closedDatesArr[i][0][2]) {
+                    return [false];
+                }
+            }
+            return [true];
+        } else {
+            for (i = 0; i < closedDatesArr.length; i++) {
+                if (month == closedDatesArr[i][0][0] - 1 &&
+                    day == closedDatesArr[i][0][1] &&
+                    year == closedDatesArr[i][0][2]) {
+                    return [false];
+                }
+            }
+            return [true];
+        }
+    }
+    function checkTerms()
+    {
+
+     // alert(jQuery("#terms-checkbox").is(":checked"));
+      if(!jQuery("#terms-checkbox").is(":checked"))
+      {
+         alert("Please accept Eleni's shipping policy before proceeding");
+         document.getElementById('shipping_method_form').onsubmit = function() {
+            return false;
+          }
+
+      }
+      else
+      {
+           document.getElementById('shipping_method_form').onsubmit = function() {
+            return true;
+          }
+
+      }
+    }
+   
+    //]]>
+</script>

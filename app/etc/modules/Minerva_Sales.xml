@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Minerva_Sales>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Minerva_Sales>
+    </modules>
+</config>

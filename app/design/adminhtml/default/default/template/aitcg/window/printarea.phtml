@@ -1,0 +1,24 @@
+<?php
+/**
+ * Custom Product Preview
+ *
+ * @category:    Aitoc
+ * @package:     Aitoc_Aitcg
+ * @version      11.2.2
+ * @license:     AJifvLXz2Jhov40GDpSzkNqfs4dkmEPJtRhHJxJI2y
+ * @copyright:   Copyright (c) 2013 AITOC, Inc. (http://www.aitoc.com)
+ */
+?>
+'<div id="message-popup-window-mask" onclick="Aitcg.editors.ed_{{option_id}}.closeEditor();"></div>'+
+'<div id="message-popup-window" class="message-popup print-area-editor">'+
+    '<div class="message-popup-head">'+
+        '<a href="#" onclick="Aitcg.editors.ed_{{option_id}}.closeEditor(); return false;" title="<?php echo $this->__('close'); ?>"><span><?php echo $this->__('close'); ?></span></a>'+
+        '<h2><?php echo Mage::helper('aitcg')->__('Edit Printable Area'); ?></h2>'+
+    '</div>'+
+    '<div>'+
+        '<img src="{{full_image}}" id="printable-area-image" width="{{img_width}}" height="{{img_height}}" alt="" />'+
+    '</div>'+
+    '<div class="message-popup-head">'+
+        '<a class="apply-but" href="#" onclick="Aitcg.editors.ed_{{option_id}}.applyCoords(); return false;" title="<?php echo $this->__('apply'); ?>"><?php echo $this->__('apply'); ?></a>'+
+    '</div>'+
+'</div>'

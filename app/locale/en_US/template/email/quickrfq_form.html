@@ -1,0 +1,166 @@
+<!--
+
+ /**
+ * Quickrfq extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   FME
+ * @package    FME_Quickrfq
+ * @author     Malik Tahir Mehmood<malik.tahir786@gmail.com>
+ * @copyright  Copyright 2010 © free-magentoextensions.com All right reserved
+ */
+
+-->
+
+<!--@subject A New Request For Quote@-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
+"var data.name":"Sender Name",
+"var data.email":"Sender Email",
+"var data.phone":"Sender Telephone",
+"var data.overview":"Overview"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+
+
+<body style="margin:0; padding:0;">
+
+    <table width="456" border="0" cellspacing="0" cellpadding="0" align="center" style=" border: 1px solid #E0E0E0; font-family:Arial, Helvetica, sans-serif; line-height:22px;">
+        <tr>
+            <td><table width="456" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td align="right" style="padding:8px 26px 0 0; font-size:12px; color:#4d4d4d;"><a href="{{config path="web/unsecure/base_url"}}resources/contact-us.html" style="font-size:10px; color:#4d4d4d; padding:0 8px 0 0; margin:0; text-decoration:none; outline:none;">CONTACT</a>&nbsp;|&nbsp;<a href="{{config path="web/unsecure/base_url"}}store.html" style="font-size:10px; color:#4d4d4d; padding:0 0px 0 8px;  margin:0; text-decoration:none; border:none; outline:none;">STORE</a></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:0 0 21px 26px;"><img src="{{media url="emailtemplate/email_logo.jpg"}}" width="348" height="87" alt="logo" /></td>
+                    </tr>
+                </table>
+                <table width="456" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><a href="{{config path="web/unsecure/base_url"}}occasion.html" style="border:none; outline:none; text-decoration:none; padding:0; margin:0;"><img src="{{media url="emailtemplate/email_occasion.jpg"}}" width="64" height="27" alt="Occasion"  style="border:none; outline:none;"/></a></td>
+                        <td><a href="{{config path="web/unsecure/base_url"}}gift.html" style="border:none; outline:none; text-decoration:none; padding:0; margin:0;"><img src="{{media url="emailtemplate/email_gift.jpg"}}" width="42" height="27" alt="Gift" style="border:none; outline:none;"/></a></td>
+                        <td><a href="{{config path="web/unsecure/base_url"}}upload-your-own-photo.html" style="border:none; outline:none; text-decoration:none; padding:0; margin:0;"><img src="{{media url="emailtemplate/email_uploadphoto.jpg"}}" width="129" height="27" alt="Upload Your Photo" style="border:none; outline:none;"/></a></td>
+                        <td><a href="{{config path="web/unsecure/base_url"}}color-me.html" style="border:none; outline:none; text-decoration:none; padding:0; margin:0;"><img src="{{media url="emailtemplate/email_colorme.jpg"}}" width="65" height="27" alt="Color Me" style="border:none; outline:none;"/></a></td>
+                        <td><a href="{{config path="web/unsecure/base_url"}}cupcakes.html" style="border:none; outline:none; text-decoration:none; padding:0; margin:0;"><img src="{{media url="emailtemplate/email_cupcake.jpg"}}" width="62" height="27" alt="Cupcake" style="border:none; outline:none;"/></a></td>
+                        <td><a href="{{config path="web/unsecure/base_url"}}idea-gallery.html" style="border:none; outline:none; text-decoration:none; padding:0; margin:0;"><img src="{{media url="emailtemplate/email_gallery.jpg"}}" width="94" height="27" alt="Idea Gallery" style="border:none; outline:none;"/></a></td>
+                    </tr>
+                </table>
+
+                <table width="456" border="0" cellspacing="0" cellpadding="0" >
+                    <tr>
+                        <td align="center"><img src="{{media url="emailtemplate/email_shadow.jpg"}}" width="456" height="22" alt="Shadow" /></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+
+
+                            <!-- [ middle starts here] -->
+                            <table width="456" border="0" cellspacing="0" cellpadding="0">
+
+
+                                <tr>
+                                    <td align="center" style="padding-left:10%;text-align:left;width:100%;font-weight:bold;">Name:</td>
+                                    <td align="center" style="padding-left:8px;text-align:left;width:100%;">{{var data.contact_name}}</td>
+                                </tr>
+                            </table>
+                            <table width="456" border="0" cellspacing="0" cellpadding="0">
+
+                                <tr>
+                                    <td align="center" style="padding-left:10%;text-align:left;width:100%;font-weight:bold;">E-mail: </td>
+                                    <td align="center" style="padding-left:8px;text-align:left;width:100%;">{{var data.email}}</td>
+                                </tr>
+                            </table>
+                            <table width="456" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="center" style="padding-left:10%;text-align:left;width:100%;font-weight:bold;">Company Name:  </td>
+                                    <td align="center" style="padding-left:8px;text-align:left;width:100%;">  {{var data.company}}</td>
+                                </tr>
+                            </table>
+                            <table width="456" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="center" style="padding-left:10%;text-align:left;width:100%;font-weight:bold;">Telephone: </td>
+                                    <td align="center" style="padding-left:8px;text-align:left;width:100%;"> {{var data.phone}}</td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="padding-left:10%;text-align:left;width:100%;font-weight:bold;">Cookies or Cupcakes Needed:</td>
+                                    <td align="center" style="padding-left:8px;text-align:left;width:100%;"> {{var data.project_title}}</td>
+                                </tr>
+                            </table>
+                            <table width="456" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="center" style="padding-left:10%;text-align:left;width:100%;font-weight:bold;">Needed Before:</td>
+                                    <td align="center" style="padding-left:8px;text-align:left;width:100%;"> {{var data.date}}</td>
+                                </tr>
+                            </table>
+                            <table width="456" border="0" cellspacing="0" cellpadding="0">
+
+                                <tr>
+                                    <td align="center" style="padding-left:10%;text-align:left;width:100%;font-weight:bold;">Cookie or Cupcakes user for:  </td>
+                                    <td align="center" style="padding-left:8px;text-align:left;width:100%;">
+
+                                        {{var data.budget}}</td>
+
+                                </tr>
+                            </table>
+                            <table width="456" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="center" style="padding-left:10%;text-align:left;vertical-align:top;width:100%;font-weight:bold;">Summarized comment: </td>
+                                    <td align="center" style="padding-left:8px;text-align:left;width:100%;">
+                                        {{var data.overview}}</td>
+
+                                </tr>
+                            </table>
+                            <table width="456" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="center" style="padding-left:10%;text-align:left;width:100%;">&nbsp;</td>
+                                    <td align="center" style="padding-left:8px;text-align:left;width:100%;">&nbsp;</td>
+                                </tr>
+                            </table>
+                            <table width="456" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="center" style="padding-left:10%;text-align:left;width:100%;font-weight:bold;">Regards,</td>
+                                    <td align="center" style="padding-left:5px;padding-left:10%;text-align:left;width:70%;">&nbsp; </td>
+                                </tr>
+                            </table>
+
+
+                        </td></tr>
+
+
+                </table>
+                <table width="456" border="0" cellspacing="0" cellpadding="0" style="height:96px; background:#d32f71;">
+                    <tr>
+                        <td colspan="2" valign="top"><img src="{{media url="emailtemplate/email_footer_top.jpg"}}" width="456" height="24" alt="Footer-bg" /></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px 0 10px 35px; font-size:12px; color:#fff;" valign="top">
+                            All Design &amp; Products ©2012 Eleni’s</td>
+                        <td valign="top" style="padding:5px 0 0 0;"><a href="{{config path="web/unsecure/base_url"}}" style="margin:0; padding:0; font-size:14px; color:#fff; text-decoration:none; font-weight:bold; border:none; outline:none;">Join Our Mailing List</a>
+                            <p>{{var order.getCustomFormWithInputText()}}</p>
+                            <table border="0" cellspacing="0" cellpadding="0"  style="padding:2px 0 0 0;">
+                                <tr>
+                                    <td style="padding:0 4px 0 0;"><a href="#" style="margin:0; padding:0; border:none; outline:none; text-decoration:none;"><img src="{{media url="emailtemplate/email_facebook.jpg"}}" width="11" height="11" alt="Facebook" style="margin:0; outline:none; border:none; padding:0;"/></a></td>
+                                    <td style="padding:0 4px 0 0;"><a href="#" style="margin:0; padding:0; border:none; outline:none; text-decoration:none;"><img src="{{media url="emailtemplate/email_twitter.jpg"}}" width="11" height="11" alt="Twitter" style="margin:0; outline:none; border:none; padding:0;"/></a></td>
+                                    <td style="padding:0 4px 0 0;"><a href="#" style="margin:0; padding:0; border:none; outline:none; text-decoration:none;"><img src="{{media url="emailtemplate/email_pinterest.jpg"}}" width="11" height="11" alt="Pinterest" style="margin:0; outline:none; border:none; padding:0;"/></a></td>
+                                    <td style="padding:0 4px 0 0;"><a href="#" style="margin:0; padding:0; border:none; outline:none; text-decoration:none;"><img src="{{media url="emailtemplate/email_instagram.jpg"}}" width="11" height="11" alt="Instagram" style="margin:0; outline:none; border:none; padding:0;"/></a></td>
+                                </tr>
+                            </table></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+</body>
+

@@ -1,0 +1,136 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+/**
+ * Category left navigation
+ *
+ * @see Mage_Catalog_Block_Navigation
+ */
+?>
+<!--<style type="text/css">
+    .selectcat
+    {
+        height: 8px; /*Specify Height*/
+        width:  8px; /*Specify Width*/
+        border: 1px solid #D2226D; /*Add 1px solid border, use any color you want*/
+        background-color: #D2226D; /*Add a background color to the box*/
+        text-align:center; /*Align the text to the center*/
+        margin-bottom: -15px;
+        margin-left: -15px;
+        margin-top: 14px;
+    }
+    .unselectcat
+    {
+        height: 8px; /*Specify Height*/
+        width:  8px; /*Specify Width*/
+        border: 1px solid black; /*Add 1px solid border, use any color you want*/
+        background-color: white; /*Add a background color to the box*/
+        text-align:center; /*Align the text to the center*/
+        margin-bottom: -15px;
+        margin-left: -15px;
+        margin-top: 14px; 
+    }
+</style>-->
+<?php if (!Mage::registry('current_category')) return ?>
+
+
+<div class="block-content">
+    <dl id="narrow-by-list">
+        <?php
+        $path = Mage::registry('current_category')->getPath();
+        $currentCategoryId = Mage::registry('current_category')->getId();
+        $ids = explode('/', $path);
+        if (isset($ids[2])) {
+            $topParent = Mage::getModel('catalog/category')->setStoreId(Mage::app()->getStore()->getId())->load($ids[2]);
+            echo $this->get_categories($topParent, $currentCategoryId,1);
+        } else {
+            $topParent = null; //it means you are in one catalog root.
+        }
+
+        /*
+          $listAllCategories = $this->retrieveAllChilds(Mage::registry('current_category')->getId());
+
+          if (!empty($listAllCategories)) {
+          $crcat = Mage::registry('current_category')->getName();
+          echo "<dt><b>" . $crcat . "</b></dt>";
+
+          foreach ($listAllCategories as $categoryId) {
+
+          $category = Mage::getModel('catalog/category')->load($categoryId);
+
+          if ($category->getIsActive()) {
+          if ($crcat == $category->getName()) {                                               //Check if current category is this subcategory
+
+          echo '<div class="selectcat"></div><dt>' . $category->getName() . '</dt>'; //If yes display it as bold (Currently Selected)
+          } else {
+
+          echo '<div class="unselectcat"></div><dt><a href="' . $category->getURL() . '">' . $category->getName() . '</a></dt>';        //Otherwise display it as normal
+          }
+          }
+          }
+          } else {
+
+          $crcat = Mage::registry('current_category')->getName();
+
+          if (Mage::registry('current_category')) {
+          $category = Mage::registry('current_category');
+
+          $t = Mage::getModel('catalog/category')->load($category->getParentId());
+          if ($crcat == $t->getName())                 //Check if current category is the topmost category
+          echo "<dt><b>" . $t->getName() . "</b></dt>";        //If yes display it as bold (Currently Selected)
+          else                                        //
+          echo "<dt>" . $t->getName() . "</dt>";                    //Otherwise display it as normal
+          }
+
+          if (!Mage::registry('current_category')->getChildren()) {
+          $crcat = Mage::registry('current_category')->getName();
+          $currentCat = Mage::registry('current_category');
+          if ($currentCat->getParentId() == Mage::app()->getStore()->getRootCategoryId()) {
+          // current category is a toplevel category
+          $loadCategory = $currentCat;
+          } else {
+          // current category is a sub-(or subsub-, etc...)category of a toplevel category
+          // load the parent category of the current category
+          $loadCategory = Mage::getModel('catalog/category')->load($currentCat->getParentId());
+          // @TODO enhance for more nested category levels to display sub-categories
+          }
+          $subCategories = explode(',', $loadCategory->getChildren());
+          // echo "<pre>";print_r($subCategories);exit;
+          foreach ($subCategories as $subCategoryId) {
+          $cat = Mage::getModel('catalog/category')->load($subCategoryId);
+
+          if ($cat->getIsActive()) {
+          if ($crcat == $cat->getName())                                                   //Check if current category is this subcategory
+          echo '<div class="selectcat"></div><dt>' . $cat->getName() . '</dt>'; //If yes display it as bold (Currently Selected)
+          else                                                                            //
+          echo '<div class="unselectcat"></div><dt><a href="' . $cat->getURL() . '">' . $cat->getName() . '</a></dt>';        //Otherwise display it as normal
+          }
+          }
+          }
+         */
+        ?>
+    </dl></div>
+<?php //      }        ?>
+

@@ -1,0 +1,147 @@
+<?php
+//SCP: This is part of the Custom Option AJAX response - it shows custom options for 'associated' products.
+//opConfig is forced into global scope even if pulled in via ajax (by using window.)
+//and also ensure correct form encoding
+$productId = (int) $this->getRequest()->getParam('id');
+$parentId = (int) $this->getRequest()->getParam('pid');
+?>
+
+<script type="text/javascript">
+    //<![CDATA[
+
+    var size="<?php echo Mage::getStoreConfig("lightboxes/option/mainimage_size"); ?>";
+    var temp=size.split(",");
+    //alert( temp[0]);
+
+    if(!jQuery("div[id^='preview_container']").attr("id")){
+        jQuery("p.product-image a img").attr("width",temp[0]+"px");
+        jQuery("p.product-image a img").attr("height",temp[1]+"px");
+    }
+    //jQuery('#customOptions div').html('');
+    jQuery('#customOptions').html('');    
+    try{window.opConfig = new Product.Options(<?php echo $this->getJsonConfig() ?>);}catch(e){}
+    $('product_addtocart_form').encoding = 'multipart/form-data';
+    //]]>
+</script>
+<?php if (count($this->getOptions())): ?>
+    <dl >
+    <?php $_options = Mage::helper('core')->decorateArray($this->getOptions()) ?>
+    <?php
+    $newArr = array();
+    $type = '';
+    foreach ($_options as $_option):
+        //echo "<pre>";print_r($_option->getType());
+
+        if ($_option->getType() == 'field'):
+            $newArr[] = $_option->getType();
+    ?>
+
+            <div id="otherproduct-customoptions" style="display:none" class="customOptionChild">
+        <?php
+            echo $this->getOptionHtml($_option);
+        ?>
+        </div>
+
+    <?php
+            else:
+                $type = $_option->getType();
+    ?>
+    <?php
+                echo $this->getOptionHtml($_option);
+
+            endif;
+        endforeach;
+    ?>
+        <script type="text/javascript">
+            // jQuery('#customOptions div').html('');
+            // jQuery('#customOptions div#otherproduct-customoptions').html('');
+            if(jQuery('#SCPcustomOptionsDiv dl dd div.aitcg_image_div').length==1) {
+                jQuery(".product-view .product-img-box .more-views").css({"margin-top":"80px"});
+                jQuery("div.product-img-box-share").css({"top":"490px"});
+            }
+            jQuery('#my-buttonadd').bind('click', function(e) {
+                if (jQuery('#customOptions').is(':empty')) {
+                    span=jQuery("div#otherproduct-customoptions").clone();
+                    jQuery("div#SCPcustomOptionsDiv dl div#otherproduct-customoptions").remove();
+                    //jQuery("div#customOptions").append(jQuery("div#otherproduct-customoptions"));
+                    jQuery("div#customOptions").append(span);
+                    jQuery("div#customOptions div#otherproduct-customoptions").css("display","block");
+                }
+
+
+                // jQuery('#customOptions div#otherproduct-customoptions').html('');
+                //  jQuery('#customOptions div#otherproduct-customoptions').html('');
+
+                /* working
+              span=jQuery("div#otherproduct-customoptions").clone();
+                jQuery("div#SCPcustomOptionsDiv dl div#otherproduct-customoptions").remove();
+                //jQuery("div#customOptions").append(jQuery("div#otherproduct-customoptions"));
+                jQuery("div#customOptions").append(span);
+                jQuery("div#customOptions div#otherproduct-customoptions").css("display","block"); */
+            });
+        </script>
+    </dl>
+
+    <script type="text/javascript">
+        // jQuery('#customOptions div#otherproduct-customoptions').html('');
+        $$('#product-options-wrapper dl').each(function(label) {
+            label.removeClassName('last');
+        });
+        $$('#SCPcustomOptionsDiv dl').each(function(label) {
+            label.addClassName('last');
+        });
+        jQuery("#SCPcustomOptionsDiv").css({"left":"0px","position": "absolute","top": "10px"});
+
+        //jQuery("#SCPcustomOptionsDiv div > img").css("display","none");
+        //$$('div.more-views').each(function(el) {el.show()});
+
+        /* jQuery('#my-buttonadd').bind('click', function(e) {
+
+                    e.preventDefault();
+
+                    //jQuery("#customOptions").append(jQuery("#otherproduct-customoptions"));
+                    //jQuery("div#SCPcustomOptionsDiv dl div#otherproduct-customoptions").remove();
+                    //jQuery("div#customOptions div#otherproduct-customoptions").css("display","block");
+
+
+                });*/
+        /*span=jQuery("div#otherproduct-customoptions").clone();
+        jQuery("div#SCPcustomOptionsDiv dl div#otherproduct-customoptions").remove();
+        jQuery("fieldset#product-options-wrapper").append(span);
+        jQuery("fieldset#product-options-wrapper div#otherproduct-customoptions").css("display","block");
+         */
+        /*span=jQuery("div#otherproduct-customoptions").clone();
+        //jQuery("div#SCPcustomOptionsDiv dl div#otherproduct-customoptions").remove();
+        jQuery("div#customOptions").append(span);
+        jQuery("div#customOptions div#otherproduct-customoptions").css("display","block");*/
+        //jQuery("div.more-views").show()
+        // $("[id='myform:myinput']").val("newvalue");
+        //document.myform.myinput.value = '1';
+
+
+    </script>
+<?php
+        if (count($newArr) >= 1 && $type != 'aitcustomer_image') {
+            $product = Mage::getModel('catalog/product')->load($productId);
+
+            $simpleProductImageUrl = Mage::helper('catalog/image')->init($product, 'image')->resize(490, 320);
+?>
+
+            <div style="padding-left:0px"><img src="<?php echo $simpleProductImageUrl ?>" title="<?php echo $product->getName(); ?>"/></div>
+<?php } ?>
+
+<?php
+        else :
+
+            //$product = Mage::getModel('catalog/product')->load($productId);
+            // $simpleProductImageUrl = Mage::helper('catalog/image')->init($product, 'image')->resize(490, 320);
+?>
+
+
+            <style type="text/css">
+                #SCPcustomOptionsDiv{left:0px;
+                                     position: absolute;
+                                     top: 10px;}
+            </style>
+<?php endif; ?>
+

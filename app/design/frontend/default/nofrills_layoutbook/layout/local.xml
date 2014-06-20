@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<nofrills_booklayout_package_index>
+		<reference name="content">
+			<block type="core/text" name="our_message">
+				<action method="setText"><text>Hello Mars</text></action>
+			</block>
+		</reference>
+	</nofrills_booklayout_package_index>
+	
+	<nofrills_booklayout_package_second>
+		<reference name="content">
+			<block type="core/text" name="our_message">
+				<action method="setText"><text>Hello Jupiter</text></action>
+			</block>                        
+		</reference>
+	</nofrills_booklayout_package_second>   
+	
+	<nofrills_booklayout_package_second>    
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+	</nofrills_booklayout_package_second>
+
+    <default>
+        <reference name="content">
+            <block type="core/text" name="for_everyone">
+                <action method="setText"><text>I am on all  pages! </text></action>
+            </block>                        
+        </reference>        
+    </default>
+    
+</layout>

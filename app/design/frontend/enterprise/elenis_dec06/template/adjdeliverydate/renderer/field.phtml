@@ -1,0 +1,91 @@
+<?php
+/**
+ * Delivery Date
+ *
+ * @category:    AdjustWare
+ * @package:     AdjustWare_Deliverydate
+ * @version      10.1.5
+ * @license:     5WLwzjinYV1BwwOYUOiHBcz0D7SjutGH8xWy5nN0br
+ * @copyright:   Copyright (c) 2013 AITOC, Inc. (http://www.aitoc.com)
+ */
+?>
+function fireEvent(element, event){
+            if (document.createEventObject)
+            {
+                // dispatch for IE
+                var evt = document.createEventObject();
+                return element.fireEvent('on'+event,evt)
+            }
+            else
+            {
+                // dispatch for firefox + others
+                var evt = document.createEvent("HTMLEvents");
+                evt.initEvent(event, true, true ); // event type,bubbling,cancelable
+                return !element.dispatchEvent(evt);
+            }
+        }
+        
+        function aitDdOnSelect(cal)
+	{
+		var p=cal.params;
+		var update=(cal.dateClicked||p.electric);
+		if(update&&p.inputField)
+		{
+			p.inputField.value=cal.date.print(p.ifFormat);
+			if(typeof p.inputField.onchange=="function")
+                        {
+                            p.inputField.onchange();
+                        }
+			if(typeof fireEvent == 'function')
+                        {    
+                            fireEvent(p.inputField, "change");
+                        }
+		}
+		if(update&&p.displayArea)p.displayArea.innerHTML=cal.date.print(p.daFormat);
+		if(update&&typeof p.onUpdate=="function")p.onUpdate(cal);
+		if(update&&p.flat)
+		{
+			if(typeof p.flatCallback=="function")p.flatCallback(cal);
+		}
+		if(update&&p.singleClick&&cal.dateClicked)cal.callCloseHandler();
+	};
+        
+        var DELIVERY_END_DATE = <?php echo $this->getEndDate(); ?> ;
+        var DELIVERY_TODAY = <?php echo $this->getToday(); ?>;
+        var DELIVERY_HOLIDAY = [];
+        
+        <?php echo $this->getHolidays(); ?>
+        
+        var DELIVERY_WEEKEND = [<?php echo $this->getWeekend(); ?>];
+
+        function isDeliveryDisabled(date, y, m, d) {
+            if (date < DELIVERY_TODAY)
+                return true;
+            
+            if (DELIVERY_END_DATE)
+            {
+                if (date > DELIVERY_END_DATE)
+                {
+                    return true;
+                }
+            }
+                
+            for (var i in DELIVERY_WEEKEND) 
+                if (DELIVERY_WEEKEND[i] == date.getDay()) 
+                    return true;
+                    
+            if (DELIVERY_HOLIDAY[y])
+            {                    
+                var holidays = DELIVERY_HOLIDAY[y][m];
+                if (holidays){
+                    for (var i in holidays) 
+                        if (holidays[i] == d) 
+                            return true;
+                }
+            }
+            return false;
+        };
+        
+        Calendar.setup({ 
+            dateStatusFunc : isDeliveryDisabled,
+            onSelect : aitDdOnSelect,

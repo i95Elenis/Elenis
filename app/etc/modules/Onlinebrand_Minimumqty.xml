@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Onlinebrand_Minimumqty>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Onlinebrand_Minimumqty>
+    </modules>
+</config> 

@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * WebShopApps Shipping Module
+ *
+ * @category    WebShopApps
+ * @package     WebShopApps_CalendarBase
+ * User         Karen Baker
+ * Date         2nd May 2013
+ * Time         3pm
+ * @copyright   Copyright (c) 2013 Zowta Ltd (http://www.WebShopApps.com)
+ *              Copyright, 2013, Zowta, LLC - US license
+ * @license     http://www.WebShopApps.com/license/license.txt - Commercial license
+ *
+ */
+-->
+<layout version="0.1.0">
+	<checkout_multishipping>
+   		<reference name="head">
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>jquery-ui/js/jquery-1.7.1.min.js</name>
+			</action>
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>jquery-ui/js/jquery-ui-1.8.18.custom.min.js</name>
+			</action>
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>jquery-ui/js/jquery-fix.js</name>
+			</action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>jquery-ui/css/ui-lightness/jquery-ui-1.8.18.custom.css</name>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/wsa/calendarbase.css</name>
+            </action>
+		</reference>
+    </checkout_multishipping>
+    
+    <checkout_multishipping_shipping>
+     <reference name="checkout_shipping">
+	  <block type="calendarbase/checkout_multishipping_shipping" name="checkout_shipping"  template="webshopapps/calendarbase/checkout/multishipping/shipping.phtml">
+	  <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>checkout/multishipping/item/default.phtml</template></action>
+       <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/multishipping/item/default.phtml</template></action>
+       <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/multishipping/item/default.phtml</template></action>
+
+       <block type="checkout/multishipping_billing_items" name="checkout_billing_items" template="checkout/multishipping/billing/items.phtml">
+           <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>checkout/multishipping/item/default.phtml</template></action>
+           <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/multishipping/item/default.phtml</template></action>
+           <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/multishipping/item/default.phtml</template></action>
+       </block>
+      </block>
+  	</reference> 
+   </checkout_multishipping_shipping>
+	
+	<checkout_onepage_index>
+		<reference name="head">
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>jquery-ui/js/jquery-1.7.1.min.js</name>
+			</action>
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>jquery-ui/js/jquery-ui-1.8.18.custom.min.js</name>
+			</action>
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>jquery-ui/js/jquery-fix.js</name>
+			</action>
+			<action method="addItem">
+				<type>skin_css</type>
+				<name>jquery-ui/css/ui-lightness/jquery-ui-1.8.18.custom.css</name>
+			</action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/wsa/calendarbase.css</name>
+            </action>
+		</reference>
+		<reference name="checkout.onepage.shipping_method">
+			<block type="calendarbase/checkout_onepage_shipping_method_available"
+				name="checkout.onepage.shipping_method.available" as="available"
+				template="webshopapps/calendarbase/checkout/onepage/shipping_method/available.phtml">
+			</block>
+		</reference>
+	</checkout_onepage_index>
+
+	<checkout_onepage_shippingmethod>
+		<!-- Mage_Checkout -->
+		<remove name="right" />
+		<remove name="left" />
+
+		<block type="calendarbase/checkout_onepage_shipping_method_available"
+			name="root" output="toHtml"
+			template="webshopapps/calendarbase/checkout/onepage/shipping_method/available.phtml">
+		 <block type="core/template" name="addons_deliverydate"  as="custom_deliverydate"  template="webshopapps/calendarbase/checkout/onepage/shipping_method/deliverydate.phtml" >
+                        <block type="adjdeliverydate/container" name="adjdeliverydate.container" as="availabledate"  template="adjdeliverydate/container.phtml"/>
+                 </block>
+                  </block>
+	</checkout_onepage_shippingmethod>
+
+    <onestepcheckout_index_index>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>jquery-ui/js/jquery-1.7.1.min.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>jquery-ui/js/jquery-ui-1.8.18.custom.min.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>jquery-ui/js/jquery-fix.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>jquery-ui/css/ui-lightness/jquery-ui-1.8.18.custom.css</name>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/wsa/calendarbase.css</name>
+            </action>
+        </reference>
+        <reference name="onestepcheckout.checkout">
+            <block type="calendarbase/checkout_onepage_shipping_method_available" name="choose-shipping-method" template="webshopapps/calendarbase/checkout/onepage/shipping_method/available.phtml"/>
+        </reference>
+    </onestepcheckout_index_index>
+
+</layout>

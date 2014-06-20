@@ -1,0 +1,25 @@
+diff Z:/htdocs_p5m/dd-refact/app/design/frontend/base/default/template/checkout/multishipping/overview-add.phtml Z:/htdocs_p5m/dd-refact/app/design/frontend/base/default/template/checkout/multishipping/overview.phtml
+--- Z:/htdocs_p5m/dd-refact/app/design/frontend/base/default/template/checkout/multishipping/overview-add.phtml	Tue May 07 10:37:13 2013
++++ Z:/htdocs_p5m/dd-refact/app/design/frontend/base/default/template/checkout/multishipping/overview.phtml	Tue May 07 10:40:03 2013
+@@ -90,6 +90,22 @@
+                             <?php endif; ?>
+                             </p>
+                             <?php endif; ?>
++                            <?php
++                                if ($_address->getData('delivery_date') != null)
++                                {
++                                    echo "<p>";
++                                    $showTime = Mage::getStoreConfig('checkout/adjdeliverydate/show_time') ? true : false;
++                                    $sDate = Mage::helper('adjdeliverydate')->formatDate($_address->getData('delivery_date'), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, $showTime);
++                                    echo "<b>Delivery Date: </b>".$sDate;
++                                    if (Mage::getStoreConfig('checkout/adjdeliverydate/show_comment'))
++                                    {
++                                        echo "<br />";
++                                        echo "<b>Comment: </b>".$_address->getData('delivery_comment');
++                                    }
++                                    echo "</p>";
++                                }
++                            ?>
+                         </div>
+                     </div>
+                 </div>

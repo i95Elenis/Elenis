@@ -1,0 +1,16 @@
+diff -aurBb app/design/frontend/base/default/template/checkout/multishipping/shipping.phtml app/design/frontend/base/default/template/adjdeliverydate/shipping.phtml 
+--- app/design/frontend/base/default/template/checkout/multishipping/shipping.phtml	2010-11-23 19:02:45.000000000 +0200
++++ app/design/frontend/base/default/template/adjdeliverydate/shipping.phtml	2010-12-08 13:45:07.000000000 +0200
+@@ -89,6 +89,12 @@
+                             <?php endforeach; ?>
+                         </dl>
+                         <?php endif; ?>
++                        
++                          <?php
++	                        $oBlock = $this->getLayout()->createBlock('adjdeliverydate/container');
++							echo $oBlock->getForms($_address->getId());
++						?>
++						
+                     </div>
+                 </div>
+             </div>

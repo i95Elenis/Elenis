@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ *
+ * @category       
+ * @package        Elenis_CustomCategoryAttribute
+ * @Description    
+ * @author         
+ * @copyright      
+ * @license        
+ */
+-->
+<config>
+    <modules>
+        <Elenis_CustomCheckoutMultipleAddress>
+            <version>1.0.0</version>
+        </Elenis_CustomCheckoutMultipleAddress>
+    </modules>
+    
+    <global>
+        <models>
+            <customcheckoutmultipleaddress>
+                <class>Elenis_CustomCheckoutMultipleAddress_Model</class>
+            </customcheckoutmultipleaddress>
+            <checkout>
+              <rewrite>
+                  <type_multishipping>Elenis_CustomCheckoutMultipleAddress_Model_Type_Multishipping</type_multishipping>
+              </rewrite>
+            </checkout>
+       
+        </models>
+        <blocks>
+            <customcheckoutmultipleaddress>
+                <class>Elenis_CustomCheckoutMultipleAddress_Block</class>
+            </customcheckoutmultipleaddress>
+        </blocks>
+        <helpers>
+            <Elenis_CustomCheckoutMultipleAddress>
+                <class>Elenis_CustomCheckoutMultipleAddress_Helper</class>
+            </Elenis_CustomCheckoutMultipleAddress>
+        </helpers>
+    </global>
+    <frontend>
+          <routers>
+            <elecheckout>
+                <use>standard</use>
+                <args>
+                    <module>Elenis_CustomCheckoutMultipleAddress</module>
+                    <frontName>elecheckout</frontName>
+                </args>
+            </elecheckout>
+            
+            <!--<checkout>
+                  <args>
+                    <modules>
+                          <Elenis_CustomCheckoutMultipleAddress before="Mage_Checkout">Elenis_CustomCheckoutMultipleAddress_Checkout</Elenis_CustomCheckoutMultipleAddress>
+                    </modules>
+                  </args>
+              </checkout>-->
+            
+         </routers>
+          <layout>
+            <updates>
+                <customcheckoutmultipleaddress>
+                    <file>elenis_customcheckoutmultipleaddress.xml</file>
+                </customcheckoutmultipleaddress>
+            </updates>
+        </layout>
+    </frontend>
+
+</config>

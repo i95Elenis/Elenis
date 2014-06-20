@@ -1,0 +1,232 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_blank
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<title><?php echo $this->getTitle() ?></title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7; IE=8" />
+<meta http-equiv="Content-Type" content="<?php echo $this->getContentType() ?>" />
+<meta name="description" content="<?php echo htmlspecialchars($this->getDescription()) ?>" />
+<meta name="keywords" content="<?php echo htmlspecialchars($this->getKeywords()) ?>" />
+<meta name="robots" content="<?php echo htmlspecialchars($this->getRobots()) ?>" />
+<?php
+
+$pathParts = pathinfo($_SERVER['REQUEST_URI']);
+$isProduct = (!empty($pathParts['extension']))
+        && preg_match('/^\/store\/manufacturers\//','',$pathParts['dirname']); 
+
+if ( $isProduct == true ) {
+?>
+
+ <script type="text/javascript">
+ var addthis_config = {
+     data_track_clickback : false,
+     ui_use_css : false
+ };
+ </script> 
+ 
+ <script type="text/javascript" src="https://s7.addthis.com/js/250/addthis_widget.js#pubid=rpimaging&amp;async=1"></script>
+
+<!-- <link rel="stylesheet" type="text/css" href="share.css" /> -->
+<?php
+} // END if isProduct
+
+// Read CSS directory and load each script together
+$cssArray = array();
+
+$dir = 'skin/frontend/default/rpimaging/css';
+
+if ($handle = opendir($dir)) {
+    while (false !== ($file = readdir($handle))) {
+        if ($file == '.' && $file == '..') {
+            continue;
+        };
+        if (!is_file ("$dir".'/'."$file") ||
+            preg_match("'^ie.+.css$'", $file) ||
+            preg_match("'^print.css$'", $file) ||
+            !preg_match("/\.css$/", $file) ||
+            preg_match("'^blog.css$'", $file)) {
+            continue;
+        };
+        $cssArray[] = $file;
+    };
+    closedir ($handle);
+
+    $shuffle = array_shift($cssArray);
+    array_push($cssArray, $shuffle);
+};
+$commaCss = implode(",", $cssArray);
+?>
+
+<link rel="stylesheet" type="text/css" href="/combine.php?type=css&amp;files=<?php echo $commaCss ?>" />
+
+<link rel="icon" href="<?php echo $this->getSkinUrl('favicon.ico') ?>" type="image/x-icon" />
+<link rel="shortcut icon" href="<?php echo $this->getSkinUrl('favicon.ico') ?>" type="image/x-icon" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js" ></script>
+<!--[if lt IE 7]>
+<script type="text/javascript" src="/js/index.php?c=auto&amp;f=,varien/iehover-fix.js" ></script>
+<link rel="stylesheet" type="text/css" href="/skin/frontend/default/rpimaging/css/ie6.css" media="all" />
+<![endif]-->
+<!--[if IE 7]>
+<link rel="stylesheet" type="text/css" href="/skin/frontend/default/rpimaging/css/ie7.css" media="all" />
+<![endif]-->
+<!--[if IE]>
+<link rel='stylesheet' type='text/css' href='/skin/frontend/default/rpimaging/css/ieAll.css' media="all" />
+<![endif]-->
+<?php
+/*
+ the JS files to roll into the <script src="" are set in 
+ "app/design/frontend/default/rpimaging/layout/page.xml".
+ This is done in getCssJsHtml(). Ain't that special?..   :-D
+*/ 
+$agent = getenv('HTTP_USER_AGENT');
+
+if (preg_match('/MSIE/i', $agent)){
+
+        $results = array();
+        preg_match('#^(<script type="text/javascript" src="(.+)")#', $this->getCssJsHtml(), $results);
+        $script_ary = explode(',', $results[2]);
+        array_shift($script_ary);
+
+        // RICH S WYATT
+        // not sure why this was done - but $this->getCssJsHtml() was left out here
+        // and replaced with something else...
+        // the only way I could get IE7/8 to work was to add echo $this->getCssJsHtml();
+
+        echo $this->getCssJsHtml();
+        foreach ($script_ary as $script){
+                //echo '<script type="text/javascript" src="/js/' . $script . '"></script>' . "\n";
+        }
+}
+else{
+     echo $this->getCssJsHtml();
+}
+
+echo $this->getChildHtml();
+/*echo $this->helper('core/js')->getTranslatorScript()*/
+?>
+
+<script type="text/javascript">
+//<![CDATA[
+        // these don't define in the included javascript files with IE6 so we define them here
+    var BLANK_URL = '<?php echo $this->helper('core/js')->getJsUrl('blank.html') ?>';
+    var BLANK_IMG = '<?php echo $this->helper('core/js')->getJsUrl('spacer.gif') ?>';
+//]]>
+</script>
+
+<script type="text/javascript">
+(function($) {
+        $(window).load(function() {
+        $('#slider').nivoSlider();
+});
+})(jQuery)
+</script>
+
+<!--[if IE 6]>
+<script type="text/javascript" src="/js/index.php?c=auto&amp;f=,varien/iehover-fix.js" ></script>
+<link rel="stylesheet" type="text/css" href="/skin/frontend/default/rpimaging/css/ie6.css" media="all" />
+<![endif]-->
+
+<!-- Initiate Highslide -->
+<!--
+<link rel="stylesheet" type="text/css" href="<?php echo $this->helper('core/js')->getJsSkinUrl('')?>highslide/highslide.css" />
+<script type="text/javascript" src="<?php echo $this->helper('core/js')->getJsSkinUrl('')?>highslide/highslide.js"></script>
+-->
+
+<script type="text/javascript">
+        hs.graphicsDir = '<?php echo $this->helper('core/js')->getJsSkinUrl('')?>highslide/graphics/';
+        hs.align = 'center';hs.transitions = ['expand', 'crossfade'];hs.fadeInOut = true;hs.outlineType = 'rounded-white';
+        hs.headingEval = 'this.a.title';hs.numberPosition = 'heading';hs.useBox = true;hs.width = 650;hs.height = 600;
+        hs.showCredits = false; hs.dimmingOpacity = 0.60;
+        hs.addSlideshow({interval: 3000,        repeat: false,  useControls: true,      fixedControls: 'fit',overlayOptions: {  position: 'top right',offsetX: 180,     offsetY: -85},thumbstrip: {position: 'rightpanel',mode: 'float',relativeTo: 'expander',width: '180px'}});
+        var miniGalleryOptions1 = {thumbnailId: 'thumb1'}
+</script>
+
+<script type="text/javascript">
+   hs.blockRightClick = true;
+</script>
+
+<!-- <script type="text/javascript">
+jQuery(".magnify").imageMagnify({ //apply effect to image with class "magnify"
+ magnifyto:750,
+ magnifyduration: 1000 // No trailing comma after last option!
+})
+</script> -->
+
+<script type="text/javascript">
+hs.Expander.prototype.onImageClick = function (sender) {
+   return false;
+};
+</script>
+<?php
+        if (Mage::getStoreConfigFlag('google/analytics/active')) {
+                $ga_account = Mage::getStoreConfig('google/analytics/account');
+                
+                $result = array();
+                if (preg_match('/^\/checkout\/onepage\/success/',$_SERVER['REQUEST_URI'])){
+                    $order = Mage::getModel('sales/order')->loadByIncrementId(Mage::getSingleton('checkout/session')->getLastRealOrderId());
+                if ($order->getIsVirtual()) {
+                    $address = $order->getBillingAddress();
+                } else {
+                    $address = $order->getShippingAddress();
+                }
+                $result[] = sprintf("_gaq.push(['_addTrans', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s']);",
+                    $order->getIncrementId(), Mage::app()->getStore()->getFrontendName(), $order->getBaseGrandTotal(),
+                    $order->getBaseTaxAmount(), $order->getBaseShippingAmount(),
+                    $this->jsQuoteEscape($address->getCity()),
+                    $this->jsQuoteEscape($address->getRegion()),
+                    $this->jsQuoteEscape($address->getCountry())
+                );
+                foreach ($order->getAllVisibleItems() as $item) {
+                    $result[] = sprintf("_gaq.push(['_addItem', '%s', '%s', '%s', '%s', '%s', '%s']);",
+                        $order->getIncrementId(),
+                        $this->jsQuoteEscape($item->getSku()), $this->jsQuoteEscape($item->getName()),
+                        null, // there is no "category" defined for the order item
+                        $item->getBasePrice(), $item->getQtyOrdered()
+                    );
+                }
+                $result[] = "_gaq.push(['_trackTrans']);";
+            } // END if preg_match checkout/onepage/success
+?>
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', '<?php echo $ga_account; ?>']);
+<?php echo implode("\n", $result); ?>
+
+_gaq.push(['_trackPageview']);
+(function() {
+    var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<?php
+        }       // END if google analytics active
+
+        //wp_head();
+?>

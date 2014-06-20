@@ -1,0 +1,397 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Aitoc_Aitcg>
+            <version>11.2.2</version>
+        </Aitoc_Aitcg>
+    </modules>
+    <frontend>
+        <translate>
+            <modules>
+                <Aitoc_Aitcg>
+                    <files>
+                        <default>Aitoc_Aitcg.csv</default> 
+                    </files>
+                </Aitoc_Aitcg>
+            </modules>
+        </translate>
+        <routers>
+            <aitcg>
+                <use>standard</use>
+                <args>
+                    <module>Aitoc_Aitcg</module>
+                    <frontName>aitcg</frontName>
+                </args>
+            </aitcg>
+        </routers>
+        <layout>
+            <updates>
+                <aitcg>
+                    <file>aitcg.xml</file>
+                </aitcg>
+            </updates>
+        </layout>
+        <events>
+            <core_block_abstract_to_html_before>
+                <observers>
+                    <aitcg_page_html_head_js_catalogproductview>
+                        <type>singleton</type>
+                        <class>aitcg/observer_page_html_head_js_catalogproductview</class>
+                        <method>add</method>
+                    </aitcg_page_html_head_js_catalogproductview>
+                </observers>
+            </core_block_abstract_to_html_before>
+        </events>
+    </frontend>
+    <adminhtml>
+        <menu>
+            <catalog>
+                <children>
+                    <aitcg translate="title" module="aitcg">
+                        <title>Aitoc Custom Product Preview</title>
+                        <sort_order>300</sort_order>
+                        <children>
+                            <fonts translate="title" module="aitcg">
+                                <title>Fonts</title>
+                                <action>cgadmin/font/index</action>
+                                <sort_order>1</sort_order>
+                            </fonts>
+                            <categories translate="title" module="aitcg">
+                                <title>Predefined Image Categories</title>
+                                <action>cgadmin/category/index</action>
+                                <sort_order>2</sort_order>
+                            </categories>
+                            <font_color translate="title" module="aitcg">
+                                <title>Predefined Font Colors</title>
+                                <action>cgadmin/font_color_set/index</action>
+                                <sort_order>3</sort_order>
+                            </font_color>
+                            <easy_tips translate="title" module="aitcg">
+                                <title>Easy Tips</title>
+                                <action>cgadmin/tips/index</action>
+                                <sort_order>4</sort_order>
+                            </easy_tips>
+                            
+                            <mask_categories translate="title" module="aitcg">
+                                <title>Predefined Shape Categories</title>
+                                <action>cgadmin/mask_category/index</action>
+                                <sort_order>5</sort_order>
+                            </mask_categories>
+                        </children>
+                    </aitcg>
+                </children>
+            </catalog>
+        </menu>
+		
+        <translate>
+            <modules>
+                <Aitoc_Aitcg>
+                    <files>
+                        <default>Aitoc_Aitcg.csv</default> 
+                    </files>
+                </Aitoc_Aitcg>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <aitcg>
+                    <file>aitcg.xml</file>
+                </aitcg>
+            </updates>
+        </layout>    
+    </adminhtml>    
+    <admin>
+        <routers>
+            <aitcg_admin>
+                <use>admin</use>
+                <args>
+                    <module>Aitoc_Aitcg</module>
+                    <frontName>cgadmin</frontName>
+                </args>
+            </aitcg_admin>
+        </routers>
+    </admin>
+    <global>
+        <models>
+            <aitcg>
+                <class>Aitoc_Aitcg_Model</class>
+                <resourceModel>aitcg_mysql4</resourceModel>
+            </aitcg>
+            
+            <aitcg_mysql4>
+                <class>Aitoc_Aitcg_Model_Mysql4</class>
+                <entities>
+                    <image>
+                        <table>aitcg_image</table>
+                    </image>
+                    <image_temp>
+                        <table>aitcg_image_temp</table>
+                    </image_temp>
+                    <image_store>
+                        <table>aitcg_image_store</table>
+                    </image_store>
+                    <font>
+                        <table>aitcg_font</table>
+                    </font>
+                    <category>
+                        <table>aitcg_category</table>
+                    </category>					
+                    <category_image>
+                        <table>aitcg_category_image</table>
+                    </category_image>
+                    <color_set>
+                        <table>aitcg_color_set</table>
+                    </color_set>
+                    <sharedimage>
+                        <table>aitcg_shared_image</table>
+                    </sharedimage>
+                    <mask_category>
+                        <table>aitcg_masks_category</table>
+                    </mask_category>
+                    <mask>
+                        <table>aitcg_masks</table>
+                    </mask>
+                    <mask_created>
+                        <table>aitcg_masks_created</table>
+                    </mask_created>
+                </entities>
+            </aitcg_mysql4>
+            
+            <catalog>
+                <rewrite>
+                    <product>Aitoc_Aitcg_Model_Rewrite_Catalog_Product</product>
+                    <product_option>Aitoc_Aitcg_Model_Rewrite_Catalog_Product_Option</product_option>
+                    <product_option_observer>Aitoc_Aitcg_Model_Rewrite_Catalog_Product_Option_Observer</product_option_observer>
+                    <product_option_type_file>Aitoc_Aitcg_Model_Rewrite_Catalog_Product_Option_Type_File</product_option_type_file>
+                    <product_attribute_backend_media>Aitoc_Aitcg_Model_Rewrite_Catalog_Product_Attribute_Backend_Media</product_attribute_backend_media>
+                    <product_attribute_media_api>Aitoc_Aitcg_Model_Rewrite_Catalog_Product_Attribute_Media_Api</product_attribute_media_api>
+                </rewrite>
+            </catalog>            
+
+            <sales>
+                <rewrite>
+                    <order_pdf_items_invoice_default>Aitoc_Aitcg_Model_Rewrite_Sales_Order_Pdf_Items_Invoice_Default</order_pdf_items_invoice_default>
+                    <order_pdf_items_creditmemo_default>Aitoc_Aitcg_Model_Rewrite_Sales_Order_Pdf_Items_Creditmemo_Default</order_pdf_items_creditmemo_default>
+                    <order_pdf_items_shipment_default>Aitoc_Aitcg_Model_Rewrite_Sales_Order_Pdf_Items_Shipment_Default</order_pdf_items_shipment_default>
+                </rewrite>
+            </sales>
+            <sendfriend>
+                <rewrite>
+                    <sendfriend>Aitoc_Aitcg_Model_Rewrite_Sendfriend_Sendfriend</sendfriend>
+                </rewrite>
+            </sendfriend>            
+            <catalog_resource_eav_mysql4>
+                <rewrite>
+                    <product_option>Aitoc_Aitcg_Model_Mysql4_Rewrite_Catalog_Product_Option</product_option>                    
+                    <product_option_collection>Aitoc_Aitcg_Model_Mysql4_Rewrite_Catalog_Product_Option_Collection</product_option_collection>
+                    <product_attribute_backend_media>Aitoc_Aitcg_Model_Mysql4_Rewrite_Catalog_Product_Attribute_Backend_Media</product_attribute_backend_media>
+                </rewrite>
+                <entities>
+                    <product_option_aitimage>
+                        <table>catalog_product_option_aitimage</table> 
+                    </product_option_aitimage>
+                </entities>
+            </catalog_resource_eav_mysql4>            
+        </models>
+        <resources>
+            <aitcg_setup>
+                <setup>
+                    <module>Aitoc_Aitcg</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </aitcg_setup>
+            <aitcg_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </aitcg_write>
+            <aitcg_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </aitcg_read>
+        </resources>
+        <blocks>
+            <aitcg>
+                <class>Aitoc_Aitcg_Block</class>
+            </aitcg>
+
+            <sales>
+                <rewrite>
+                    <order_items>Aitoc_Aitcg_Block_Rewrite_SalesOrderItems</order_items>
+                </rewrite>
+            </sales>
+
+            <adminhtml>
+                <rewrite>
+                    <catalog_product_edit_tab_options_option>Aitoc_Aitcg_Block_Rewrite_Adminhtml_Catalog_Product_Edit_Tab_Options_Option</catalog_product_edit_tab_options_option>
+                    <catalog_product_helper_form_gallery_content>Aitoc_Aitcg_Block_Rewrite_Adminhtml_Catalog_Product_Helper_Form_Gallery_Content</catalog_product_helper_form_gallery_content>
+                    <catalog_product_composite_fieldset_options>Aitoc_Aitcg_Block_Rewrite_Adminhtml_Catalog_Product_Composite_Fieldset_Options</catalog_product_composite_fieldset_options>                    
+					<sales_items_column_name>Aitoc_Aitcg_Block_Rewrite_Adminhtml_Sales_Items_Column_Name</sales_items_column_name>
+                </rewrite>
+            </adminhtml>
+            
+            <catalog>
+                <rewrite>
+                    <product_view>Aitoc_Aitcg_Block_Rewrite_Catalog_Product_View</product_view>
+                    <product_view_options>Aitoc_Aitcg_Block_Rewrite_Catalog_Product_View_Options</product_view_options>
+                </rewrite>
+            </catalog>
+            
+            <page>
+                <rewrite>
+                    <html_head>Aitoc_Aitcg_Block_Rewrite_Page_Html_Head</html_head>
+                </rewrite>
+            </page>
+            
+            <sales>
+                <rewrite>
+                    <order_email_items_order_default>Aitoc_Aitcg_Block_Rewrite_Sales_Order_Email_Items_Order_Default</order_email_items_order_default>
+                </rewrite>
+            </sales>
+
+            <sendfriend>
+                <rewrite>
+                    <send>Aitoc_Aitcg_Block_Rewrite_Sendfriend_Send</send>
+                </rewrite>
+            </sendfriend>
+
+            <checkout>
+                <rewrite>
+                    <cart_sidebar>Aitoc_Aitcg_Block_Rewrite_Checkout_Cart_Sidebar</cart_sidebar>
+                </rewrite>
+            </checkout>
+
+            <wishlist>
+                <rewrite>
+                    <customer_wishlist_item_options>Aitoc_Aitcg_Block_Rewrite_Wishlist_Customer_Wishlist_Item_Options</customer_wishlist_item_options>
+                </rewrite>
+            </wishlist>
+        </blocks>
+        <helpers>
+            <aitcg>
+                <class>Aitoc_Aitcg_Helper</class>
+            </aitcg>
+        </helpers>
+        <catalog>
+            <product>
+                <options>
+                    <custom>
+                        <groups>
+                            <file translate="label" module="adminhtml">
+                                <types>
+                                    <aitcustomer_image translate="label" module="aitcg">
+                                        <label>Aitoc Customer Image</label>                                        
+                                    </aitcustomer_image>
+                                </types>
+                            </file>
+                        </groups>
+                    </custom>
+                </options>
+            </product>
+        </catalog>        
+        <events>
+            <sales_quote_remove_item>
+                <observers>
+                    <aitcg>
+                        <type>model</type> 
+                        <class>aitcg/observer</class> 
+                        <method>salesQuoteRemoveItem</method> 
+                    </aitcg>
+                </observers>
+            </sales_quote_remove_item>
+            <sales_order_item_save_after>
+                <observers>
+                    <aitcg>
+                        <type>model</type> 
+                        <class>aitcg/observer</class> 
+                        <method>salesOrderItemSaveAfter</method> 
+                    </aitcg>
+                </observers>
+            </sales_order_item_save_after>
+            <sales_order_save_before>
+                <observers>
+                    <aitcg>
+                        <type>model</type> 
+                        <class>aitcg/observer</class> 
+                        <method>salesOrderSaveBefore</method> 
+                    </aitcg>
+                </observers>
+            </sales_order_save_before>
+            <aitsys_block_abstract_to_html_after>
+                <observers>
+                    <aitcg>
+                        <type>model</type> 
+                        <class>aitcg/observer</class> 
+                        <method>aitsysBlockAbstractToHtmlAfter</method> 
+                    </aitcg>
+                </observers>
+            </aitsys_block_abstract_to_html_after>
+        </events>
+        <template>
+            <email>
+               <catalog_aitcg_aitcg_share_img_template translate="label" module="aitcg">
+                   <label>Aitcg Shared Images</label>
+                   <file>aitcg_share_image.html</file>
+                   <type>html</type>
+               </catalog_aitcg_aitcg_share_img_template>
+            </email>
+        </template>
+    </global>
+    <default>
+        <catalog>
+            <aitcg>
+                <aitcg_image_extensions>jpg, jpeg, png, gif</aitcg_image_extensions>
+                <!--use_print_file>1</use_print_file-->
+                <aitcg_confirm_checkbox>1</aitcg_confirm_checkbox>
+                <aitcg_confirm_text>I confirm that the uploaded file is compliant for print</aitcg_confirm_text>
+                <aitcg_font_color_predefine>0</aitcg_font_color_predefine>
+                <aitcg_allow_text_distortion>1</aitcg_allow_text_distortion>
+                <aitcg_font_resolution_predefine>200</aitcg_font_resolution_predefine>
+                <aitcg_confirm_fullcheckbox>0</aitcg_confirm_fullcheckbox>
+                <aitcg_confirm_fulltext>I confirm that the uploaded file is compliant for print</aitcg_confirm_fulltext>
+                <aitcg_cron_temp>15</aitcg_cron_temp>
+                <aitcg_cron_order>150</aitcg_cron_order>
+                <aitcg_use_imagemagick>0</aitcg_use_imagemagick>
+                <aitcg_use_social_networks_sharing>1</aitcg_use_social_networks_sharing>
+                <aitcg_social_networks_sharing_max_img_width>1280</aitcg_social_networks_sharing_max_img_width>
+                <aitcg_social_networks_sharing_max_img_height>1024</aitcg_social_networks_sharing_max_img_height>
+                <aitcg_share_img_template>catalog_aitcg_aitcg_share_img_template</aitcg_share_img_template>
+                <!--aitcg_preview_is_required>1</aitcg_preview_is_required-->
+            </aitcg>
+        </catalog>
+        <sitemap>
+            <aitmanufacturers>
+                <priority>0.5</priority>
+                <changefreq>daily</changefreq>
+            </aitmanufacturers>
+        </sitemap>
+    </default>
+    <crontab>
+        <jobs>
+            <aitcg_dayly_image_delete>
+                <schedule>
+                    <cron_expr>0,5,10,15,20,25,30,35,40,45,50,55 * * * *</cron_expr> 
+                </schedule>
+                <run>
+                    <model>aitcg/observer::cronDeleteTempImages</model> 
+                </run>
+            </aitcg_dayly_image_delete>
+        </jobs>
+    </crontab>
+    
+</config>
+
+<!--
+/**
+ * Custom Product Preview
+ *
+ * @category:    Aitoc
+ * @package:     Aitoc_Aitcg
+ * @version      11.2.2
+ * @license:     AJifvLXz2Jhov40GDpSzkNqfs4dkmEPJtRhHJxJI2y
+ * @copyright:   Copyright (c) 2013 AITOC, Inc. (http://www.aitoc.com)
+ */
+-->

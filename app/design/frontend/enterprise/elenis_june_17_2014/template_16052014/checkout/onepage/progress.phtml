@@ -1,0 +1,231 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+/* @var $this Mage_Checkout_Block_Onepage_Progress */
+?>
+<?php /*
+  <div class="block block-progress opc-block-progress">
+  <div class="block-title">
+  <strong><span><?php echo $this->__('Your Checkout Progress') ?></span></strong>
+  </div>
+  <div class="block-content">
+  <dl>
+  <?php if ($this->getCheckout()->getStepData('billing', 'is_show')): ?>
+  <?php if ($this->isStepComplete('billing')): ?>
+  <dt class="complete">
+  <?php echo $this->__('Billing Address') ?> <span class="separator">|</span>
+  <a href="#billing" onclick="checkout.gotoSection('billing'); return false;"><?php echo $this->__('Change') ?></a>
+  </dt>
+  <dd class="complete">
+  <address><?php echo $this->getBilling()->format('html') ?></address>
+  </dd>
+  <?php else: ?>
+  <dt>
+  <?php echo $this->__('Billing Address') ?>
+  </dt>
+  <?php endif; ?>
+  <?php endif; ?>
+
+  <?php if ($this->getCheckout()->getStepData('shipping', 'is_show')): ?>
+  <?php if ($this->isStepComplete('shipping')): ?>
+  <dt class="complete">
+  <?php echo $this->__('Shipping Address') ?> <span class="separator">|</span>
+  <a href="#payment" onclick="checkout.gotoSection('shipping');return false;"><?php echo $this->__('Change') ?></a>
+  </dt>
+  <dd class="complete">
+  <address><?php echo $this->getShipping()->format('html') ?></address>
+  </dd>
+  <?php else: ?>
+  <dt>
+  <?php echo $this->__('Shipping Address') ?>
+  </dt>
+  <?php endif; ?>
+  <?php endif; ?>
+
+  <?php if ($this->getCheckout()->getStepData('shipping_method', 'is_show')): ?>
+  <?php if ($this->isStepComplete('shipping_method')): ?>
+  <dt class="complete">
+  <?php echo $this->__('Shipping Method') ?> <span class="separator">|</span>
+  <a href="#shipping_method" onclick="checkout.gotoSection('shipping_method'); return false;"><?php echo $this->__('Change') ?></a>
+  </dt>
+  <dd class="complete">
+  <?php if ($this->getShippingMethod()): ?>
+  <?php echo $this->escapeHtml($this->getShippingDescription()) ?>
+
+  <?php $_excl = $this->getShippingPriceExclTax(); ?>
+  <?php $_incl = $this->getShippingPriceInclTax(); ?>
+  <?php if ($this->helper('tax')->displayShippingPriceIncludingTax()): ?>
+  <?php echo $_incl; ?>
+  <?php else: ?>
+  <?php echo $_excl; ?>
+  <?php endif; ?>
+  <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+  (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+  <?php endif; ?>
+
+  <?php else: ?>
+  <?php echo $this->__('Shipping method has not been selected yet') ?>
+  <?php endif; ?>
+  </dd>
+  <?php else: ?>
+  <dt>
+  <?php echo $this->__('Shipping Method') ?>
+  </dt>
+  <?php endif; ?>
+  <?php endif; ?>
+
+  <?php if ($this->getCheckout()->getStepData('payment', 'is_show')): ?>
+  <?php if ($this->isStepComplete('payment')): ?>
+  <dt class="complete">
+  <?php echo $this->__('Payment Method') ?> <span class="separator">|</span>
+  <a href="#payment" onclick="checkout.gotoSection('payment'); return false;"><?php echo $this->__('Change') ?></a>
+  </dt>
+  <dd class="complete">
+  <?php echo $this->getPaymentHtml() ?>
+  </dd>
+  <?php else: ?>
+  <dt>
+  <?php echo $this->__('Payment Method') ?>
+  </dt>
+  <?php endif; ?>
+  <?php endif; ?>
+  </dl>
+  </div>
+  </div>
+ */ ?>
+
+
+
+<?php $count = $this->helper('checkout/cart')->getSummaryCount(); ?>
+<?php if ($count > 0): ?>
+                    <div class="block block-progress opc-block-progress">
+                        <div class="block-title"><strong><span><?php echo $this->__('My Shopping Bag (%s)', '<span>' . $count . '</span>') ?></span></strong></div>
+    <?php
+                    $total = $this->helper('checkout/cart')->getQuote()->getGrandTotal();
+                  
+                    $symbol = Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol();
+
+                    $checkoutSession = Mage::getSingleton('checkout/session');
+                    $parentId=array();
+                     foreach ($checkoutSession->getQuote()->getItemsCollection() as $item) {
+                         $parentId[]=$item->getParentItemId();
+                     }
+                     $parentId = array_filter(array_unique($parentId));
+                     //echo "<pre>";print_r($parentId);
+                    foreach ($checkoutSession->getQuote()->getItemsCollection() as $item) {
+                        $result="";
+                        $_item = Mage::getModel('catalog/product')->load($item->getId());
+                        /*if(in_array($item->getId(),$parentId))
+                        {
+                           // echo "found=".$item->getId().$item->getParentItemId();
+                            if($item->getParentItemId()!=$item->getId())
+                            {
+                               echo "found1=".$item->getId().$item->getParentItemId();
+                            }
+                        }*/
+                        //echo $item->getId();echo "<pre>";print_r($parentId);
+                        if(!in_array($item->getId(),$parentId))
+                        {
+                         // echo "found2=".$item->getId().$item->getParentItemId();
+                            $productModel = Mage::getModel('catalog/product')->load($item->getProductId());
+                            ?>
+
+                        <div class="block-content">
+                            <dt class="complete"><p><img src="<?php echo $productModel->getThumbnailUrl(); ?>" alt="<?php echo $_item->getName(); ?>"></p></dt>
+                            <dt class="complete"><p class="minicart-productname"><?php echo $_item->getName(); ?></p></dt>
+                            <dt class="complete"><p><?php echo $this->__('QTY:') ?> <?php echo $item->getQty(); ?></p></dt>
+                            <dt class="complete"><p><?php echo $this->__('Price:') ?> <?php echo Mage::helper('core')->currency($item->getPrice(), true, false); ?></p></dt>
+                        </div>
+
+                        <?php
+                        if ($item->getProductId() == $productModel->getId()) {
+                        $result.="<dl class='item-options'>";
+                $options = $item->getProduct()->getTypeInstance(true)->getOrderOptions($item->getProduct());
+                if (isset($options['options']) && count($options['options']) > 0) { //if it has custom option
+                    //echo "<pre>";print_r($options);exit;
+                    foreach ($options['options'] as $option) {
+                       
+                        if($option['option_type']=="aitcustomer_image")
+                        {
+                           // $getImagePath=unserialize($option['option_value']);
+                            //echo "<pre>";print_r($getImagePath);exit;?>
+                        <?php echo $option['label']; ?>
+                        <br/>
+                           <?php echo $option['value']; ?>
+                            <br/>
+                        <?php }
+                        else
+                        {
+                            $result.=$option['label'] . ":<strong> " . $option['value'] . "</strong><br/>";
+                            }
+                       }
+                    }
+                  }
+                $result.="</dl><br/>";
+                echo $result;
+                        }
+                        // echo "<pre>";print_r(Mage::getSingleton('core/session')->getData());
+                            // echo "<pre>".$checkoutSession->getQuote()->getId();print_R($_item->getData());exit;
+    ?>
+
+    <?php
+                    }
+    ?>
+
+                    <dd class="complete minicart-subtotal" id="mimicart"><p>Subtotal: <?php echo $symbol . number_format($total, 2, '.', ''); ?></p></dd>
+
+
+                </div>
+<?php endif; ?>
+<?php
+ $giftMessageId=$this->helper('checkout/cart')->getQuote()->getGiftMessageId();
+ $step=$this->getRequest()->getParam('toStep');
+if($giftMessageId)
+{
+    $giftMessageObj = Mage::getModel("giftmessage/message")->load($giftMessageId);
+    $giftMessageNote = $giftMessageObj->getMessage();
+   ?>
+<?php if($giftMessageNote && $step=='payment') {?>
+    <p style="font-family:Arial, Helvetica, sans-serif; padding:0; font-size:9px; margin:0; color:#421f1d;  line-height: 15px;"><strong>GIFT MESSAGE:</strong></p>
+    <p style="font-family:Arial, Helvetica, sans-serif; padding:0 0 15px 0; font-size:10px; margin:0; color:#e73785;  line-height: 15px;"><?php echo $giftMessageNote;?></p>
+<?php } ?>
+
+<?php
+}
+?>
+
+<div class="block block-progress opc-block-progress">
+    <div class="block-title">
+        <strong><span><?php echo $this->__('Shipping Address') ?><span class="separator">|</span></span></strong>
+         <a href="#payment" onclick="checkout.gotoSection('shipping');return false;"><?php echo $this->__('Change') ?></a>
+    </div>
+    <div class="block-content">
+        <dl>
+            <dd class="complete">
+                <address><?php echo $this->getShipping()->format('html') ?></address>
+            </dd>
+        </dl>
+    </div>
+</div>

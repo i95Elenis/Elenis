@@ -1,0 +1,17 @@
+<?php $_product = $this->getProduct(); ?>
+<?php $buttonTitle = $this->__('Add to Shopping bag'); ?>
+<?php if($_product->isSaleable()): ?>
+    <div class="add-to-cart">
+        <?php if(!$_product->isGrouped()): ?>
+        <label for="qty"><?php echo $this->__('Quantity:') ?></label>
+        <input type="text" name="qty" id="qty-<?php echo $_product->getId(); ?>" maxlength="12" value="<?php echo (($_product->getMinqty() > 0) ? $_product->getMinqty() : 1); ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+        <?php endif; ?>
+        <button type="button" id="btnadd-<?php echo $_product->getId(); ?>" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+        <?php echo $this->getChildHtml('', true, true) ?>
+    </div>
+<?php endif; ?>
+<script type="text/javascript">
+<?php if($_product->getMinqty() > 0){ ?>
+    ob.minqty.init('<?php echo $_product->getId(); ?>', '<?php echo $_product->getMinqty(); ?>');
+<?php } ?>
+</script>

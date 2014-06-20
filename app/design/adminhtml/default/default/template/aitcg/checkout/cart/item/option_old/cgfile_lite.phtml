@@ -1,0 +1,87 @@
+<?php
+/**
+ * Custom Product Preview
+ *
+ * @category:    Aitoc
+ * @package:     Aitoc_Aitcg
+ * @version      11.2.2
+ * @license:     AJifvLXz2Jhov40GDpSzkNqfs4dkmEPJtRhHJxJI2y
+ * @copyright:   Copyright (c) 2013 AITOC, Inc. (http://www.aitoc.com)
+ */
+$template_id = $this->getId(); ?>
+<?php $_option = $this->getOption(); ?>
+<?php $_image = $this->getImage(); ?>
+<?php $_rand = rand(); ?>
+<?php $_fileOption = 'options_' . $this->getQuoteOptionId() . '_' . $_rand ; ?>
+<?php $_rand = $this->getQuoteOptionCode() . '_' . $this->getQuoteItemId() . '_' . $this->getQuoteOptionId() .rand(); ?>
+
+
+<script type="text/javascript">
+//<![CDATA[
+AitPopupHtml = '<div id="loading-mask" style="display:none">'+
+            '<p class="loader" id="loading_mask_loader">'+
+                '<img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Please wait...') ?>" title="<?php echo $this->__('Please wait...') ?>" class="v-middle" /> <?php echo $this->__('Please wait...') ?>'+
+            '</p></div>';
+
+file<?php echo $_rand; ?> = Class.create(Aitcg.Uploader,
+    {     
+        <?php if($_image !== false): ?>
+        productImageThumbnailUrl: '<?php echo $_image["thumbnail_url"]; ?>',
+        productImageFullUrl: '<?php echo $_image["full_image"]; ?>',
+        productImageSizeX: <?php echo $_image["default_size"][0]; ?>,
+        productImageSizeY: <?php echo $_image["default_size"][1]; ?>,
+        productImageThubnailSizeX: <?php echo $_image["thumbnail_size"][0]; ?>,
+        productImageThubnailSizeY: <?php echo $_image["thumbnail_size"][1]; ?>,
+        <?php if ($this->getId() != 0): ?>
+        areaSizeX: <?php echo $this->getAreaSizeX() ?>,
+        areaSizeY: <?php echo $this->getAreaSizeY() ?>,
+        areaOffsetX: <?php echo $this->getAreaOffsetX() ?>,
+        areaOffsetY: <?php echo $this->getAreaOffsetY() ?>,
+        <?php endif; ?>
+        obs : 0,
+        <?php else: ?>
+        obs : 1,
+        <?php endif; ?>         
+        rand: '<?php echo $_rand; ?>',
+        updateUrl: '<?php echo Mage::getUrl('aitcg/ajax/update'); ?>',
+        
+        text: {
+            close: "<?php echo $this->__('Close'); ?>",
+            apply: "",
+            reset: ""
+        }
+    });
+opFile<?php echo $_rand; ?> = new file<?php echo $_rand; ?>('<?php echo $_fileOption; ?>');
+//]]>
+</script>
+
+<?php if($_image !== false): ?>
+    <div class="input-box" id="<?php echo $_fileOption; ?>_div">
+    <?php if ($this->getId() != 0): ?>
+        <div class="aitinput">
+            <p class="no-margin" id="<?php echo $_fileOption; ?>_filename">
+                <strong><?php echo Mage::helper("api")->__('Preview')?></strong>: <span><?php echo $this->getFileName(); ?></span> 
+            </p>
+        </div>
+        <div id="<?php echo $_fileOption; ?>_imagediv" class="aitcg_image_div"></div>
+        <script type="text/javascript">
+        //<![CDATA[
+        opFile<?php echo $_rand; ?>.loadThumbnailImage(<?php echo $this->getId(); ?>,'<?php echo $this->getTempThumbnailUrl(); ?>','<?php echo $this->getTempImageUrl(); ?>', {
+            full_x:'<?php echo $this->getPreviewWidth(); ?>',
+            full_y:'<?php echo $this->getPreviewHeight(); ?>',
+            x :<?php echo $this->getX(); ?>,
+            y :<?php echo $this->getY(); ?>,
+            scale_x : parseFloat(<?php echo $this->getScaleX(); ?>),
+            scale_y : parseFloat(<?php echo $this->getScaleY(); ?>),
+            angle :<?php echo $this->getAngle(); ?> 
+        });
+        //]]>
+        </script>    
+        <div class="aitclear"></div>
+    <?php else: ?>
+    <div class="aitinput"><?php echo $this->__('The preview image is not uploaded. We recommend to upload and position the preview image in order to match your needs exactly.') ?></div>        
+    <?php endif; ?>
+    </div>
+<?php else: ?>
+    <?php echo Mage::helper('aitcg')->__('Preview image for this product was deleted'); ?>
+<?php endif; ?>

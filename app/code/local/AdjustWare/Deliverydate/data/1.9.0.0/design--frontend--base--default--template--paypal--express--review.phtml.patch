@@ -1,0 +1,17 @@
+diff -aurBb review.phtml app/code/local/AdjustWare/Deliverydate/data/1.4.0.0/review.phtml  
+--- E:/Module/dd_0124/14/app/code/local/AdjustWare/Deliverydate/data/1.4.0.0/review.phtml
++++ E:/Module/dd_0124/14/app/code/local/AdjustWare/Deliverydate/data/1.4.0.0/reviewupd.phtml
+@@ -75,8 +75,12 @@
+                 <?php else: ?>
+                     <p><strong><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></strong></p>
+                 <?php endif;?>
++             </div><div class="box-content" id="shipping_method_dd">
++             <?php echo $this->getChild('available')->toHtml(); ?>
+             <?php else: ?>
+                 <p><strong><?php echo $this->renderShippingRateOption($this->getCurrentShippingRate())?></strong></p>
++             </div><div class="box-content" id="shipping_method_dd"><?php /* 2 times because of CFM patch compatibility */ ?>
++             <?php echo $this->getChild('available')->toHtml(); ?>
+             <?php endif; ?>
+             </div>
+         </div>
+

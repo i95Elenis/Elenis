@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+ <!--
+ /**
+ * Quickrfq extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   FME
+ * @package    FME_Quickrfq
+ * @author     Malik Tahir Mehmood<malik.tahir786@gmail.com>
+ * @copyright  Copyright 2010 © free-magentoextensions.com All right reserved
+ */
+ -->
+<config>
+    <tabs>
+        <FME_QuickRFQ translate="label" module="quickrfq">
+            <label>FME QuickRFQ</label>
+            <sort_order>199</sort_order>
+        </FME_QuickRFQ>
+    </tabs>
+    <sections>
+        <quickrfq translate="label" module="quickrfq">
+            <tab>FME_QuickRFQ</tab>
+            <label>Configurations</label>
+            <frontend_type>text</frontend_type>
+            <sort_order>110</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <option translate="label">
+                    <label>Options For RFQ</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable translate="label">
+                            <label>Enable RFQ</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!--<backend_model>quickrfq/system_config_backend_links</backend_model>-->
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable>
+                        <order_form_text translate="label">
+                            <label>Display Text in Order form</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </order_form_text>
+                        <date translate="label">
+                            <label>Estimated Days Required To Reply</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[
+                                Example: <b>10</b><br/>
+                                <b>Note:</b>Use Numerical Value Only.<br/>
+                                This will be used to calculate a default date from the current date on the frontend in <b>"Quote Needed By"</b> field
+                                ]]>
+                            </comment>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </date>
+                    </fields>
+                </option>
+                <email translate="label">
+                    <label>Email Setup Options For RFQ Receiver</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <recipient translate="label">
+                            <label>Send Emails To</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </recipient>
+                        <sender translate="label">
+                            <label>Email Sender</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_identity</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sender>
+                        <template translate="label">
+                            <label>Email Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </template>
+                    </fields>
+                </email>
+                <email_reply translate="label">
+                    <label>Reply To Customer</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <subject translate="label">
+                            <label>Subject</label>
+                            <comment>Enter The Subject Of The Email</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            
+                        </subject>
+                        <body translate="label">
+                            <label>Message</label>
+                            <comment>Enter The Body Of The Email</comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </body>
+                        
+                    </fields>
+                </email_reply>
+                <upload translate="label">
+                    <label>Upload Restrictions For RFQ</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <allow translate="label">
+                            <label>Allowed File Extensions Only</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[
+                            Please Enter the extensions you allow customer to upload files with.<br/>
+                            <b>Note:</b>Empty field means disable this feature<br/>
+                            Please use comma's to separate  each extension (example:<b> jpg <font color=red>,</font>flv<font color=red>,</font>txt</b>)
+                             ]]>
+                            </comment>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allow>
+                    </fields>
+                </upload>
+            </groups>
+        </quickrfq>
+    </sections>
+</config>

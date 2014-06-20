@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Webdziner_Bgsetting>
+            <active>false</active>
+            <codePool>local</codePool>
+        </Webdziner_Bgsetting>
+    </modules>
+</config> 

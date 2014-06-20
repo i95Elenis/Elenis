@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<config>    
+    <modules>
+        <Undottitled_Estimateddeliverydate>
+            <version>0.1.2</version>
+        </Undottitled_Estimateddeliverydate>
+    </modules>
+
+    <frontend>
+        <routers>
+            <estimateddeliverydate>
+                <use>standard</use>
+                <args>
+                    <module>Undottitled_Estimateddeliverydate</module>
+                    <frontName>estimateddeliverydate</frontName>
+                </args>
+            </estimateddeliverydate>
+		</routers>  
+		<layout>
+            <updates>
+                <estimateddeliverydate>
+                    <file>estimateddeliverydate.xml</file>
+                </estimateddeliverydate>
+            </updates>
+        </layout>
+    </frontend>
+    
+    
+    <admin>
+		<routers>
+	    	<adminhtml>
+	            <args>
+	                <modules>
+	                    <estimateddeliverydate before="Mage_Adminhtml">Undottitled_Estimateddeliverydate_Adminhtml</estimateddeliverydate>
+	                </modules>
+	            </args>
+	        </adminhtml>
+        </routers>
+    </admin>
+    
+
+    <global>
+        <blocks>
+             <estimateddeliverydate>
+                <class>Undottitled_Estimateddeliverydate_Block</class>
+            </estimateddeliverydate>
+        </blocks>
+        <helpers>
+            <estimateddeliverydate>
+                <class>Undottitled_Estimateddeliverydate_Helper</class>
+            </estimateddeliverydate>
+        </helpers>
+        <models>
+            <estimateddeliverydate>
+                <class>Undottitled_Estimateddeliverydate_Model</class>                
+                <resourceModel>estimateddeliverydate_resource</resourceModel>
+            </estimateddeliverydate>  
+            <estimateddeliverydate_resource>
+                <class>Undottitled_Estimateddeliverydate_Model_Resource</class>
+                <deprecatedNode>estimateddeliverydate_mysql4</deprecatedNode>
+                <entities>
+                    <deliveries>
+                        <table>estimateddeliverydate_data</table>
+                    </deliveries>
+                </entities>
+            </estimateddeliverydate_resource>            
+        </models>	
+        
+        <resources>
+        	<estimateddeliverydate_setup>
+                <setup>
+                    <module>Undottitled_Estimateddeliverydate</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </estimateddeliverydate_setup>
+            <estimateddeliverydate_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </estimateddeliverydate_write>
+            <estimateddeliverydate_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </estimateddeliverydate_read>
+        </resources>
+    </global>
+
+    <adminhtml>
+    	<layout>
+            <updates>
+                <estimateddeliverydate>
+                    <file>estimateddeliverydate.xml</file>
+                </estimateddeliverydate>
+            </updates>
+        </layout>
+	</adminhtml>    
+	
+	<default>
+        <estimateddeliverydate>
+            <options>
+                <initial_message><![CDATA[Please select options to check delivery.]]></initial_message>
+                <failed_request_message><![CDATA[An estimated delivery date for this product is currently unavailable.]]></failed_request_message>
+            </options>
+        </estimateddeliverydate>
+    </default>
+</config>

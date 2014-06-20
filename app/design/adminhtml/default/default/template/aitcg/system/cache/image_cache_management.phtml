@@ -1,0 +1,40 @@
+<?php
+/**
+ * Custom Product Preview
+ *
+ * @category:    Aitoc
+ * @package:     Aitoc_Aitcg
+ * @version      11.2.2
+ * @license:     AJifvLXz2Jhov40GDpSzkNqfs4dkmEPJtRhHJxJI2y
+ * @copyright:   Copyright (c) 2013 AITOC, Inc. (http://www.aitoc.com)
+ */
+?>
+<br/>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td><h3><?php echo Mage::helper('aitcg')->__('Custom Product Preview Image Management') ?></h3></td><td class="form-buttons"></td>
+         </tr>
+    </table>
+</div>
+
+<form action="<?php echo $this->getUrl('cgadmin/cache/clean');?>" method="POST">
+<?php echo $this->getBlockHtml('formkey')?>
+<table class="form-list">
+    <tr>
+        <td class="scope-label">
+            <button type="submit" class="scalable"><span><?php echo Mage::helper('aitcg')->__('Flush CPP Temporary Images') ?></span></button>
+        </td>
+        <td class="scope-label">
+            <?php echo Mage::helper('aitcg')->__('Delete all temporary images used in CPP that are older than')?>
+            <select name="daysamount">
+                <option value='1'>1 Day</option>
+                <option value='7'>1 Week</option>
+                <option value='30' selected="selected">1 Month</option>
+                <option value='90'>3 Months</option>
+            </select>
+        </td>
+    </tr>
+</table>
+</form>
+<?php echo $this->getChildHtml(); ?>
